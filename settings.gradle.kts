@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "PostingApp"
 include(":app")
+include(":common")
