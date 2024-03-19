@@ -38,6 +38,7 @@ retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = 
 retrofitGsonConverter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
 viewModelLifecycle = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "viewModelLifecycle" }
 dagger = { group = "com.google.dagger", name = "dagger", version.ref = "dagger" }
+daggerCompiler = { group = "com.google.dagger", name = "dagger-compiler", version.ref = "dagger" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
@@ -50,4 +51,3 @@ jetbrainsKotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "k
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 googleServices = { id = "com.google.gms.google-services", version.ref = "googleServices" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
-
