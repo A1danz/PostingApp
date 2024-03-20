@@ -19,6 +19,7 @@ viewModelLifecycle = "2.7.0"
 dagger = "2.49"
 googleServices = "4.4.1"
 firebase = "32.7.4"
+firebaseFirestoreKtx = "24.10.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -44,6 +45,8 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 firebase = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase" }
 firebaseAnalytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebaseAuth = {group = "com.google.firebase", name = "firebase-auth"}
+firebase-firestore-ktx = { group = "com.google.firebase", name = "firebase-firestore-ktx", version.ref = "firebaseFirestoreKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

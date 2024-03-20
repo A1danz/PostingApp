@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        >
+        <TextView
+            android:id="@+id/tv_its_posting"
+
+            style="@style/AuthHeader" />
+
+        <TextView
+            android:id="@+id/tv_type_data"
+
+            style="@style/AuthDescription"
+            android:layout_marginTop="-10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_email"
+
+            style="@style/AuthInput"
+            android:hint="@string/username_or_email"
+            app:placeholderText="example@example.com"
+            android:layout_marginBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_email"
+
+                style="@style/AuthEditText"
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_password"
+
+            style="@style/AuthInput"
+            android:hint="@string/password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_password"
+
+                android:inputType="textPassword"
+                style="@style/AuthEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/tv_error"
+            style="@style/AuthErrorText"
+
+            android:visibility="gone"
+            android:text="Данные введены некорректно"
+            android:layout_width="match_parent"
+            android:paddingTop="10dp"
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/cb_follow_me"
+
+                style="@style/AuthCheckBox"
+                android:text="@string/remember_me"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/btn_move_to_register"
+
+
+                style="@style/AuthMoveBtn"
+                android:text="@string/register"
+                />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_signin"
+
+            style="@style/AuthBtnPrimary"
+            android:text="@string/enter"
+            android:layout_marginTop="5dp"
+            />
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PostingApp</string>
+    <string name="hello_its_posting">Вас привествует Posting</string>
+    <string name="type_your_data">Введите свои данные</string>
+    <string name="username_or_email">Логин или e-mail</string>
+    <string name="password">Пароль</string>
+    <string name="register">Зарегестрироваться</string>
+    <string name="repeat_password">Поворите пароль</string>
+</resources>
