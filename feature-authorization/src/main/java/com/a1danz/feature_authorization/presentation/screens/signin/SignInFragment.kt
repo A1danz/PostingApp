@@ -4,19 +4,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.a1danz.common.di.featureprovide.FeatureContainer
+import com.a1danz.feature_authorization.AuthorizationRouter
 import com.a1danz.feature_authorization.databinding.FragmentSigninBinding
-import com.a1danz.feature_authorization.di.DaggerAuthComponent
+import com.a1danz.feature_authorization.di.AuthComponent
+import com.a1danz.feature_authorization.presentation.screens.AuthorizationFragment
 import com.a1danz.feature_authorization.presentation.screens.vm_factory.SignInViewModelFactory
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class SignInFragment : Fragment() {
+class SignInFragment : AuthorizationFragment() {
     private var _viewBinding : FragmentSigninBinding? = null
     private val viewBinding : FragmentSigninBinding get() = _viewBinding!!
 
-    lateinit var vmFactory : SignInViewModelFactory
+    @Inject lateinit var vmFactory : SignInViewModelFactory
+    @Inject lateinit var router : AuthorizationRouter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,10 +32,13 @@ class SignInFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val authComp = DaggerAuthComponent.create()
-        vmFactory = authComp.getSignInFactory()
+        (requireActivity().applicationContext as FeatureContainer).getFeature(
+            AuthComponent::class.java
+        ).inject(this)
+
         subscribe(getViewModel())
         initViews()
+
     }
 
     private fun subscribe(viewModel: SignInViewModel) {
@@ -57,7 +65,10 @@ class SignInFragment : Fragment() {
                 } else {
                     getViewModel().doSignIn(email, password)
                 }
+            }
 
+            btnMoveToRegister.setOnClickListener {
+                moveToSignUp()
             }
         }
     }
@@ -72,8 +83,7 @@ class SignInFragment : Fragment() {
     }
 
     private fun moveToSignUp() {
-        // TODO: realize
-        showError("Not realised :(")
+        router.openSignUpScreen()
     }
 
     override fun onDestroyView() {

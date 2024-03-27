@@ -19,7 +19,7 @@ class SignUpViewModel(
     val SUCCESS_SIGN_UP = "success"
 
     private val _signUpResultFlow = MutableStateFlow("")
-    val signUpResultFlow : StateFlow<String> = _signUpResultFlow
+    val signUpResultFlow: StateFlow<String> = _signUpResultFlow
 
     fun doSignUp(email : String, password : String) {
         viewModelScope.launch {

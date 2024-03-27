@@ -16,13 +16,6 @@ import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 
 class AuthorizationServiceImpl: AuthorizationService {
-    companion object {
-        @JvmStatic
-        fun main(args : Array<String>) {
-            val service : AuthorizationService = AuthorizationServiceImpl()
-
-        }
-    }
     override val currentUser: Flow<User?>
         get() = callbackFlow {
             val listener = FirebaseAuth.AuthStateListener { auth ->

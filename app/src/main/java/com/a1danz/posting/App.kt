@@ -1,14 +1,25 @@
 package com.a1danz.posting
 
 import android.app.Application
-import com.a1danz.common.di.scope.ApplicationScope
-import com.a1danz.feature_authorization.di.AuthComponent
-import com.a1danz.feature_authorization.di.DaggerAuthComponent
+import com.a1danz.common.di.featureprovide.FeatureContainer
+import com.a1danz.posting.di.AppComponent
+import com.a1danz.posting.di.DaggerAppComponent
+import com.a1danz.posting.di.featureprovide.FeatureHolderManager
+import javax.inject.Inject
 
-class App : Application() {
-    lateinit var authComponent : AuthComponent
+class App : Application(), FeatureContainer {
+    lateinit var appComponent : AppComponent
+    @Inject lateinit var featureHolderManager: FeatureHolderManager
     override fun onCreate() {
         super.onCreate()
-        authComponent = DaggerAuthComponent.create()
+        appComponent = DaggerAppComponent.builder()
+            .application(this)
+            .build()
+
+        appComponent.inject(this)
+    }
+
+    override fun <T> getFeature(key: Class<T>): T {
+        return featureHolderManager.getComponent(key)
     }
 }

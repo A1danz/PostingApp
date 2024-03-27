@@ -9,10 +9,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.a1danz.feature_authorization.databinding.FragmentSignupBinding
 import com.a1danz.feature_authorization.di.DaggerAuthComponent
+import com.a1danz.feature_authorization.presentation.screens.AuthorizationFragment
 import com.a1danz.feature_authorization.presentation.screens.vm_factory.SignUpViewModelFactory
 import kotlinx.coroutines.launch
 
-class SignUpFragment : Fragment() {
+class SignUpFragment : AuthorizationFragment() {
     private var _viewBinding: FragmentSignupBinding? = null
     private val viewBinding: FragmentSignupBinding get() = _viewBinding!!
     private lateinit var vmFactory: SignUpViewModelFactory
@@ -28,8 +29,10 @@ class SignUpFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val comp = DaggerAuthComponent.create()
+
+        val comp = DaggerAuthComponent.builder().build()
         vmFactory = comp.getSignUpFactory()
+
         subscribe(getViewModel())
 
         initViews()
