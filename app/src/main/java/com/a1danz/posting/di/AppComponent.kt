@@ -5,12 +5,14 @@ import com.a1danz.posting.App
 import com.a1danz.posting.MainActivity
 import com.a1danz.posting.di.featureprovide.ComponentHolderModule
 import com.a1danz.posting.di.featureprovide.FeatureManagerModule
+import com.a1danz.posting.di.presentation.PresentationModule
 import dagger.BindsInstance
 import dagger.Component
 
 @Component(modules = [
     AppModule::class, NavigationModule::class,
-    ComponentHolderModule::class, FeatureManagerModule::class
+    ComponentHolderModule::class, FeatureManagerModule::class,
+    AuthorizationModule::class, PresentationModule::class
 ])
 @ApplicationScope
 interface AppComponent {

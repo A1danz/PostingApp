@@ -72,7 +72,9 @@ dependencies {
 
     implementation(libs.viewModelLifecycle)
 
+    implementation(libs.workManager)
 
+    implementation(libs.splashScreen)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -17,10 +17,14 @@ class Navigator: AuthorizationRouter {
     }
 
     override fun openSignInScreen() {
-        navController?.navigate(R.id.signInFragment2)
+        navController?.navigate(R.id.action_signUpFragment_to_signInFragment2)
     }
 
     override fun openSignUpScreen() {
-        navController?.navigate(R.id.signUpFragment)
+        navController?.navigate(R.id.action_signInFragment2_to_signUpFragment)
+    }
+
+    override fun openMainScreen() {
+        navController?.navigate(R.id.nextFragment)
     }
 }

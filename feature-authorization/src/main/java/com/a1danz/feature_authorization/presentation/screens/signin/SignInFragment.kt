@@ -1,17 +1,26 @@
 package com.a1danz.feature_authorization.presentation.screens.signin
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.a1danz.common.core.config.RegexValues
+import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.di.featureprovide.FeatureContainer
 import com.a1danz.feature_authorization.AuthorizationRouter
+import com.a1danz.feature_authorization.R
 import com.a1danz.feature_authorization.databinding.FragmentSigninBinding
 import com.a1danz.feature_authorization.di.AuthComponent
 import com.a1danz.feature_authorization.presentation.screens.AuthorizationFragment
 import com.a1danz.feature_authorization.presentation.screens.vm_factory.SignInViewModelFactory
+import com.a1danz.feature_authorization.utils.AuthorizationCodes
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,9 +28,19 @@ class SignInFragment : AuthorizationFragment() {
     private var _viewBinding : FragmentSigninBinding? = null
     private val viewBinding : FragmentSigninBinding get() = _viewBinding!!
 
-    @Inject lateinit var vmFactory : SignInViewModelFactory
+    @Inject lateinit var vmFactory : ViewModelProvider.Factory
+    private val viewModel : SignInViewModel by viewModels { vmFactory }
     @Inject lateinit var router : AuthorizationRouter
+    @Inject lateinit var resourceManager: ResourceManager
 
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        (requireActivity().applicationContext as FeatureContainer).getFeature(
+            AuthComponent::class.java
+        ).inject(this)
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -32,20 +51,16 @@ class SignInFragment : AuthorizationFragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity().applicationContext as FeatureContainer).getFeature(
-            AuthComponent::class.java
-        ).inject(this)
 
-        subscribe(getViewModel())
+        subscribe(viewModel)
         initViews()
-
     }
 
     private fun subscribe(viewModel: SignInViewModel) {
         lifecycleScope.launch {
             viewModel.signInResultFlow.collect {
-                if (it == viewModel.SUCCESS_SIGN_IN) {
-                    showError("Авторизация прошла успешно")
+                if (it == AuthorizationCodes.SUCCESS_AUTH_CODE) {
+                    moveToNext()
                 } else if (it.isNotEmpty()) {
                     showError(it)
                 }
@@ -59,11 +74,11 @@ class SignInFragment : AuthorizationFragment() {
                 val email = inputEmail.text?.toString() ?: ""
                 val password = inputPassword.text?.toString() ?: ""
                 if (email.isBlank() || password.isBlank()) {
-                    showError("Пустые данные")
-                } else if (!email.matches(Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\$"))) {
-                    showError("E-mail невалидный")
+                    showError(getString(R.string.empty_input))
+                } else if (!email.matches(RegexValues.EMAIL_REGEX)) {
+                    showError(getString(R.string.invalid_email))
                 } else {
-                    getViewModel().doSignIn(email, password)
+                    viewModel.doSignIn(email, password)
                 }
             }
 
@@ -73,7 +88,9 @@ class SignInFragment : AuthorizationFragment() {
         }
     }
 
-    private fun getViewModel() = ViewModelProvider(this, vmFactory).get(SignInViewModel::class.java)
+    fun moveToNext() {
+        router.openMainScreen()
+    }
 
     private fun showError(msg : String) {
         with(viewBinding) {

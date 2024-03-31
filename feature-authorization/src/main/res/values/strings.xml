@@ -5,4 +5,14 @@
     <string name="enter">Войти</string>
     <string name="register">Зарегестрироваться</string>
     <string name="remember_me">Запомнить меня</string>
+    <string name="empty_input">Пустые данные</string>
+    <string name="invalid_email">E-mail невалидный</string>
+    <string name="success_authorization">Авторизация прошла успешно</string>
+    <string name="invalid_data">Неверные данные</string>
+    <string name="user_doest_not_exist">Такого пользователя не существует</string>
+    <string name="authorization_error">Ошибка авторизации</string>
+    <string name="password_dont_match">Пароли не совпадают</string>
+    <string name="weak_password">Пароль слишком легкий, попробуйте его усложнить</string>
+    <string name="user_already_exists">Пользователь с данным e-mail уже зарегестрирован</string>
+    <string name="failed_to_create_account">Не удалось создать аккаунт.</string>
 </resources>

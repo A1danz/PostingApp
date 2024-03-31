@@ -9,6 +9,7 @@
 
     <style name="TextView.Medium" parent="TextView">
         <item name="android:fontFamily">@font/rubik_medium</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextView.SemiBold" parent="TextView">

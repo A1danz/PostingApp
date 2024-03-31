@@ -17,6 +17,7 @@ class App : Application(), FeatureContainer {
             .build()
 
         appComponent.inject(this)
+
     }
 
     override fun <T> getFeature(key: Class<T>): T {

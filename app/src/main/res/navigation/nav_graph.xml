@@ -2,14 +2,37 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/signInFragment2">
+    app:startDestination="@id/nextFragment">
 
     <fragment
         android:id="@+id/signInFragment2"
         android:name="com.a1danz.feature_authorization.presentation.screens.signin.SignInFragment"
-        android:label="SignInFragment" />
+        android:label="SignInFragment" >
+        <action
+            android:id="@+id/action_signInFragment2_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:popUpTo="@id/signUpFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.a1danz.feature_authorization.presentation.screens.signup.SignUpFragment"
-        android:label="SignUpFragment" />
+        android:label="SignUpFragment">
+        <action
+            android:id="@+id/action_signUpFragment_to_signInFragment2"
+            app:destination="@id/signInFragment2"
+            app:popUpTo="@id/signInFragment2"
+            app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+        android:id="@+id/nextFragment"
+        android:name="com.a1danz.posting.presentation.NextFragment"
+        android:label="NextFragment" >
+        <action
+            android:id="@+id/action_nextFragment_to_signInFragment2"
+            app:destination="@id/signInFragment2"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"/>
+    </fragment>
 </navigation>

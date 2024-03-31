@@ -9,7 +9,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
-@Module
+@Module(includes = [ViewModelBinder::class])
 class PresentationModule {
     @Provides
     @[IntoMap ViewModelKey(SignUpViewModel::class)]

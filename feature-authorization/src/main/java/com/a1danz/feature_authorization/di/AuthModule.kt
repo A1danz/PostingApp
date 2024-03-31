@@ -1,5 +1,6 @@
 package com.a1danz.feature_authorization.di
 
+import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.feature_authorization.AuthorizationRouter
 import com.a1danz.feature_authorization.domain.service.AuthorizationService
 import com.a1danz.feature_authorization.domain.service.impl.AuthorizationServiceImpl
@@ -15,10 +16,4 @@ class AuthModule {
 
     @Provides
     fun provideAuthorizationService() : AuthorizationService = AuthorizationServiceImpl()
-
-    @Provides
-    fun provideSignInViewModelFactory(authorizationService: AuthorizationService) = SignInViewModelFactory(authorizationService)
-
-    @Provides
-    fun provideSignUpViewModelFactory(authorizationService: AuthorizationService) = SignUpViewModelFactory(authorizationService)
 }

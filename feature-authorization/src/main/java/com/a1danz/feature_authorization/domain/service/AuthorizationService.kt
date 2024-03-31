@@ -21,5 +21,5 @@ interface AuthorizationService {
     )
     suspend fun signUp(email : String, password : String)
     suspend fun signOut()
-    suspend fun hasUser()
+    suspend fun hasUser() : Boolean
 }

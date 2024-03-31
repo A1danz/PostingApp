@@ -1,22 +1,43 @@
 package com.a1danz.feature_authorization.presentation.screens.signup
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import com.a1danz.common.core.config.RegexValues
+import com.a1danz.common.di.featureprovide.FeatureContainer
+import com.a1danz.feature_authorization.AuthorizationRouter
+import com.a1danz.feature_authorization.R
 import com.a1danz.feature_authorization.databinding.FragmentSignupBinding
+import com.a1danz.feature_authorization.di.AuthComponent
 import com.a1danz.feature_authorization.di.DaggerAuthComponent
 import com.a1danz.feature_authorization.presentation.screens.AuthorizationFragment
 import com.a1danz.feature_authorization.presentation.screens.vm_factory.SignUpViewModelFactory
+import com.a1danz.feature_authorization.utils.AuthorizationCodes
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class SignUpFragment : AuthorizationFragment() {
     private var _viewBinding: FragmentSignupBinding? = null
     private val viewBinding: FragmentSignupBinding get() = _viewBinding!!
-    private lateinit var vmFactory: SignUpViewModelFactory
+
+    @Inject lateinit var vmFactory: ViewModelProvider.Factory
+    private val viewModel : SignUpViewModel by viewModels { vmFactory }
+
+    @Inject lateinit var router : AuthorizationRouter
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().applicationContext as FeatureContainer).getFeature(
+            AuthComponent::class.java
+        ).inject(this)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -29,12 +50,7 @@ class SignUpFragment : AuthorizationFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val comp = DaggerAuthComponent.builder().build()
-        vmFactory = comp.getSignUpFactory()
-
-        subscribe(getViewModel())
-
+        subscribe(  )
         initViews()
     }
 
@@ -45,19 +61,22 @@ class SignUpFragment : AuthorizationFragment() {
                 val password = inputPassword.text?.toString() ?: ""
                 val repeatPassword = inputRepeatPassword.text?.toString() ?: ""
                 if (email.isBlank() || password.isBlank()) {
-                    showError("Пустые данные")
-                } else if (!email.matches(Regex("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\$"))) {
-                    showError("E-mail невалидный")
+                    showError(getString(R.string.empty_input))
+                } else if (!email.matches(RegexValues.EMAIL_REGEX)) {
+                    showError(getString(R.string.invalid_email))
                 } else if (password != repeatPassword) {
-                    showError("Пароли не совпадают")
+                    showError(getString(R.string.password_dont_match))
                 } else {
-                    getViewModel().doSignUp(email, password)
+                    viewModel.doSignUp(email, password)
                 }
+            }
+
+            btnMoveToRegister.setOnClickListener {
+                moveToSignIn()
             }
         }
     }
 
-    private fun getViewModel() = ViewModelProvider(this, vmFactory).get(SignUpViewModel::class.java)
 
     private fun showError(msg: String) {
         with(viewBinding) {
@@ -66,11 +85,11 @@ class SignUpFragment : AuthorizationFragment() {
         }
     }
 
-    private fun subscribe(viewModel: SignUpViewModel) {
+    private fun subscribe() {
         lifecycleScope.launch {
             viewModel.signUpResultFlow.collect { result ->
-                if (result == viewModel.SUCCESS_SIGN_UP) {
-                    showError("Успешная регистрация")
+                if (result == AuthorizationCodes.SUCCESS_AUTH_CODE) {
+                    moveToNext()
                 } else if (result.isNotEmpty()) {
                     showError(result)
                 }
@@ -78,9 +97,16 @@ class SignUpFragment : AuthorizationFragment() {
         }
     }
 
+    fun moveToSignIn() {
+        router.openSignInScreen()
+    }
+
+    fun moveToNext() {
+        router.openMainScreen()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _viewBinding = null
     }
-
 }

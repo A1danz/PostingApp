@@ -87,26 +87,6 @@
             android:layout_width="match_parent"
             android:paddingTop="10dp"
             />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/cb_follow_me"
-
-                style="@style/AuthCheckBox"
-                android:text="Запомнить меня"
-                android:layout_weight="1"/>
-
-            <Button
-                android:id="@+id/btn_move_to_register"
-
-
-                style="@style/AuthMoveBtn"
-                android:text="@string/enter"
-                />
-        </LinearLayout>
 
         <Button
             android:id="@+id/btn_signup"
@@ -115,6 +95,21 @@
             android:text="@string/register"
             android:layout_marginTop="5dp"
             />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_move_to_register"
+
+
+                style="@style/AuthMoveBtn"
+                android:text="Есть аккаунт?"
+                />
+        </LinearLayout>
     </LinearLayout>
 
 

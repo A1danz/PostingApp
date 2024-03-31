@@ -1,6 +1,7 @@
 package com.a1danz.feature_authorization.domain.service.impl
 
 import android.app.Activity
+import android.util.Log
 import com.a1danz.feature_authorization.domain.model.User
 import com.a1danz.feature_authorization.domain.service.AuthorizationService
 import com.a1danz.feature_authorization.domain.service.exceptions.AuthException
@@ -32,14 +33,15 @@ class AuthorizationServiceImpl: AuthorizationService {
     }
 
     override suspend fun signUp(email: String, password: String) {
-        Firebase.auth.createUserWithEmailAndPassword(email, password) ?: throw AuthException()
+        Firebase.auth.createUserWithEmailAndPassword(email, password).await() ?: throw AuthException()
     }
 
     override suspend fun signOut() {
         Firebase.auth.signOut()
     }
 
-    override suspend fun hasUser()  {
-        Firebase.auth.currentUser
+    override suspend fun hasUser() : Boolean  {
+        return Firebase.auth.currentUser != null
     }
+
 }
