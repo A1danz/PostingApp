@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.feature_authorization.AuthorizationRouter
 import com.a1danz.feature_authorization.R
 import com.a1danz.feature_authorization.domain.service.AuthorizationService
 import com.a1danz.feature_authorization.domain.service.exceptions.AuthException
@@ -20,10 +21,12 @@ import javax.inject.Inject
 
 class SignInViewModel @Inject constructor(
     private val authService : AuthorizationService,
-    private val resManager : ResourceManager
-    ) : ViewModel() {
+    private val resManager : ResourceManager,
+    private val authorizationRouter: AuthorizationRouter
+) : ViewModel() {
     private val _signInResultFlow : MutableStateFlow<String> = MutableStateFlow("")
     val signInResultFlow : StateFlow<String> get() = _signInResultFlow
+
     fun doSignIn(email : String, password : String) {
         viewModelScope.launch {
             runCatching(FirebaseExceptionHandlerDelegate()) {
@@ -47,5 +50,11 @@ class SignInViewModel @Inject constructor(
         }
     }
 
+    fun moveToSignUp() {
+        authorizationRouter.openSignUpScreen()
+    }
 
+    fun moveToAuthorizedState() {
+        authorizationRouter.openMainScreen()
+    }
 }

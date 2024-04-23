@@ -15,4 +15,5 @@
     <string name="weak_password">Пароль слишком легкий, попробуйте его усложнить</string>
     <string name="user_already_exists">Пользователь с данным e-mail уже зарегестрирован</string>
     <string name="failed_to_create_account">Не удалось создать аккаунт.</string>
+    <string name="your_name">Ваше имя</string>
 </resources>

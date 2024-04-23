@@ -39,6 +39,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.splashScreen)
+    implementation(libs.dataStore)
 
     implementation(platform(libs.firebase))
     implementation(libs.firebaseAnalytics)

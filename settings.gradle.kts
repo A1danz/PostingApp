@@ -1,3 +1,12 @@
+import java.net.URI
+
+include(":feature-user-configurer")
+
+
+
+include(":feature-initialize")
+
+
 pluginManagement {
     repositories {
         google {
@@ -16,6 +25,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url = URI("https://artifactory-external.vkpartner.ru/artifactory/vkid-sdk-andorid/")
+        }
     }
 }
 
@@ -23,3 +35,4 @@ rootProject.name = "PostingApp"
 include(":app")
 include(":common")
 include(":feature-authorization")
+include(":feature-settings")

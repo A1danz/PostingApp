@@ -29,6 +29,24 @@
             />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/input_layout_name"
+
+            style="@style/AuthInput"
+            android:hint="@string/your_name"
+            app:placeholderText="Имя"
+            android:layout_marginBottom="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/input_name"
+
+                style="@style/AuthEditText"
+                android:inputType="textEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_layout_email"
 
             style="@style/AuthInput"
@@ -91,7 +109,7 @@
         <Button
             android:id="@+id/btn_signup"
 
-            style="@style/AuthBtnPrimary"
+            style="@style/BtnPrimary"
             android:text="@string/register"
             android:layout_marginTop="5dp"
             />

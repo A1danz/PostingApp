@@ -3,6 +3,7 @@ package com.a1danz.feature_authorization.presentation.screens.signup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.feature_authorization.AuthorizationRouter
 import com.a1danz.feature_authorization.R
 import com.a1danz.feature_authorization.domain.service.AuthorizationService
 import com.a1danz.feature_authorization.domain.service.exceptions.AuthException
@@ -19,15 +20,16 @@ import javax.inject.Inject
 
 class SignUpViewModel @Inject constructor(
     private val authService : AuthorizationService,
-    private val resManager : ResourceManager
+    private val resManager : ResourceManager,
+    private val authorizationRouter: AuthorizationRouter
 ) : ViewModel() {
     private val _signUpResultFlow = MutableStateFlow("")
     val signUpResultFlow: StateFlow<String> = _signUpResultFlow
 
-    fun doSignUp(email : String, password : String) {
+    fun doSignUp(email : String, password : String, name: String) {
         viewModelScope.launch {
             runCatching(FirebaseExceptionHandlerDelegate()) {
-                authService.signUp(email, password)
+                authService.signUp(email, password, name)
             }.onSuccess {
                 _signUpResultFlow.value = AuthorizationCodes.SUCCESS_AUTH_CODE
             }.onFailure { ex ->
@@ -41,7 +43,13 @@ class SignUpViewModel @Inject constructor(
                 }
             }
         }
-
     }
 
+    fun moveToSignIn() {
+        authorizationRouter.openSignInScreen()
+    }
+
+    fun moveToAuthorizedState() {
+        authorizationRouter.openMainScreen()
+    }
 }

@@ -2,11 +2,12 @@ package com.a1danz.posting.navigation
 
 import androidx.navigation.NavController
 import com.a1danz.feature_authorization.AuthorizationRouter
+import com.a1danz.feature_initialize.presentation.navigation.InitializingRouter
+import com.a1danz.feature_settings.presentation.navigation.SettingsRouter
 import com.a1danz.posting.R
-import javax.inject.Inject
 
-class Navigator: AuthorizationRouter {
-    var navController : NavController? = null
+class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter {
+    private var navController : NavController? = null
 
     fun attachNavController(navController: NavController) {
         this.navController = navController
@@ -25,6 +26,18 @@ class Navigator: AuthorizationRouter {
     }
 
     override fun openMainScreen() {
-        navController?.navigate(R.id.nextFragment)
+        navController?.navigate(R.id.initializingFragment)
+    }
+
+    fun navigateToMainScreen() {
+        navController?.navigate(R.id.action_initializingFragment_to_settingsFragment)
+    }
+
+    override fun openSocialMediaSettings() {
+        navController?.navigate(R.id.action_settingsFragment_to_socialMediaSettingsFragment)
+    }
+
+    override fun navigateFromInitializingToAuthorization() {
+        navController?.navigate(R.id.action_initializingFragment_to_signInFragment2)
     }
 }

@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/nextFragment">
+    app:startDestination="@id/initializingFragment">
 
     <fragment
         android:id="@+id/signInFragment2"
@@ -25,14 +25,26 @@
             app:popUpToInclusive="true"/>
     </fragment>
     <fragment
-        android:id="@+id/nextFragment"
-        android:name="com.a1danz.posting.presentation.NextFragment"
-        android:label="NextFragment" >
+        android:id="@+id/settingsFragment"
+        android:name="com.a1danz.feature_settings.presentation.screens.main.SettingsFragment"
+        android:label="SettingsFragment" >
         <action
-            android:id="@+id/action_nextFragment_to_signInFragment2"
-            app:destination="@id/signInFragment2"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_settingsFragment_to_socialMediaSettingsFragment"
+            app:destination="@id/socialMediaSettingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/socialMediaSettingsFragment"
+        android:name="com.a1danz.feature_settings.presentation.screens.social_media.SocialMediaSettingsFragment"
+        android:label="SocialMediaSettingsFragment" />
+    <fragment
+        android:id="@+id/initializingFragment"
+        android:name="com.a1danz.feature_initialize.presentation.screens.initialize.InitializingFragment"
+        android:label="InitializingFragment" >
+        <action
+            android:id="@+id/action_initializingFragment_to_signInFragment2"
+            app:destination="@id/signInFragment2" />
+        <action
+            android:id="@+id/action_initializingFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
     </fragment>
 </navigation>

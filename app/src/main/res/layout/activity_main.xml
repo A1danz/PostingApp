@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/main_fragment_container"
         android:layout_width="0dp"
@@ -15,4 +14,19 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         app:navGraph="@navigation/nav_graph"
         app:defaultNavHost="true" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnv"
+
+        android:visibility="gone"
+        app:itemTextAppearanceInactive="@style/BottomNavigationViewTextStyle"
+        app:itemTextAppearanceActive="@style/BottomNavigationViewTextStyle"
+        app:itemTextAppearanceActiveBoldEnabled="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/menu"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

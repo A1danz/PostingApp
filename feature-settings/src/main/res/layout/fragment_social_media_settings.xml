@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/all_sections"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:paddingVertical="5dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="vertical"
+        android:divider="@drawable/settings_divider"
+        android:showDividers="middle"
+        >
+        <LinearLayout
+            android:id="@+id/vk_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/TextView.Bold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="вконтакте"
+                    android:textColor="@color/dark"
+                    android:textSize="16sp"
+                    />
+                <TextView
+                    android:id="@+id/tv_vk_success"
+
+                    style="@style/TextView.SemiBold"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="Подключено"
+                    android:textColor="@color/primary"/>
+            </LinearLayout>
+
+            <!--            <com.google.android.material.textfield.TextInputLayout-->
+
+            <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+            <!--                android:layout_width="match_parent"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                >-->
+
+            <!--                <AutoCompleteTextView-->
+            <!--                    android:id="@+id/vk_groups_actv"-->
+
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="match_parent"-->
+            <!--                    android:text="@string/choose_group"-->
+            <!--                    android:inputType="none"-->
+            <!--                    />-->
+<!--        </com.google.android.material.textfield.TextInputLayout>-->
+
+            <com.vk.id.onetap.xml.OneTap
+                android:id="@+id/btn_vk"
+
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:vkid_buttonsCornerRadius="10dp"
+                app:vkid_buttonsSize="medium42" />
+            <Spinner
+                android:id="@+id/spinner"
+
+                style="@style/Widget.AppCompat.Spinner.DropDown"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:spinnerMode="dropdown"
+                tools:listitem="@layout/group_item_layout" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/inst_section"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                style="@style/TextView.Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="грам"
+                android:textColor="@color/dark"
+                android:textSize="16sp"
+                />
+
+            <com.a1danz.feature_settings.presentation.view.FacebookBtn
+                android:id="@+id/btn_facebook"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            <com.facebook.login.widget.LoginButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

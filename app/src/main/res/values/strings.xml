@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">PostingApp</string>
+    <string name="posts">Посты</string>
+    <string name="create">Создать</string>
+    <string name="settings">Настройки</string>
+
+    <!--    facebook settings-->
+    <string name="facebook_app_id">fb_app_id</string>
+    <string name="fb_login_protocol_scheme">fbfb_app_id</string>
+    <string name="facebook_client_token">fb_client_token</string>
 </resources>

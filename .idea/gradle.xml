@@ -12,6 +12,9 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/feature-authorization" />
+            <option value="$PROJECT_DIR$/feature-initialize" />
+            <option value="$PROJECT_DIR$/feature-settings" />
+            <option value="$PROJECT_DIR$/feature-user-configurer" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

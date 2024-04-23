@@ -15,6 +15,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -46,6 +47,7 @@ dependencies {
     implementation(platform(libs.firebase))
     implementation(libs.firebaseAnalytics)
     implementation(libs.firebaseAuth)
+    implementation(libs.firebaseFireStore)
 
     implementation(libs.navigationUi)
     implementation(libs.navigationFragment)
@@ -68,6 +70,8 @@ dependencies {
     implementation(libs.viewModelLifecycle)
 
     implementation(libs.workManager)
+
+    implementation(libs.viewBindingDelegate)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

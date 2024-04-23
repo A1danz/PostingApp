@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fb_icon">fb_icon</string>
+    <string name="choose_subsection">Выберите подраздел:</string>
+    <string name="social_media_settings">Настройка социальных сетей</string>
+    <string name="proxy_configuration">Конфигурация прокси</string>
+    <string name="about_app">О приложении</string>
+    <string name="choose_group">Выберите группу</string>
+</resources>

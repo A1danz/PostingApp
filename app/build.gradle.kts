@@ -17,6 +17,12 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        addManifestPlaceholders(mapOf(
+            "VKIDRedirectHost" to "vk.com", // обычно vk.com
+            "VKIDRedirectScheme" to "vk_redirect_scheme", // обычно vk{ID приложения}
+            "VKIDClientID" to "vk_id_client_id",
+            "VKIDClientSecret" to "vk_id_client_secret"
+        ))
     }
 
     buildTypes {
@@ -31,6 +37,8 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
+        isCoreLibraryDesugaringEnabled = true
+
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -44,13 +52,20 @@ android {
 dependencies {
     implementation(project(":common"))
     implementation(project(":feature-authorization"))
+    implementation(project(":feature-settings"))
+    implementation(project(":feature-initialize"))
+    implementation(project(":feature-user-configurer"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.splashScreen)
+    implementation(libs.dataStore)
 
     implementation(platform(libs.firebase))
     implementation(libs.firebaseAnalytics)
+    implementation(libs.firebaseAuth)
+    implementation(libs.firebaseFireStore)
 
     implementation(libs.navigationUi)
     implementation(libs.navigationFragment)
@@ -74,8 +89,12 @@ dependencies {
 
     implementation(libs.workManager)
 
-    implementation(libs.splashScreen)
+    implementation(libs.facebookLogin)
+    implementation(libs.facebookSdk)
 
+    implementation(libs.viewBindingDelegate)
+
+    coreLibraryDesugaring(libs.desugarJdkLibs)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

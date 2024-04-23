@@ -12,4 +12,7 @@
     <color name="gray">#ABAAAA</color>
     <color name="primary">#9747FF</color>
     <color name="error">#FF4747</color>
+
+    <color name="vk_color">#0077FF</color>
+    <color name="facebook_color">#1977F3</color>
 </resources>
