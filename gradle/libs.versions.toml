@@ -28,6 +28,7 @@ facebookSdk = "latest.release"
 jetbrainsKotlinJvm = "1.9.0"
 viewBindingDelegate = "1.5.9"
 dataStore = "1.0.0"
+telegramVersion = "7.2.1"
 
 
 [libraries]
@@ -63,7 +64,9 @@ desugarJdkLibs = { group = "com.android.tools", name = "desugar_jdk_libs", versi
 facebookLogin = { group = "com.facebook.android", name = "facebook-login", version.ref = "facebookLogin" }
 facebookSdk = { group = "com.facebook.android", name = "facebook-android-sdk", version.ref = "facebookSdk" }
 viewBindingDelegate = { group = "com.github.kirich1409", name = "viewbindingpropertydelegate-full", version.ref = "viewBindingDelegate" }
-dataStore = { group = "androidx.datastore", name="datastore-preferences", version.ref = "dataStore"}
+dataStore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
+telegramLongPolling = { group = "org.telegram", name = "telegrambots-longpolling", version.ref = "telegramVersion" }
+telegramClient = { group = "org.telegram", name = "telegrambots-client", version.ref = "telegramVersion" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

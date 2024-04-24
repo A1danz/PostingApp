@@ -1,8 +1,11 @@
 package com.a1danz.posting.di
 
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.a1danz.common.core.datastore.DataStoreManager
 import com.a1danz.common.core.datastore.impl.DataStoreManagerImpl
+import com.a1danz.common.core.datastore.impl.dataStore
 import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.core.resources.ResourceManagerImpl
 import com.a1danz.common.di.scope.ApplicationScope
@@ -25,7 +28,7 @@ class AppModule {
 
     @ApplicationScope
     @Provides
-    fun provideDataStoreManager(ctx: Context): DataStoreManager = DataStoreManagerImpl(ctx)
+    fun provideDataStore(ctx: Context): DataStore<Preferences> = ctx.dataStore
 }
 
 @Module

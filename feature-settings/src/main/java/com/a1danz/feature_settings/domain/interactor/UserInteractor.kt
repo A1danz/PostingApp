@@ -10,5 +10,5 @@ interface UserInteractor {
     suspend fun hasUserVkToken(): Boolean
     suspend fun saveVkToken(accessToken: AccessToken)
     suspend fun getUserGroups(): VkUserGroupsUiModel
-    suspend fun saveVkGroupId()
+    suspend fun saveVkGroupId(groupId: Long)
 }

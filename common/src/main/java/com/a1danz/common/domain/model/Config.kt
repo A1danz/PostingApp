@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName
 
 data class Config(
     @SerializedName("vk_config")
-    val vkConfig: VkConfig?,
+    var vkConfig: VkConfig? = null,
     @SerializedName("inst_config")
-    val instConfig: InstConfig?
+    var instConfig: InstConfig? = null
 )
 
 data class InstConfig(
@@ -16,7 +16,7 @@ data class InstConfig(
 
 data class VkConfig (
     @SerializedName("user_groups")
-    val userGroups: List<Long>?,
+    val userGroups: ArrayList<Long> = arrayListOf(),
     @SerializedName("user_id")
     val userId: Long,
     @SerializedName("access_token")

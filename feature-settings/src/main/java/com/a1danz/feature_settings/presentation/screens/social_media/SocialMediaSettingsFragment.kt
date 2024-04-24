@@ -55,6 +55,8 @@ class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_
                             Log.d("UPDATING", "UPDATE UI IN CALLBACK")
                             btnVk.visibility = View.GONE
                             updateUiByVkToken()
+                        } else {
+                            Log.e("CANT SAVE", "CANT SAVE VK TOKEN")
                         }
                     }
                 },
@@ -75,20 +77,12 @@ class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_
         with(viewBinding) {
             btnVk.visibility = View.GONE
             tvVkSuccess.visibility = View.VISIBLE
+            spinner.visibility = View.VISIBLE
             lifecycleScope.launch {
-                viewModel.getVkUserGroups().collect {groupsModel ->
-                    groupsModel?.let {
-                        val groups = it.groups
-                        val adapter = VkGroupAdapter(requireContext(), groups)
-                        spinner.adapter = adapter
-//                        val groupNames = groups.map { group -> group.name }
-//                        val arrayAdapter =
-//                            ArrayAdapter(requireContext(), R.layout.group_dropdown_item, groupNames)
-//                        vkGroupsActv.setAdapter(arrayAdapter)
-//                        groups.forEach {group ->
-//                            Log.d("GROUP", group.toString())
-//                        }
-                    }
+                viewModel.getVkUserGroups().let { groupsModel ->
+                    val groups = groupsModel.groups
+                    val adapter = VkGroupAdapter(requireContext(), groups)
+                    spinner.adapter = adapter
                 }
             }
         }

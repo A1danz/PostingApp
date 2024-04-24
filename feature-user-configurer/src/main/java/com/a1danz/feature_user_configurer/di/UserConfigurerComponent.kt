@@ -1,5 +1,7 @@
 package com.a1danz.feature_user_configurer.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.a1danz.common.core.datastore.DataStoreManager
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.common.domain.UserModelDelegate
@@ -20,7 +22,7 @@ interface UserConfigurerComponent {
         @BindsInstance
         fun userModelDelegate(userModelDelegate: UserModelDelegate): Builder
         @BindsInstance
-        fun dataStoreManager(dataStoreManager: DataStoreManager): Builder
+        fun dataStore(dataStore: DataStore<Preferences>): Builder
         @BindsInstance
         fun firestore(firestore: FirebaseFirestore): Builder
 

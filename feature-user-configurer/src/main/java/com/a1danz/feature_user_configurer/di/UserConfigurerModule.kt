@@ -5,6 +5,7 @@ import com.a1danz.feature_user_configurer.UserConfigurer
 import com.a1danz.feature_user_configurer.impl.UserConfigurerImpl
 import com.a1danz.feature_user_configurer.repo.UserRepository
 import com.a1danz.feature_user_configurer.repo.impl.UserRepositoryImpl
+import com.google.gson.Gson
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -15,7 +16,10 @@ import dagger.Provides
         UserConfigurerBinder::class
     ]
 )
-class UserConfigurerModule
+class UserConfigurerModule {
+    @Provides
+    fun provideGson() = Gson()
+}
 
 
 @Module

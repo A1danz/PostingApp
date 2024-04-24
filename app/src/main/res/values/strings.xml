@@ -8,4 +8,5 @@
     <string name="facebook_app_id">fb_app_id</string>
     <string name="fb_login_protocol_scheme">fbfb_app_id</string>
     <string name="facebook_client_token">fb_client_token</string>
+    <string name="about_bit_text">Posting - приложени для автоматизации процесса постинга в различных соц. сетях. Здесь вы сможете в пару простых кликов связать ваши учетные записи на разных медиа площадках. После этого действия вам будет досутпен функционал постинга на этих. площадках. Следуйте инструкции ниже:</string>
 </resources>

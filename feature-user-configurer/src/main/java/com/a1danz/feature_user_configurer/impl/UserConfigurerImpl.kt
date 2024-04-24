@@ -1,6 +1,7 @@
 package com.a1danz.feature_user_configurer.impl
 
 import com.a1danz.common.domain.UserModelDelegate
+import com.a1danz.common.domain.model.Config
 import com.a1danz.common.domain.model.User
 import com.a1danz.common.domain.model.VkAccessToken
 import com.a1danz.feature_user_configurer.UserConfigurer
@@ -21,20 +22,20 @@ class UserConfigurerImpl @Inject constructor(
         userRepository.saveUser(user)
     }
 
-    override suspend fun saveVkToken(accessToken: AccessToken) {
-        val vkAccessToken = VkAccessToken(accessToken.token, accessToken.userID)
-        user.vkToken = vkAccessToken
-
-        userRepository.saveVkToken(vkAccessToken)
-    }
-
-    override suspend fun initVkToken() {
-        val accessToken: VkAccessToken? = userRepository.getVkToken()
-        user.vkToken = accessToken
-    }
+//    override suspend fun saveVkToken(accessToken: AccessToken) {
+//        val vkAccessToken = VkAccessToken(accessToken.token, accessToken.userID)
+//        user.vkToken = vkAccessToken
+//
+//        userRepository.saveVkToken(vkAccessToken)
+//    }
+//
+//    override suspend fun initVkToken() {
+//        val accessToken: VkAccessToken? = userRepository.getVkToken()
+//        user.vkToken = accessToken
+//    }
 
     override suspend fun initUser() {
-       initVkToken()
+       userModelDelegate.user = userRepository.getUser()
     }
 
     override suspend fun updateUserDelegate(userId: String) {
@@ -49,10 +50,11 @@ class UserConfigurerImpl @Inject constructor(
     }
 
     override suspend fun hasUserVkToken(): Boolean {
-        return user.vkToken != null
+        return user.config.vkConfig != null
     }
 
-    override suspend fun saveVkGroupdId() {
-        return
+    override suspend fun updateUserConfig(update: (Config) -> Config) {
+        userRepository.updateConfig(update)
+        user.config = update(user.config)
     }
 }

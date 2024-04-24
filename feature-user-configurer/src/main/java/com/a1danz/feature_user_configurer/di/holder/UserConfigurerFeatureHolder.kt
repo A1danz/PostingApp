@@ -1,5 +1,7 @@
 package com.a1danz.feature_user_configurer.di.holder
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.a1danz.common.core.datastore.DataStoreManager
 import com.a1danz.common.di.featureprovide.FeatureApiHolder
 import com.a1danz.common.di.scope.ApplicationScope
@@ -13,12 +15,12 @@ import javax.inject.Inject
 class UserConfigurerFeatureHolder @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val userModelDelegate: UserModelDelegate,
-    private val dataStoreManager: DataStoreManager
+    private val dataStore: DataStore<Preferences>
 ) : FeatureApiHolder() {
     override fun getComponent(): Any {
         return DaggerUserConfigurerComponent.builder()
             .userModelDelegate(userModelDelegate)
-            .dataStoreManager(dataStoreManager)
+            .dataStore(dataStore)
             .firestore(firestore)
             .build()
     }

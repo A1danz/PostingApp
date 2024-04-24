@@ -23,22 +23,20 @@ class SocialMediaSettingsViewModel @Inject constructor(
 ) : ViewModel() {
 
     suspend fun userHasToken(): Boolean {
-        return withContext(Dispatchers.IO) {
-            userInteractor.hasUserVkToken()
-        }
+        return userInteractor.hasUserVkToken()
+
     }
 
     suspend fun saveVkToken(accessToken: AccessToken): Boolean {
-        return withContext(Dispatchers.IO) {
+        runCatching {
             userInteractor.saveVkToken(accessToken)
-            true
+        }.onSuccess {
+            return true
         }
+        return false
     }
 
-    fun getVkUserGroups(): Flow<VkUserGroupsUiModel?> = flow {
-        val userGroups = withContext(viewModelScope.coroutineContext) {
-            userInteractor.getUserGroups()
-        }
-        emit(userGroups)
+    suspend fun getVkUserGroups(): VkUserGroupsUiModel {
+        return userInteractor.getUserGroups()
     }
 }

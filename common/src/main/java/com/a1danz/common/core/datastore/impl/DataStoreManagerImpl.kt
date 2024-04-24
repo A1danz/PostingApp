@@ -23,7 +23,7 @@ class DataStoreManagerImpl(
     }
 
     override suspend fun getString(key: String, defValue: String): Flow<String> {
-        return context.dataStore.data.map { config ->
+            return context.dataStore.data.map { config ->
             config[stringPreferencesKey(key)] ?: defValue
         }
     }

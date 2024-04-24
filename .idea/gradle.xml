@@ -14,6 +14,7 @@
             <option value="$PROJECT_DIR$/feature-authorization" />
             <option value="$PROJECT_DIR$/feature-initialize" />
             <option value="$PROJECT_DIR$/feature-settings" />
+            <option value="$PROJECT_DIR$/feature-telegram-bot" />
             <option value="$PROJECT_DIR$/feature-user-configurer" />
           </set>
         </option>

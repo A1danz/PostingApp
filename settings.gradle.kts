@@ -1,5 +1,8 @@
 import java.net.URI
 
+include(":feature-telegram-bot")
+
+
 include(":feature-user-configurer")
 
 

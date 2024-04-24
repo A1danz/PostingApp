@@ -11,10 +11,10 @@ class VkInterceptor @Inject constructor(
     private val user: User
 ) : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
-        val vkAccessToken = user.vkToken ?: throw IllegalStateException("Token isn't initialized")
+        val vkConfig = user.config.vkConfig ?: throw IllegalStateException("Token isn't initialized")
         val editedUrl = chain.request().url.newBuilder()
-            .addQueryParameter(PARAM_ACCESS_TOKEN, vkAccessToken.accessToken)
-            .addQueryParameter(PARAM_USER_ID, vkAccessToken.userId.toString())
+            .addQueryParameter(PARAM_ACCESS_TOKEN, vkConfig.accessToken)
+            .addQueryParameter(PARAM_USER_ID, vkConfig.userId.toString())
             .addQueryParameter(PARAM_VERSION, PARAM_VERSION_VALUE)
             .build()
 
