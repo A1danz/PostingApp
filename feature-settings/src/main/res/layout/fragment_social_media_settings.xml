@@ -17,96 +17,237 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="vertical"
-        android:divider="@drawable/settings_divider"
+        android:divider="@drawable/social_media_settings_divider"
         android:showDividers="middle"
         >
         <LinearLayout
             android:id="@+id/vk_section"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    style="@style/TextView.SemiBold"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Вконтакте"
-                    android:textColor="@color/dark"
-                    android:textSize="18sp"
-                    />
-                <TextView
-                    android:id="@+id/tv_vk_success"
-
-                    style="@style/TextView.SemiBold"
-                    android:visibility="gone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="5dp"
-                    android:text="Подключено"
-                    android:textColor="@color/primary"/>
-            </LinearLayout>
-
-            <!--            <com.google.android.material.textfield.TextInputLayout-->
-
-            <!--                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                >-->
-
-            <!--                <AutoCompleteTextView-->
-            <!--                    android:id="@+id/vk_groups_actv"-->
-
-            <!--                    android:layout_width="match_parent"-->
-            <!--                    android:layout_height="match_parent"-->
-            <!--                    android:text="@string/choose_group"-->
-            <!--                    android:inputType="none"-->
-            <!--                    />-->
-<!--        </com.google.android.material.textfield.TextInputLayout>-->
-
-            <com.vk.id.onetap.xml.OneTap
-                android:id="@+id/btn_vk"
-
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:vkid_buttonsCornerRadius="10dp"
-                app:vkid_buttonsSize="medium42" />
-            <Spinner
-                android:id="@+id/spinner"
-
-                style="@style/Widget.AppCompat.Spinner.DropDown"
-                android:visibility="gone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:spinnerMode="dropdown"
-                tools:listitem="@layout/group_item_layout" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/inst_section"
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
-                style="@style/TextView.Bold"
+                android:id="@+id/tv_vk_title"
+
+                style="@style/TextView.SemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="грам"
-                android:textColor="@color/dark"
-                android:textSize="16sp"
-                />
-
-            <com.a1danz.feature_settings.presentation.view.FacebookBtn
-                android:id="@+id/btn_facebook"
-
+                android:text="Вконтакте"
+                android:textSize="26sp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/dark"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_vk_authorized"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                />
-            <com.facebook.login.widget.LoginButton
+                >
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_vk_image"
+
+                    app:shapeAppearanceOverlay="@style/roundedImageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/default_vk_img"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:background="@drawable/rounded_iv_background"
+                    android:outlineProvider="background"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_vk_data"
+
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_vk_image"
+                    app:layout_constraintEnd_toStartOf="@id/btn_vk_settings"
+                    android:layout_marginStart="10dp"
+                    android:gravity="top"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_vk_user_name"
+
+                        style="@style/TextView.SemiBold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tv_vk_link_groups"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintVertical_bias="0.0"
+                        android:text=""
+                        android:textColor="@color/dark"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/tv_vk_linked_title"
+
+                        android:visibility="gone"
+                        style="@style/TextView.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_vk_user_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:text="Связанные группы: "
+                        android:textColor="@color/dark"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/tv_vk_link_groups"
+
+                        style="@style/TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_vk_linked_title"
+                        app:layout_constraintStart_toStartOf="@id/tv_vk_linked_title"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:text=""
+                        android:textColor="@color/primary"
+                        android:textSize="16sp" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_please_do_ouath"
+
+                    style="@style/TextView.SemiBold"
+                    android:visibility="gone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/iv_vk_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_vk_settings"
+                    android:text="Учетная запись не привязана :("
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/dark"
+                    />
+
+                <ImageView
+                    android:id="@+id/btn_vk_settings"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/rounded_settings"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:elevation="1dp"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/tg_section"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tv_tg_title"
+
+                style="@style/TextView.SemiBold"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="Telegram"
+                android:textSize="26sp"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/dark"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_tg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/iv_tg_image"
+
+                    app:shapeAppearanceOverlay="@style/roundedImageView"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/default_tg_image"
+                    android:scaleType="centerCrop"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_tg_data"
+
+                    android:visibility="gone"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_tg_image"
+                    app:layout_constraintEnd_toStartOf="@id/btn_tg_settings"
+                    android:layout_marginStart="10dp"
+                    android:gravity="top"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/tv_tg_user_name"
+
+                        style="@style/TextView.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tv_tg_link_groups"
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:text="\@Aidanusg"
+                        app:layout_constraintVertical_bias="0.0"
+                        android:textColor="@color/dark"
+                        android:textSize="16sp"/>
+                    <TextView
+                        android:id="@+id/tv_tg_linked_title"
+
+                        style="@style/TextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toBottomOf="@id/tv_tg_user_name"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toTopOf="@id/tv_tg_link_groups"
+                        android:text="Связанные группы: "
+                        android:textColor="@color/dark"
+                        android:textSize="16sp"/>
+
+                    <TextView
+                        android:id="@+id/tv_tg_link_groups"
+
+                        style="@style/TextView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:text="Мемы 11В, Telegram channel #1, Telegram channel $2, TElegram channel $3"
+                        android:textColor="@color/primary"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@id/tv_tg_linked_title"
+                        app:layout_constraintTop_toBottomOf="@id/tv_tg_linked_title"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_tg_please_do_ouath"
+
+
+                    style="@style/TextView.SemiBold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toEndOf="@id/iv_tg_image"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_tg_settings"
+                    android:text="Учетная запись не привязана :("
+                    android:textAlignment="center"
+                    android:gravity="center"
+                    android:textColor="@color/dark"
+                    />
+                <ImageView
+                    android:id="@+id/btn_tg_settings"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/rounded_settings"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:elevation="1dp"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

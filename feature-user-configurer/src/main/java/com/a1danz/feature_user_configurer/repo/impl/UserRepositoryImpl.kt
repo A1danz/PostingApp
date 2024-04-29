@@ -9,6 +9,7 @@ import com.a1danz.common.core.datastore.DataStoreManager
 import com.a1danz.common.domain.model.Config
 import com.a1danz.common.domain.model.User
 import com.a1danz.common.domain.model.VkAccessToken
+import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.feature_user_configurer.repo.UserRepository
 import com.google.gson.Gson
 import kotlinx.coroutines.flow.first
@@ -60,6 +61,35 @@ class UserRepositoryImpl @Inject constructor(
                     set(USER_DATA_KEY, gson.toJson(user))
                 } else {
                     Log.e("PREFS EMPTY", "cant update UserConfig because it null")
+                }
+            }
+        }
+    }
+
+    override suspend fun updateVkConfig(update: (VkConfig) -> VkConfig) {
+        dataStore.updateData { prefs ->
+            prefs.toMutablePreferences().apply {
+                val json = prefs[USER_DATA_KEY]
+                if (json != null) {
+                    val user = gson.fromJson(json, User::class.java)
+                    user.config.vkConfig = if (user.config.vkConfig != null) update(user.config.vkConfig!!) else null
+                    set(USER_DATA_KEY, gson.toJson(user))
+                } else {
+                    Log.e("PREFS EMPTY", "cant update UserConfig because it null")
+                }
+            }
+
+        }
+    }
+
+    override suspend fun clearVkConfig() {
+        dataStore.updateData { prefs ->
+            prefs.toMutablePreferences().apply {
+                val json = prefs[USER_DATA_KEY]
+                if (json != null) {
+                    val user = gson.fromJson(json, User::class.java)
+                    user.config.vkConfig = null
+                    set(USER_DATA_KEY, gson.toJson(user))
                 }
             }
         }
