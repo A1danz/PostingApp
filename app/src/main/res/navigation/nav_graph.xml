@@ -35,7 +35,11 @@
     <fragment
         android:id="@+id/socialMediaSettingsFragment"
         android:name="com.a1danz.feature_settings.presentation.screens.social_media.SocialMediaSettingsFragment"
-        android:label="SocialMediaSettingsFragment" />
+        android:label="SocialMediaSettingsFragment" >
+        <action
+            android:id="@+id/action_socialMediaSettingsFragment_to_vkSettingsFragment"
+            app:destination="@id/vkSettingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/initializingFragment"
         android:name="com.a1danz.feature_initialize.presentation.screens.initialize.InitializingFragment"
@@ -47,4 +51,8 @@
             android:id="@+id/action_initializingFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/vkSettingsFragment"
+        android:name="com.a1danz.feature_settings.presentation.screens.social_media.vk.VkSettingsFragment"
+        android:label="VkSettingsFragment" />
 </navigation>

@@ -2,6 +2,7 @@ package com.a1danz.feature_settings.presentation.screens.social_media
 
 import android.util.Log
 import android.view.View
+import android.view.animation.AnimationUtils
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
@@ -14,6 +15,7 @@ import com.a1danz.feature_settings.databinding.FragmentSocialMediaSettingsBindin
 import com.a1danz.feature_settings.di.SettingsComponent
 import com.a1danz.feature_settings.presentation.ui.VkGroupAdapter
 import com.a1danz.feature_settings.presentation.view.FacebookBtn
+import com.bumptech.glide.Glide
 import com.facebook.CallbackManager
 import com.facebook.FacebookCallback
 import com.facebook.FacebookException
@@ -25,8 +27,6 @@ import javax.inject.Inject
 
 class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_settings) {
     private val viewBinding: FragmentSocialMediaSettingsBinding by viewBinding(FragmentSocialMediaSettingsBinding::bind)
-
-    @Inject lateinit var callbackManager: CallbackManager
     private val viewModel: SocialMediaSettingsViewModel by viewModels { vmFactory }
 
     override fun inject() {
@@ -40,71 +40,40 @@ class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_
 
     override fun initViews() {
         with(viewBinding) {
-            // vk
-            lifecycleScope.launch {
-                Log.d("UPDATING", "UPDATE UI IN START")
-                if (viewModel.userHasToken()) updateUiByVkToken()
-                else btnVk.isVisible = true
+            btnVkSettings.setOnClickListener {
+                viewModel.openVkSettingsScreen()
             }
 
-            btnVk.setCallbacks(
-                onAuth = { accessToken ->
-                    lifecycleScope.launch {
-                        val res = viewModel.saveVkToken(accessToken)
-                        if (res) {
-                            Log.d("UPDATING", "UPDATE UI IN CALLBACK")
-                            btnVk.visibility = View.GONE
-                            updateUiByVkToken()
-                        } else {
-                            Log.e("CANT SAVE", "CANT SAVE VK TOKEN")
-                        }
-                    }
-                },
-                onFail = { fail ->
-                    Log.e("VKFail", "FAILED AUTH - $fail: ${fail.description}")
-                }
-            )
+            btnTgSettings.setOnClickListener {
+                viewModel.openTgSettingsScreen()
+            }
 
-            (requireActivity().application as FeatureContainer)
-                .getFeature(SettingsComponent::class.java)
-                .inject(btnFacebook)
-
-            subscribeToFacebookUpdates(btnFacebook)
+            initVkSection()
         }
     }
 
-    private fun updateUiByVkToken() {
+    private fun initVkSection() {
         with(viewBinding) {
-            btnVk.visibility = View.GONE
-            tvVkSuccess.visibility = View.VISIBLE
-            spinner.visibility = View.VISIBLE
             lifecycleScope.launch {
-                viewModel.getVkUserGroups().let { groupsModel ->
-                    val groups = groupsModel.groups
-                    val adapter = VkGroupAdapter(requireContext(), groups)
-                    spinner.adapter = adapter
+                if (viewModel.userHasVkToken()) {
+                    layoutVkData.isVisible = true
+
+                    val groups = viewModel.getUserSelectedVkGroups()
+                    val vkUserInfo = viewModel.getUserInfo()
+
+                    Glide.with(requireContext())
+                        .load(vkUserInfo.userImg)
+                        .into(ivVkImage)
+
+                    tvVkUserName.text = vkUserInfo.fullName
+                    tvVkLinkGroups.text = if (groups.isNotEmpty()) (groups.map { it.groupName }).joinToString("\n")
+                                        else "Нет связанных групп"
+                } else {
+                    tvPleaseDoOuath.isVisible = true
                 }
             }
         }
-    }
 
-    private fun subscribeToFacebookUpdates(facebookBtn: FacebookBtn) {
-        facebookBtn.attachFragment(this)
-        LoginManager.getInstance()
-            .registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-                override fun onSuccess(result: LoginResult) {
-                    val accessToken = result.accessToken
-                    Log.d("FACEBOOK_TOKEN", accessToken.token)
-                }
-
-                override fun onCancel() {
-                    Log.d("FACEBOOK_TOKEN", "CANCELLED")
-                }
-
-                override fun onError(exception: FacebookException) {
-                    Log.d("FACEBOOK_TOKEN", "HANDLED EXCEPTION: $exception")
-                }
-            })
     }
 
 }

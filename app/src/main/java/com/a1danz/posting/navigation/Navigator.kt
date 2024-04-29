@@ -40,4 +40,12 @@ class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter {
     override fun navigateFromInitializingToAuthorization() {
         navController?.navigate(R.id.action_initializingFragment_to_signInFragment2)
     }
+
+    override fun openVkSettings() {
+        navController?.navigate(R.id.action_socialMediaSettingsFragment_to_vkSettingsFragment)
+    }
+
+    override fun goBack() {
+        navController?.popBackStack()
+    }
 }

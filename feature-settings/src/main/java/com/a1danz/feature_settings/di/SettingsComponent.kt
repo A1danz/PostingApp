@@ -10,6 +10,7 @@ import com.a1danz.feature_settings.di.presentation.PresentationModule
 import com.a1danz.feature_settings.presentation.navigation.SettingsRouter
 import com.a1danz.feature_settings.presentation.screens.main.SettingsFragment
 import com.a1danz.feature_settings.presentation.screens.social_media.SocialMediaSettingsFragment
+import com.a1danz.feature_settings.presentation.screens.social_media.vk.VkSettingsFragment
 import com.a1danz.feature_settings.presentation.view.FacebookBtn
 import com.a1danz.feature_user_configurer.UserConfigurer
 import com.google.firebase.firestore.FirebaseFirestore
@@ -49,5 +50,5 @@ interface SettingsComponent {
 
     fun inject(fragment: SocialMediaSettingsFragment)
     fun inject(fragment: SettingsFragment)
-    fun inject(facebookBtnView: FacebookBtn)
+    fun inject(fragment: VkSettingsFragment)
 }

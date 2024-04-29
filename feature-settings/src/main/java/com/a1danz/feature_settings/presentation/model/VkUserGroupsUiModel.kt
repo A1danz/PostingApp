@@ -7,5 +7,6 @@ class VkUserGroupsUiModel (
 class VkUserGroupUiModel(
     val name: String,
     val imageUrl: String,
-    val groupId: Long
+    val groupId: Long,
+    var isChosen: Boolean = false
 )

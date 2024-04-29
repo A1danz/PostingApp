@@ -4,6 +4,8 @@ import com.a1danz.common.domain.UserModelDelegate
 import com.a1danz.common.domain.model.Config
 import com.a1danz.common.domain.model.User
 import com.a1danz.common.domain.model.VkAccessToken
+import com.a1danz.common.domain.model.VkConfig
+import com.a1danz.common.domain.model.VkGroupInfo
 import com.a1danz.feature_user_configurer.UserConfigurer
 import com.a1danz.feature_user_configurer.repo.UserRepository
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,18 +23,6 @@ class UserConfigurerImpl @Inject constructor(
     override suspend fun saveUser(user: User) {
         userRepository.saveUser(user)
     }
-
-//    override suspend fun saveVkToken(accessToken: AccessToken) {
-//        val vkAccessToken = VkAccessToken(accessToken.token, accessToken.userID)
-//        user.vkToken = vkAccessToken
-//
-//        userRepository.saveVkToken(vkAccessToken)
-//    }
-//
-//    override suspend fun initVkToken() {
-//        val accessToken: VkAccessToken? = userRepository.getVkToken()
-//        user.vkToken = accessToken
-//    }
 
     override suspend fun initUser() {
        userModelDelegate.user = userRepository.getUser()
@@ -56,5 +46,19 @@ class UserConfigurerImpl @Inject constructor(
     override suspend fun updateUserConfig(update: (Config) -> Config) {
         userRepository.updateConfig(update)
         user.config = update(user.config)
+    }
+
+    override suspend fun updateVkConfig(update: (VkConfig) -> VkConfig) {
+        userRepository.updateVkConfig(update)
+        user.config.vkConfig?.let(update)
+    }
+
+    override suspend fun clearVkConfig() {
+        user.config.vkConfig = null
+        userRepository.clearVkConfig()
+    }
+
+    override suspend fun getSelectedGroups(): List<VkGroupInfo> {
+        return user.config.vkConfig?.userGroups ?: emptyList()
     }
 }

@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/tv_its_posting"
 
-            style="@style/AuthHeader" />
+            style="@style/AuthHeader"/>
 
         <TextView
             android:id="@+id/tv_type_data"
