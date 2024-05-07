@@ -88,7 +88,12 @@ class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_
         with(viewBinding) {
 
             tvTgUserName.text = getString(R.string.tg_username, tgUserInfo.username)
-            tvTgLinkGroups.text = tgUserInfo.chatNames.joinToString("\n")
+            tgUserInfo.chatNames.let { chats ->
+                tvTgLinkGroups.text =
+                    if (chats.isEmpty()) getString(R.string.you_havent_select_any_group_yet)
+                    else tgUserInfo.chatNames.joinToString("\n")
+            }
+
             layoutTgData.isVisible = true
 
             Glide.with(requireContext())

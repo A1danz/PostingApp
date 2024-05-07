@@ -59,10 +59,8 @@ class TgSettingsFragment : BaseFragment(R.layout.fragment_tg_settings) {
     }
 
     override fun initViews() {
-        lifecycleScope.launch {
-            if (viewModel.hasUserTgConfig()) showLinkedScreen()
-            else showUnlinkedScreen()
-        }
+        if (viewModel.hasUserTgConfig()) showLinkedScreen()
+        else showUnlinkedScreen()
     }
 
     private fun showLinkedScreen() {

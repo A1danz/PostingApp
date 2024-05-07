@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="Вконтакте"
+        android:text="@string/vkontakte"
         android:textColor="@color/dark"
         android:textSize="26sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,7 @@
             style="@style/TextView.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Хм... Похоже вы еще привязали свою учетную запись."
+            android:text="@string/hm_seems_like_you_havent_link_account"
             android:textColor="@color/gray"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
@@ -89,7 +89,7 @@
                 app:layout_constraintStart_toEndOf="@id/iv_user_img"
                 app:layout_constraintEnd_toStartOf="@id/btn_unlink"
                 app:layout_constraintHorizontal_bias="0.0"
-                android:text="Вероника Микелтадзе-Кибардина"
+                android:text=""
                 android:textColor="@color/dark"
                 android:layout_marginHorizontal="10dp"/>
             <Button
@@ -102,9 +102,22 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_user_name"
-                android:text="Отвязать"
+                android:text="@string/unlink"
                 android:textSize="12sp"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_groups_empty"
+
+            android:visibility="gone"
+            style="@style/TextView.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="@string/vk_you_havent_groups"
+            android:textColor="@color/dark"
+            android:layout_marginTop="5dp"
+            android:textSize="16sp"
+            />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_groups"
 

@@ -79,6 +79,9 @@ class VkSettingsFragment : BaseFragment(R.layout.fragment_vk_settings) {
                 groupsUiModels.groups,
                 ::groupChosenCallback
             )
+            if (groupsUiModels.groups.isEmpty()) {
+                tvGroupsEmpty.isVisible = true
+            }
 
             Log.d("ADAPTER ATTACHED", "ATTACHED - ${rvGroups.adapter}")
 

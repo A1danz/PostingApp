@@ -16,7 +16,7 @@ interface TgUserInteractor {
     fun getTgUserInfo(): TgUserInfo
     fun getTgUserConfig(): TgConfig?
 
-    suspend fun getTgSelectedChats(): List<TgChatInfo>
+    fun getTgSelectedChats(): List<TgChatInfo>
     suspend fun saveUserTgConfig(tgUserInfo: TgUserInfo)
     suspend fun listenTgUpdates(listenFlow: MutableStateFlow<Boolean?>, tokenInitializedFlow: MutableStateFlow<Boolean?>)
     suspend fun initTgToken()

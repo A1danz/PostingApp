@@ -25,7 +25,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="5dp"
         android:textColor="@color/dark"
-        android:text="Итис КФУ"
+        android:text="@string/chat"
         />
     <com.google.android.material.materialswitch.MaterialSwitch
         style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
