@@ -1,28 +1,18 @@
 package com.a1danz.feature_settings.presentation.screens.social_media
 
-import android.util.Log
-import android.view.View
-import android.view.animation.AnimationUtils
-import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.common.di.featureprovide.FeatureContainer
+import com.a1danz.common.domain.model.TgConfig
+import com.a1danz.common.domain.model.TgUserInfo
+import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.common.presentation.base.BaseFragment
 import com.a1danz.feature_settings.R
 import com.a1danz.feature_settings.databinding.FragmentSocialMediaSettingsBinding
 import com.a1danz.feature_settings.di.SettingsComponent
-import com.a1danz.feature_settings.presentation.ui.VkGroupAdapter
-import com.a1danz.feature_settings.presentation.view.FacebookBtn
+import com.a1danz.feature_settings.presentation.model.TgUserInfoUiModel
 import com.bumptech.glide.Glide
-import com.facebook.CallbackManager
-import com.facebook.FacebookCallback
-import com.facebook.FacebookException
-import com.facebook.login.LoginManager
-import com.facebook.login.LoginResult
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_settings) {
@@ -44,36 +34,67 @@ class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_
                 viewModel.openVkSettingsScreen()
             }
 
-            btnTgSettings.setOnClickListener {
-                viewModel.openTgSettingsScreen()
-            }
-
             initVkSection()
+            initTgSection()
         }
     }
 
     private fun initVkSection() {
         with(viewBinding) {
-            lifecycleScope.launch {
-                if (viewModel.userHasVkToken()) {
-                    layoutVkData.isVisible = true
+            val vkConfig = viewModel.getUserVkConfig()
+            if (vkConfig == null) tvVkPleaseDoOuath.isVisible = true
+            else showVkInfo(vkConfig)
+        }
+    }
 
-                    val groups = viewModel.getUserSelectedVkGroups()
-                    val vkUserInfo = viewModel.getUserInfo()
+    private fun showVkInfo(vkConfig: VkConfig) {
+        with(viewBinding) {
+            layoutVkData.isVisible = true
+            val vkInfoUiModel = viewModel.getVkUserInfoUiModel(vkConfig)
 
-                    Glide.with(requireContext())
-                        .load(vkUserInfo.userImg)
-                        .into(ivVkImage)
+            tvVkUserName.text = vkInfoUiModel.vkName
+            vkInfoUiModel.vkGroupNames.let {  groups ->
+                tvVkLinkGroups.text =
+                    if (groups.isEmpty()) getString(R.string.you_havent_select_any_group_yet)
+                    else groups.joinToString("\n")
+            }
 
-                    tvVkUserName.text = vkUserInfo.fullName
-                    tvVkLinkGroups.text = if (groups.isNotEmpty()) (groups.map { it.groupName }).joinToString("\n")
-                                        else "Нет связанных групп"
-                } else {
-                    tvPleaseDoOuath.isVisible = true
-                }
+            if (vkInfoUiModel.photo != null) {
+                Glide.with(requireContext())
+                    .load(vkInfoUiModel.photo)
+                    .into(ivVkImage)
             }
         }
 
+
+    }
+
+    private fun initTgSection() {
+        with(viewBinding) {
+            val tgConfig = viewModel.getUserTgConfig()
+            if (tgConfig == null) {
+                tvTgPleaseDoOuath.isVisible = true
+            } else {
+                showTelegramInfo(viewModel.getTgUserInfoUiModel(tgConfig))
+            }
+            btnTgSettings.setOnClickListener {
+                viewModel.openTgSettingsScreen()
+            }
+        }
+    }
+
+
+    private fun showTelegramInfo(tgUserInfo: TgUserInfoUiModel) {
+        with(viewBinding) {
+
+            tvTgUserName.text = getString(R.string.tg_username, tgUserInfo.username)
+            tvTgLinkGroups.text = tgUserInfo.chatNames.joinToString("\n")
+            layoutTgData.isVisible = true
+
+            Glide.with(requireContext())
+                .load(tgUserInfo.photo)
+                .into(ivTgImage)
+        }
     }
 
 }

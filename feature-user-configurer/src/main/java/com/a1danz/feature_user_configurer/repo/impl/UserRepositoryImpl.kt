@@ -5,10 +5,9 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import com.a1danz.common.core.datastore.DataStoreManager
 import com.a1danz.common.domain.model.Config
+import com.a1danz.common.domain.model.TgConfig
 import com.a1danz.common.domain.model.User
-import com.a1danz.common.domain.model.VkAccessToken
 import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.feature_user_configurer.repo.UserRepository
 import com.google.gson.Gson
@@ -19,18 +18,6 @@ class UserRepositoryImpl @Inject constructor(
     private val dataStore: DataStore<Preferences>,
     private val gson: Gson
 ) : UserRepository {
-
-//    override suspend fun saveVkToken(vkAccessToken: VkAccessToken) {
-//        dataStoreManager.saveString(VK_TOKEN, vkAccessToken.accessToken)
-//        dataStoreManager.saveLong(VK_USER_ID, vkAccessToken.userId)
-//    }
-//
-//    override suspend fun getVkToken(): VkAccessToken? {
-//        val stringToken = dataStoreManager.getString(VK_TOKEN, "").first()
-//        val userId = dataStoreManager.getLong(VK_USER_ID, -1).first()
-//        if (stringToken.isBlank() || userId < 0) return null
-//        return VkAccessToken(stringToken, userId)
-//    }
 
     override suspend fun getUser(): User? {
         return try {
@@ -78,7 +65,6 @@ class UserRepositoryImpl @Inject constructor(
                     Log.e("PREFS EMPTY", "cant update UserConfig because it null")
                 }
             }
-
         }
     }
 
@@ -95,11 +81,36 @@ class UserRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun updateTgConfig(update: (TgConfig) -> TgConfig) {
+        dataStore.updateData { prefs ->
+            prefs.toMutablePreferences().apply {
+                val json = prefs[USER_DATA_KEY]
+                if (json != null) {
+                    val user = gson.fromJson(json, User::class.java)
+                    user.config.tgConfig = if (user.config.tgConfig != null) update(user.config.tgConfig!!) else null
+                    set(USER_DATA_KEY, gson.toJson(user))
+                } else {
+                    Log.e("PREFS EMPTY", "cant update UserConfig because it null")
+                }
+            }
+
+        }
+    }
+
+    override suspend fun clearTgConfig() {
+        dataStore.updateData { prefs ->
+            prefs.toMutablePreferences().apply {
+                val json = prefs[USER_DATA_KEY]
+                if (json != null) {
+                    val user = gson.fromJson(json, User::class.java)
+                    user.config.tgConfig = null
+                    set(USER_DATA_KEY, gson.toJson(user))
+                }
+            }
+        }
+    }
+
     companion object {
         private val USER_DATA_KEY = stringPreferencesKey("user_data")
-        private val VK_TOKEN = "VK_TOKEN"
-        private val VK_USER_ID = "VK_USER_ID"
-        private val USER_NAME = "USER_NAME"
-        private val USER_UID = "USER_UID"
     }
 }

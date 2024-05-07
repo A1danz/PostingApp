@@ -39,6 +39,9 @@
         <action
             android:id="@+id/action_socialMediaSettingsFragment_to_vkSettingsFragment"
             app:destination="@id/vkSettingsFragment" />
+        <action
+            android:id="@+id/action_socialMediaSettingsFragment_to_tgSettingsFragment"
+            app:destination="@id/tgSettingsFragment" />
     </fragment>
     <fragment
         android:id="@+id/initializingFragment"
@@ -49,10 +52,16 @@
             app:destination="@id/signInFragment2" />
         <action
             android:id="@+id/action_initializingFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/settingsFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/vkSettingsFragment"
         android:name="com.a1danz.feature_settings.presentation.screens.social_media.vk.VkSettingsFragment"
         android:label="VkSettingsFragment" />
+    <fragment
+        android:id="@+id/tgSettingsFragment"
+        android:name="com.a1danz.feature_settings.presentation.screens.social_media.tg.TgSettingsFragment"
+        android:label="TgSettingsFragment" />
 </navigation>

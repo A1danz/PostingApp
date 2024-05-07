@@ -1,23 +1,20 @@
 package com.a1danz.feature_settings.presentation.screens.social_media.vk
 
 import androidx.lifecycle.ViewModel
-import com.a1danz.common.domain.model.VkAccessToken
-import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.common.domain.model.VkGroupInfo
 import com.a1danz.common.domain.model.VkUserInfo
+import com.a1danz.common.presentation.nav.GoBackRouter
 import com.a1danz.feature_settings.domain.interactor.UserInteractor
 import com.a1danz.feature_settings.presentation.model.VkUserGroupUiModel
 import com.a1danz.feature_settings.presentation.model.VkUserGroupsUiModel
-import com.a1danz.feature_settings.presentation.screens.social_media.vk.nav.VkSettingsRouter
 import com.vk.id.AccessToken
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class VkSettingsViewModel @Inject constructor(
     private val userInteractor: UserInteractor,
-    private val vkSettingsRouter: VkSettingsRouter
+    private val vkSettingsRouter: GoBackRouter
 ) : ViewModel() {
-    suspend fun userHasToken(): Boolean {
+    fun userHasToken(): Boolean {
         return userInteractor.hasUserVkToken()
     }
 

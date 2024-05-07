@@ -6,4 +6,14 @@
     <string name="proxy_configuration">Конфигурация прокси</string>
     <string name="about_app">О приложении</string>
     <string name="choose_group">Выберите группу</string>
+    <string name="tg_username">\@%1s</string>
+    <string name="text_was_succesfully_copied">Текст успешно скопирован в буфер обмена!</string>
+    <string name="posting_app_code">Posting app код</string>
+    <string name="posting_bot">Posting Bot</string>
+    <string name="are_you_sure_question">Вы уверены?</string>
+    <string name="are_you_sure_what_you_want_unlink_account">Вы действительно уверены, что хотите отвязать свою учетную запись?</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="linked_groups">Связанные группы:</string>
+    <string name="you_havent_select_any_group_yet">Вы пока не выбрали ни одну группу.</string>
 </resources>

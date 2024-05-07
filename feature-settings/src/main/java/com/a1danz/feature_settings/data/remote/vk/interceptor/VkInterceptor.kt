@@ -1,9 +1,7 @@
 package com.a1danz.feature_settings.data.remote.vk.interceptor
 
 import com.a1danz.common.domain.model.User
-import com.a1danz.common.domain.model.VkAccessToken
 import okhttp3.Interceptor
-import okhttp3.Request
 import okhttp3.Response
 import javax.inject.Inject
 

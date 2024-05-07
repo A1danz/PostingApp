@@ -1,19 +1,15 @@
 package com.a1danz.feature_settings.di.module.social_media
 
-import com.a1danz.common.di.scope.FeatureScope
-import com.a1danz.feature_settings.di.module.social_media.facebook.FacebookModule
+import com.a1danz.feature_settings.di.module.social_media.tg.TgModule
 import com.a1danz.feature_settings.domain.interactor.UserInteractor
 import com.a1danz.feature_settings.domain.interactor.impl.UserInteractorImpl
-import com.a1danz.feature_user_configurer.UserConfigurer
-import com.a1danz.feature_user_configurer.impl.UserConfigurerImpl
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
 
 @Module(
     includes = [
-        FacebookModule::class,
-        UserInteractorBinder::class
+        UserInteractorBinder::class,
+        TgModule::class
     ]
 )
 class SocialMediaModule
