@@ -13,13 +13,10 @@ interface UserConfigurer {
     suspend fun saveUser(user: User)
     suspend fun updateUserDelegate(userId: String)
 
-    suspend fun hasUserVkToken(): Boolean
     suspend fun updateUserConfig(update: (Config) -> Config)
     suspend fun updateVkConfig(update: (VkConfig) -> VkConfig)
-    suspend fun getSelectedGroups(): List<VkGroupInfo>
     suspend fun clearVkConfig()
 
-    suspend fun hasUserTgConfig(): Boolean
     suspend fun updateTgConfig(update: (TgConfig) -> TgConfig)
     suspend fun listenTgUpdate(listenFlow: MutableStateFlow<Boolean?>): Unsubscriber
     suspend fun initTgToken()
