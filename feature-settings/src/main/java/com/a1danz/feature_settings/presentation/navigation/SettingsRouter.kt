@@ -1,7 +1,7 @@
 package com.a1danz.feature_settings.presentation.navigation
 
-import com.a1danz.feature_settings.presentation.screens.social_media.vk.nav.VkSettingsRouter
+import com.a1danz.common.presentation.nav.GoBackRouter
 
-interface SettingsRouter : SocialMediaRouter, VkSettingsRouter {
+interface SettingsRouter : SocialMediaRouter, GoBackRouter {
     fun openSocialMediaSettings()
 }
