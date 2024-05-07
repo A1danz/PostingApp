@@ -45,10 +45,6 @@ class UserConfigurerImpl @Inject constructor(
         userModelDelegate.user = user
     }
 
-    override suspend fun hasUserVkToken(): Boolean {
-        return user.config.vkConfig != null
-    }
-
     override suspend fun updateUserConfig(update: (Config) -> Config) {
         userRepository.updateConfig(update)
         user.config = update(user.config)
@@ -64,14 +60,6 @@ class UserConfigurerImpl @Inject constructor(
         userRepository.clearVkConfig()
     }
 
-    override suspend fun getSelectedGroups(): List<VkGroupInfo> {
-        return user.config.vkConfig?.userGroups ?: emptyList()
-    }
-
-    override suspend fun hasUserTgConfig(): Boolean {
-        return user.config.tgConfig != null
-    }
-
     override suspend fun updateTgConfig(update: (TgConfig) -> TgConfig) {
         Log.d("UC UPDATING", "BEFORE - ${user.config.tgConfig}")
         userRepository.updateTgConfig(update)
@@ -83,53 +71,11 @@ class UserConfigurerImpl @Inject constructor(
     }
 
     override suspend fun listenTgUpdate(listenFlow: MutableStateFlow<Boolean?>): Unsubscriber {
-//        val document = firestore.collection("users").document(user.uId)
-//
-//        val listener = document.addSnapshotListener { snapshot, error ->
-//            if (error != null) Log.e("ERROR", error.toString())
-//            if (snapshot != null && snapshot.exists()) {
-//                Log.d("RECEIVED SNAPSHOT", snapshot.data.toString())
-//                if (snapshot.data?.contains("telegram") == true) {
-//                    document.get().addOnSuccessListener {
-//                        if (it.getLong("telegram.tg_user_id") != null) {
-//                            listenFlow.value = true
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-//        return UnsubscriberImpl(listener)
         return userFirestoreRepository.listenTgUpdate(listenFlow, user.uId)
     }
 
     override suspend fun initTgToken() {
-//        val doc = firestore.collection("users").document(user.uId).get().await()
-//        val tgUsername = doc.getString("telegram.username")
-//            ?: throw IllegalStateException("tg username not found")
-//        val tgUserId = doc.getLong("telegram.tg_user_id")
-//            ?: throw IllegalStateException("tg userId not found")
-//        val tgUserPhoto = doc.getString("telegram.photo")
-//            ?: throw IllegalStateException("tg userPhoto not found")
-
         val tgUserInfo = userFirestoreRepository.getUserTgInfo(user.uId) ?: return
-
-//        val chats = doc.data?.get("telegram.chats") as? Map<String, Any>
-//
-//        val chatsList: ArrayList<TgChatInfo> = ArrayList()
-//
-//        chats?.forEach { (key, value) ->
-//            val chatData = value as? Map<String, Any>
-//            chatData?.let {
-//                chatsList.add(
-//                    TgChatInfo(
-//                        name = chatData["name"] as? String ?: return@let,
-//                        id = key.toLong(),
-//                        photo = chatData["photo"] as String
-//                    )
-//                )
-//            }
-//        }
 
         val config = TgConfig(tgUserInfo = tgUserInfo)
         userRepository.updateConfig {
@@ -142,11 +88,6 @@ class UserConfigurerImpl @Inject constructor(
     override suspend fun clearTgConfig() {
         user.config.tgConfig = null
         userRepository.clearTgConfig()
-//        val clearedTgData = HashMap<String, Any>()
-//        clearedTgData.put("telegram", HashMap<String, Any>().apply {
-//            put("chats", HashMap<String, Any>())
-//        })
-//        firestore.collection("users").document(user.uId).update(clearedTgData)
         userFirestoreRepository.clearTgInformation(user.uId)
     }
 }
