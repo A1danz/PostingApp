@@ -1,7 +1,5 @@
 package com.a1danz.feature_settings.data.remote.vk.di
 
-import com.a1danz.common.domain.model.User
-import com.a1danz.common.domain.model.VkAccessToken
 import com.a1danz.feature_settings.data.remote.vk.VkApi
 import com.a1danz.feature_settings.data.remote.vk.interceptor.VkInterceptor
 import com.a1danz.feature_settings.data.repository.vk.VkRepositoryImpl

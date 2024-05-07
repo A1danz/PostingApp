@@ -1,6 +1,5 @@
 package com.a1danz.feature_settings.data.repository.vk
 
-import com.a1danz.common.domain.model.VkAccessToken
 import com.a1danz.feature_settings.data.mapper.VkUserGroupsMapper
 import com.a1danz.feature_settings.data.remote.vk.VkApi
 import com.a1danz.feature_settings.domain.model.VkUserGroupsDomainModel

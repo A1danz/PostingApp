@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp">
+    <TextView
+        android:id="@+id/tv_tg_title"
+
+        style="@style/TextView.SemiBold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Telegram"
+        android:textSize="26sp"
+        android:textColor="@color/dark"
+        android:layout_marginBottom="10dp"
+        />
+    <LinearLayout
+        android:id="@+id/layout_unlinked"
+
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_first_step"
+
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. Скопируйте код"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:layout_marginBottom="5dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_code_box"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect_50_corner"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="20dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingVertical="20dp"
+                android:background="@drawable/rect_75_corner"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingHorizontal="10dp">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/copy_icon"
+                    android:layout_marginEnd="8dp"
+                    />
+                <TextView
+                    android:id="@+id/tv_link_key"
+
+                    style="@style/TextView.Medium"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="DceNNXAcaaEDT4SU09RTt4ktDPitMAU5iwJmwr2dxk0="
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_second_step"
+
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2. Перейдите в телеграм и отправьте код нашему боту"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:layout_marginBottom="5dp"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rect_50_corner"
+            android:paddingHorizontal="15dp"
+            android:paddingVertical="20dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:id="@+id/cl_tg_bot_box"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:paddingVertical="20dp"
+                android:background="@drawable/rect_75_corner"
+                android:gravity="center"
+                android:orientation="horizontal"
+                >
+                <TextView
+                    android:id="@+id/tv_bot_username"
+
+                    style="@style/TextView.Medium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="\@posting_app_bot"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_third_step"
+
+            style="@style/TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="3. Возвращайтесь в приложение для продолжения настройки"
+            android:textSize="14sp"
+            android:textColor="@color/dark"
+            android:layout_marginBottom="5dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layout_linked"
+
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/layout_user_data"
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/iv_user_img"
+
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/default_tg_image"
+                app:shapeAppearanceOverlay="@style/roundedImageView"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                />
+            <TextView
+                android:id="@+id/tv_username"
+
+                style="@style/TextView.SemiBold"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/iv_user_img"
+                app:layout_constraintEnd_toStartOf="@id/btn_unlink"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:text="@string/tg_username"
+                android:textColor="@color/dark"
+                android:layout_marginHorizontal="10dp"/>
+            <Button
+                android:id="@+id/btn_unlink"
+
+                style="@style/BtnError"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_user_name"
+                android:text="Отвязать"
+                android:textSize="12sp"/>
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_chats_empty"
+
+            android:visibility="gone"
+            style="@style/TextView.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="У вас пока нет связанных чатов. Пригласите бота в канал/группу и он появится в списке."
+            android:textColor="@color/dark"
+            android:layout_marginTop="5dp"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_chats"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_rv_tg_chat"
+            android:orientation="vertical"
+            />
+    </LinearLayout>
+</LinearLayout>

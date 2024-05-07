@@ -1,25 +1,31 @@
 package com.a1danz.feature_settings.domain.interactor.impl
 
 import android.util.Log
-import androidx.room.util.copy
-import com.a1danz.common.domain.UserModelDelegate
+import com.a1danz.common.core.cryptography.Cryptographer
+import com.a1danz.common.domain.model.TgChatInfo
+import com.a1danz.common.domain.model.TgConfig
+import com.a1danz.common.domain.model.TgUserInfo
 import com.a1danz.common.domain.model.User
-import com.a1danz.common.domain.model.VkAccessToken
 import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.common.domain.model.VkGroupInfo
 import com.a1danz.common.domain.model.VkUserInfo
 import com.a1danz.feature_settings.domain.interactor.UserInteractor
+import com.a1danz.feature_settings.domain.mapper.TgChatsDomainMapper
 import com.a1danz.feature_settings.domain.mapper.VkUserGroupsDomainMapper
-import com.a1danz.feature_settings.domain.model.VkUserGroupsDomainModel
+import com.a1danz.feature_settings.domain.model.TgChatDomainModel
+import com.a1danz.feature_settings.domain.model.TgChatsDomainModel
+import com.a1danz.feature_settings.domain.repository.TgRepository
 import com.a1danz.feature_settings.domain.repository.VkRepository
+import com.a1danz.feature_settings.presentation.model.TgChatUiModel
+import com.a1danz.feature_settings.presentation.model.TgChatsUiModel
+import com.a1danz.feature_settings.presentation.model.TgUserInfoUiModel
 import com.a1danz.feature_settings.presentation.model.VkUserGroupUiModel
 import com.a1danz.feature_settings.presentation.model.VkUserGroupsUiModel
+import com.a1danz.feature_settings.presentation.model.VkUserInfoUiModel
 import com.a1danz.feature_user_configurer.UserConfigurer
-import com.a1danz.feature_user_configurer.models.StateModel
 import com.vk.id.AccessToken
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -28,37 +34,56 @@ class UserInteractorImpl @Inject constructor(
     private val vkRepository: VkRepository,
     private val user: User,
     private val userGroupsDomainMapper: VkUserGroupsDomainMapper,
-    private val dispatcher: CoroutineDispatcher
+    private val dispatcher: CoroutineDispatcher,
+    private val cryptographer: Cryptographer,
+    private val tgRepository: TgRepository,
+    private val tgChatsDomainMapper: TgChatsDomainMapper
 ) : UserInteractor {
 
-    override suspend fun hasUserVkToken(): Boolean {
-        return withContext(dispatcher) {
-            userConfigurer.hasUserVkToken()
-        }
+    override fun getUserVkConfig(): VkConfig? {
+        return user.config.vkConfig
+    }
+
+    override fun getUserVkInfoUiModel(vkConfig: VkConfig): VkUserInfoUiModel {
+        return VkUserInfoUiModel(
+            vkConfig.userInfo.fullName,
+            vkConfig.userGroups.map { group -> group.groupName },
+            vkConfig.userInfo.userImg
+        )
+    }
+
+    override fun hasUserVkToken(): Boolean {
+        return user.config.vkConfig != null
     }
 
     override suspend fun saveVkToken(accessToken: AccessToken) {
         withContext(dispatcher) {
             userConfigurer.updateUserConfig {
-                Log.d("PHOTOS", "${accessToken.userData.photo50}, ${accessToken.userData.photo100}, ${accessToken.userData.photo200}")
+                Log.d(
+                    "PHOTOS",
+                    "${accessToken.userData.photo50}, ${accessToken.userData.photo100}, ${accessToken.userData.photo200}"
+                )
                 var photo = accessToken.userData.photo200
                 if (photo == null) photo = accessToken.userData.photo100
                 if (photo == null) photo = accessToken.userData.photo50
-                it.copy(vkConfig = VkConfig(
-                    userId = accessToken.userID,
-                    accessToken = accessToken.token,
-                    userInfo = VkUserInfo(
-                        userImg = photo,
-                        fullName = accessToken.userData.firstName + " " + accessToken.userData.lastName
-                    ),
-                ))
+                it.copy(
+                    vkConfig = VkConfig(
+                        userId = accessToken.userID,
+                        accessToken = accessToken.token,
+                        userInfo = VkUserInfo(
+                            userImg = photo,
+                            fullName = accessToken.userData.firstName + " " + accessToken.userData.lastName
+                        ),
+                    )
+                )
             }
         }
     }
 
     override suspend fun getUserGroups(): VkUserGroupsUiModel {
         return withContext(dispatcher) {
-            val groupsUiModel = userGroupsDomainMapper.mapToUiModel(vkRepository.getUserEditGroups())
+            val groupsUiModel =
+                userGroupsDomainMapper.mapToUiModel(vkRepository.getUserEditGroups())
             val groups = HashSet<VkUserGroupUiModel>(groupsUiModel.groups)
 //            val selectedGroups = HashSet<VkGroupInfo>(userConfigurer.getSelectedGroups())
 //            selectedGroups.forEach {selectedGroup ->
@@ -104,5 +129,112 @@ class UserInteractorImpl @Inject constructor(
         withContext(dispatcher) {
             userConfigurer.clearVkConfig()
         }
+    }
+
+    override fun hasUserTgConfig(): Boolean {
+        return user.config.tgConfig != null
+    }
+
+    override suspend fun getTgSelectedChats(): List<TgChatInfo> {
+        return user.config.tgConfig?.selectedChats ?: listOf()
+    }
+
+    override suspend fun saveUserTgConfig(tgUserInfo: TgUserInfo) {
+        withContext(dispatcher) {
+            userConfigurer.updateUserConfig { config ->
+                config.copy(tgConfig = TgConfig(tgUserInfo = tgUserInfo))
+            }
+        }
+    }
+
+    override fun getTgLinkedCode(): String {
+        return cryptographer.encrypt(user.uId)
+    }
+
+    override suspend fun listenTgUpdates(
+        listenFlow: MutableStateFlow<Boolean?>,
+        tokenInitializedFlow: MutableStateFlow<Boolean?>
+    ) {
+        withContext(dispatcher) {
+            val unsubscriber = userConfigurer.listenTgUpdate(listenFlow)
+            listenFlow.collect {
+                if (it == true) {
+                    unsubscriber.unsubcribe()
+                    initTgToken()
+                    tokenInitializedFlow.emit(true)
+                }
+            }
+        }
+    }
+
+    override fun getTgUserInfo(): TgUserInfo {
+        return user.config.tgConfig?.tgUserInfo
+            ?: throw IllegalStateException("Telegram user not initialized")
+    }
+
+    override suspend fun initTgToken() {
+        userConfigurer.initTgToken()
+    }
+
+    override suspend fun getChats(): TgChatsUiModel {
+        val allChats = HashSet<TgChatUiModel>(
+            tgChatsDomainMapper.mapToUiModel(tgRepository.getChats()).chats
+        )
+
+        Log.d("UI CHATS", allChats.toString())
+        val selectedChats = HashSet<TgChatInfo>(user.config.tgConfig?.selectedChats ?: emptyList())
+
+
+        Log.d("SELECTED UI CHATS", selectedChats.toString())
+        selectedChats.forEach {
+            allChats.find { chat ->
+                chat.chatId == it.id
+            }?.isSelected = true
+        }
+
+        return TgChatsUiModel(allChats.toList())
+
+    }
+
+    override suspend fun addSelectedChat(chatModel: TgChatUiModel) {
+        Log.d("ADDING CHAT USINT", "ADDING CHAT IN USERINTERACTOR - ${chatModel.chatId}")
+        userConfigurer.updateTgConfig {
+            val selectedChats = it.selectedChats.toMutableList()
+            Log.d("CHATS BEFORE UINT", "CHATS IN USERINTERACTOR BEFORE ADDING - $selectedChats")
+            selectedChats.add(TgChatInfo(chatModel.chatName, chatModel.chatId, chatModel.chatPhoto))
+            Log.d("CHATS AFTER UINT", "CHATS IN USERINTERACTOR AFTER ADDING - $selectedChats")
+            it.copy(selectedChats = selectedChats)
+        }
+    }
+
+    override suspend fun removeSelectedChat(chatModel: TgChatUiModel) {
+        Log.d("REMOVING USINT", "REMOVING CHAT IN USERINTERACTOR - ${chatModel.chatId}")
+        userConfigurer.updateTgConfig {
+            val selectedChats = it.selectedChats.toMutableList()
+            Log.d("CHATS BEFORE UINT", "CHATS IN USERINTERACTOR BEFORE REMOVING- $selectedChats")
+            val removeResult = selectedChats.removeIf { chat ->
+                chat.id == chatModel.chatId
+            }
+            Log.d("CHATS AFTER UINT", "CHATS IN USERINTERACTOR AFTER REMOVING- $selectedChats")
+
+            Log.d("REMOVE RESULT", selectedChats.toString())
+            it.copy(selectedChats = selectedChats)
+        }
+    }
+
+    override fun getTgUserInfoUiModel(tgConfig: TgConfig): TgUserInfoUiModel {
+        return TgUserInfoUiModel(
+            username = tgConfig.tgUserInfo.tgUsername,
+            chatNames = tgConfig.selectedChats.map { it.name },
+            photo = tgConfig.tgUserInfo.tgUserPhoto
+        )
+    }
+
+    override fun getTgUserConfig(): TgConfig? {
+        return user.config.tgConfig
+    }
+
+    override suspend fun unlinkTg() {
+        userConfigurer.clearTgConfig()
     }
 }

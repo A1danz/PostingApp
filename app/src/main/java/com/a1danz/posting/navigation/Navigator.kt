@@ -1,12 +1,13 @@
 package com.a1danz.posting.navigation
 
 import androidx.navigation.NavController
+import com.a1danz.common.presentation.nav.GoBackRouter
 import com.a1danz.feature_authorization.AuthorizationRouter
 import com.a1danz.feature_initialize.presentation.navigation.InitializingRouter
 import com.a1danz.feature_settings.presentation.navigation.SettingsRouter
 import com.a1danz.posting.R
 
-class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter {
+class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter, GoBackRouter {
     private var navController : NavController? = null
 
     fun attachNavController(navController: NavController) {
@@ -43,6 +44,10 @@ class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter {
 
     override fun openVkSettings() {
         navController?.navigate(R.id.action_socialMediaSettingsFragment_to_vkSettingsFragment)
+    }
+
+    override fun openTgSettings() {
+        navController?.navigate(R.id.action_socialMediaSettingsFragment_to_tgSettingsFragment)
     }
 
     override fun goBack() {

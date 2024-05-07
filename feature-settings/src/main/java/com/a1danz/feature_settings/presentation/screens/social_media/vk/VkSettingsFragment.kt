@@ -84,15 +84,15 @@ class VkSettingsFragment : BaseFragment(R.layout.fragment_vk_settings) {
 
             btnUnlink.setOnClickListener {
                 AlertDialog.Builder(requireContext())
-                    .setTitle("Вы уверены?")
-                    .setMessage("Вы действительно уверены, что хотите отвязать свою учетную запись?")
+                    .setTitle(getString(R.string.are_you_sure_question))
+                    .setMessage(getString(R.string.are_you_sure_what_you_want_unlink_account))
                     .setPositiveButton(
-                        "Да"
+                       getString(R.string.yes)
                     ) { dialog, which ->
                         lifecycleScope.launch {
                             viewModel.unlinkVkUser()
                         }
-                    }.setNegativeButton("Нет") { _, _ -> }
+                    }.setNegativeButton(getString(R.string.no)) { _, _ -> }
                     .show()
             }
         }

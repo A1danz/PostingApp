@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingVertical="10dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical">
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/iv_group_img"
+
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/default_vk_img"
+        app:shapeAppearanceOverlay="@style/roundedImageView20"
+
+        />
+    <TextView
+        android:id="@+id/tv_chat_name"
+
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        app:layout_constraintHorizontal_bias="0.0"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/dark"
+        android:text="Итис КФУ"
+        />
+    <com.google.android.material.materialswitch.MaterialSwitch
+        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+
+        android:id="@+id/switcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:thumbTint="@color/white"
+        app:trackTint="@color/gray"
+        />
+
+</LinearLayout>
