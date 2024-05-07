@@ -16,4 +16,19 @@
     <string name="no">Нет</string>
     <string name="linked_groups">Связанные группы:</string>
     <string name="you_havent_select_any_group_yet">Вы пока не выбрали ни одну группу.</string>
+    <string name="vkontakte">Вконтакте</string>
+    <string name="hm_seems_like_you_havent_link_account">Хм… Похоже вы еще не привязали свою учетную запись.</string>
+    <string name="unlink">Отвязать</string>
+    <string name="tg_you_havent_chats">У вас пока нет связанных чатов. Пригласите бота в канал/группу и он появится в списке.</string>
+    <string name="vk_you_havent_groups">Вы пока не являетесь редактором ни в одной группе. Создайте свою группу или попросите, чтобы вам выдали права редактора.</string>
+    <string name="third_step_to_link_tg">3. Возвращайтесь в приложение для продолжения настройки</string>
+    <string name="tg_posting_app_bot">\@posting_app_bot</string>
+    <string name="second_step_to_link_tg">2. Перейдите в телеграм и отправьте код нашему боту</string>
+    <string name="first_step_to_link_tg">1. Скопируйте код</string>
+    <string name="telegram">Telegram</string>
+    <string name="copy_icon">copy_icon</string>
+    <string name="account_is_unlinked">Учетная запись не привязана :(</string>
+    <string name="settings_btn">settings_btn</string>
+    <string name="vk_settings_btn">vk_settings_btn</string>
+    <string name="chat">Чат</string>
 </resources>

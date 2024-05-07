@@ -28,7 +28,7 @@ class TgSettingsViewModel @Inject constructor(
         return userInteractor.getTgLinkedCode()
     }
 
-    suspend fun hasUserTgConfig(): Boolean {
+    fun hasUserTgConfig(): Boolean {
         return userInteractor.hasUserTgConfig()
     }
 

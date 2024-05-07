@@ -30,11 +30,13 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class UserInteractorImpl @Inject constructor(
-    private val userConfigurer: UserConfigurer,
-    private val vkRepository: VkRepository,
     private val user: User,
-    private val userGroupsDomainMapper: VkUserGroupsDomainMapper,
+    private val userConfigurer: UserConfigurer,
     private val dispatcher: CoroutineDispatcher,
+
+    private val vkRepository: VkRepository,
+    private val userGroupsDomainMapper: VkUserGroupsDomainMapper,
+
     private val cryptographer: Cryptographer,
     private val tgRepository: TgRepository,
     private val tgChatsDomainMapper: TgChatsDomainMapper
@@ -55,6 +57,7 @@ class UserInteractorImpl @Inject constructor(
     override fun hasUserVkToken(): Boolean {
         return user.config.vkConfig != null
     }
+
 
     override suspend fun saveVkToken(accessToken: AccessToken) {
         withContext(dispatcher) {
@@ -97,7 +100,7 @@ class UserInteractorImpl @Inject constructor(
         }
     }
 
-    override suspend fun getVkUserInfo(): VkUserInfo {
+    override fun getVkUserInfo(): VkUserInfo {
         return user.config.vkConfig?.userInfo ?: throw IllegalStateException("User unauthorized")
     }
 
@@ -119,10 +122,8 @@ class UserInteractorImpl @Inject constructor(
         }
     }
 
-    override suspend fun getUserSelectedVkGroups(): List<VkGroupInfo> {
-        return withContext(dispatcher) {
-            user.config.vkConfig?.userGroups ?: listOf()
-        }
+    override fun getUserSelectedVkGroups(): List<VkGroupInfo> {
+        return user.config.vkConfig?.userGroups ?: listOf()
     }
 
     override suspend fun clearVkToken() {
@@ -135,7 +136,7 @@ class UserInteractorImpl @Inject constructor(
         return user.config.tgConfig != null
     }
 
-    override suspend fun getTgSelectedChats(): List<TgChatInfo> {
+    override fun getTgSelectedChats(): List<TgChatInfo> {
         return user.config.tgConfig?.selectedChats ?: listOf()
     }
 
@@ -173,53 +174,63 @@ class UserInteractorImpl @Inject constructor(
     }
 
     override suspend fun initTgToken() {
-        userConfigurer.initTgToken()
+        withContext(dispatcher) {
+            userConfigurer.initTgToken()
+        }
     }
 
     override suspend fun getChats(): TgChatsUiModel {
-        val allChats = HashSet<TgChatUiModel>(
-            tgChatsDomainMapper.mapToUiModel(tgRepository.getChats()).chats
-        )
+        return withContext(dispatcher) {
+            val allChats = HashSet<TgChatUiModel>(
+                tgChatsDomainMapper.mapToUiModel(tgRepository.getChats()).chats
+            )
 
-        Log.d("UI CHATS", allChats.toString())
-        val selectedChats = HashSet<TgChatInfo>(user.config.tgConfig?.selectedChats ?: emptyList())
+            Log.d("UI CHATS", allChats.toString())
+            val selectedChats = HashSet<TgChatInfo>(user.config.tgConfig?.selectedChats ?: emptyList())
 
 
-        Log.d("SELECTED UI CHATS", selectedChats.toString())
-        selectedChats.forEach {
-            allChats.find { chat ->
-                chat.chatId == it.id
-            }?.isSelected = true
+            Log.d("SELECTED UI CHATS", selectedChats.toString())
+            selectedChats.forEach {
+                allChats.find { chat ->
+                    chat.chatId == it.id
+                }?.isSelected = true
+            }
+
+            TgChatsUiModel(allChats.toList())
         }
 
-        return TgChatsUiModel(allChats.toList())
 
     }
 
     override suspend fun addSelectedChat(chatModel: TgChatUiModel) {
         Log.d("ADDING CHAT USINT", "ADDING CHAT IN USERINTERACTOR - ${chatModel.chatId}")
-        userConfigurer.updateTgConfig {
-            val selectedChats = it.selectedChats.toMutableList()
-            Log.d("CHATS BEFORE UINT", "CHATS IN USERINTERACTOR BEFORE ADDING - $selectedChats")
-            selectedChats.add(TgChatInfo(chatModel.chatName, chatModel.chatId, chatModel.chatPhoto))
-            Log.d("CHATS AFTER UINT", "CHATS IN USERINTERACTOR AFTER ADDING - $selectedChats")
-            it.copy(selectedChats = selectedChats)
+        withContext(dispatcher) {
+            userConfigurer.updateTgConfig {
+                val selectedChats = it.selectedChats.toMutableList()
+                Log.d("CHATS BEFORE UINT", "CHATS IN USERINTERACTOR BEFORE ADDING - $selectedChats")
+                selectedChats.add(TgChatInfo(chatModel.chatName, chatModel.chatId, chatModel.chatPhoto))
+                Log.d("CHATS AFTER UINT", "CHATS IN USERINTERACTOR AFTER ADDING - $selectedChats")
+                it.copy(selectedChats = selectedChats)
+            }
         }
     }
 
     override suspend fun removeSelectedChat(chatModel: TgChatUiModel) {
         Log.d("REMOVING USINT", "REMOVING CHAT IN USERINTERACTOR - ${chatModel.chatId}")
-        userConfigurer.updateTgConfig {
-            val selectedChats = it.selectedChats.toMutableList()
-            Log.d("CHATS BEFORE UINT", "CHATS IN USERINTERACTOR BEFORE REMOVING- $selectedChats")
-            val removeResult = selectedChats.removeIf { chat ->
-                chat.id == chatModel.chatId
-            }
-            Log.d("CHATS AFTER UINT", "CHATS IN USERINTERACTOR AFTER REMOVING- $selectedChats")
+        withContext(dispatcher) {
+            userConfigurer.updateTgConfig {
+                val selectedChats = it.selectedChats.toMutableList()
+                Log.d("CHATS BEFORE UINT", "CHATS IN USERINTERACTOR BEFORE REMOVING- $selectedChats")
+                val removeResult = selectedChats.removeIf { chat ->
+                    chat.id == chatModel.chatId
+                }
+                Log.d("CHATS AFTER UINT", "CHATS IN USERINTERACTOR AFTER REMOVING- $selectedChats")
 
-            Log.d("REMOVE RESULT", selectedChats.toString())
-            it.copy(selectedChats = selectedChats)
+                Log.d("REMOVE RESULT", selectedChats.toString())
+                it.copy(selectedChats = selectedChats)
+            }
         }
+
     }
 
     override fun getTgUserInfoUiModel(tgConfig: TgConfig): TgUserInfoUiModel {
@@ -235,6 +246,8 @@ class UserInteractorImpl @Inject constructor(
     }
 
     override suspend fun unlinkTg() {
-        userConfigurer.clearTgConfig()
+        withContext(dispatcher) {
+            userConfigurer.clearTgConfig()
+        }
     }
 }

@@ -12,7 +12,7 @@
         style="@style/TextView.SemiBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Telegram"
+        android:text="@string/telegram"
         android:textSize="26sp"
         android:textColor="@color/dark"
         android:layout_marginBottom="10dp"
@@ -30,7 +30,7 @@
             style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="1. Скопируйте код"
+            android:text="@string/first_step_to_link_tg"
             android:textSize="14sp"
             android:textColor="@color/dark"
             android:layout_marginBottom="5dp"
@@ -62,7 +62,7 @@
                     android:layout_height="20dp"
                     android:src="@drawable/copy_icon"
                     android:layout_marginEnd="8dp"
-                    />
+                    android:contentDescription="@string/copy_icon"/>
                 <TextView
                     android:id="@+id/tv_link_key"
 
@@ -70,7 +70,7 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:text="DceNNXAcaaEDT4SU09RTt4ktDPitMAU5iwJmwr2dxk0="
+                    android:text=""
                     android:textColor="@color/white"
                     android:textSize="10sp"
                     />
@@ -82,7 +82,7 @@
             style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2. Перейдите в телеграм и отправьте код нашему боту"
+            android:text="@string/second_step_to_link_tg"
             android:textSize="14sp"
             android:textColor="@color/dark"
             android:layout_marginBottom="5dp"
@@ -115,7 +115,7 @@
                     style="@style/TextView.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="\@posting_app_bot"
+                    android:text="@string/tg_posting_app_bot"
                     android:textColor="@color/white"
                     android:textSize="16sp"
                     />
@@ -127,7 +127,7 @@
             style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="3. Возвращайтесь в приложение для продолжения настройки"
+            android:text="@string/third_step_to_link_tg"
             android:textSize="14sp"
             android:textColor="@color/dark"
             android:layout_marginBottom="5dp"
@@ -186,7 +186,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tv_user_name"
-                android:text="Отвязать"
+                android:text="@string/unlink"
                 android:textSize="12sp"/>
         </LinearLayout>
         <TextView
@@ -196,9 +196,10 @@
             style="@style/TextView.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="У вас пока нет связанных чатов. Пригласите бота в канал/группу и он появится в списке."
+            android:text="@string/tg_you_havent_chats"
             android:textColor="@color/dark"
             android:layout_marginTop="5dp"
+            android:textSize="16sp"
             />
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_chats"

@@ -4,19 +4,12 @@ import android.util.Log
 import com.a1danz.common.core.utils.Unsubscriber
 import com.a1danz.common.domain.UserModelDelegate
 import com.a1danz.common.domain.model.Config
-import com.a1danz.common.domain.model.TgChatInfo
 import com.a1danz.common.domain.model.TgConfig
-import com.a1danz.common.domain.model.TgUserInfo
 import com.a1danz.common.domain.model.User
 import com.a1danz.common.domain.model.VkConfig
-import com.a1danz.common.domain.model.VkGroupInfo
 import com.a1danz.feature_user_configurer.UserConfigurer
 import com.a1danz.feature_user_configurer.repo.UserFirestoreRepository
 import com.a1danz.feature_user_configurer.repo.UserRepository
-import com.a1danz.feature_user_configurer.utils.UnsubscriberImpl
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.getField
-import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 

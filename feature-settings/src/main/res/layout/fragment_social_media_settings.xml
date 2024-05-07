@@ -32,7 +32,7 @@
                 style="@style/TextView.SemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Вконтакте"
+                android:text="@string/vkontakte"
                 android:textSize="26sp"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/dark"/>
@@ -117,7 +117,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/btn_vk_settings"
-                    android:text="Учетная запись не привязана :("
+                    android:text="@string/account_is_unlinked"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:textColor="@color/dark"
@@ -132,7 +132,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:elevation="1dp"
-                    />
+                    android:contentDescription="@string/settings_btn" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
         <LinearLayout
@@ -147,7 +147,7 @@
                 style="@style/TextView.SemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Telegram"
+                android:text="@string/telegram"
                 android:textSize="26sp"
                 android:layout_marginBottom="5dp"
                 android:textColor="@color/dark"/>
@@ -189,7 +189,7 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toTopOf="@id/tv_tg_link_groups"
                         app:layout_constraintStart_toStartOf="parent"
-                        android:text="\@Aidanusg"
+                        android:text=""
                         app:layout_constraintVertical_bias="0.0"
                         android:textColor="@color/dark"
                         android:textSize="16sp"/>
@@ -202,7 +202,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_tg_user_name"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintBottom_toTopOf="@id/tv_tg_link_groups"
-                        android:text="Связанные группы: "
+                        android:text="@string/linked_groups"
                         android:textColor="@color/dark"
                         android:textSize="16sp"/>
 
@@ -212,7 +212,7 @@
                         style="@style/TextView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Мемы 11В, Telegram channel #1, Telegram channel $2, TElegram channel $3"
+                        android:text=""
                         android:textColor="@color/primary"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -231,7 +231,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/btn_tg_settings"
-                    android:text="Учетная запись не привязана :("
+                    android:text="@string/account_is_unlinked"
                     android:textAlignment="center"
                     android:gravity="center"
                     android:textColor="@color/dark"
@@ -245,7 +245,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:elevation="1dp"
-                    />
+                    android:contentDescription="@string/vk_settings_btn" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
