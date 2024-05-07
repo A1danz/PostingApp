@@ -3,7 +3,9 @@ package com.a1danz.feature_user_configurer.di
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.feature_user_configurer.UserConfigurer
 import com.a1danz.feature_user_configurer.impl.UserConfigurerImpl
+import com.a1danz.feature_user_configurer.repo.UserFirestoreRepository
 import com.a1danz.feature_user_configurer.repo.UserRepository
+import com.a1danz.feature_user_configurer.repo.impl.UserFirestoreRepositoryImpl
 import com.a1danz.feature_user_configurer.repo.impl.UserRepositoryImpl
 import com.google.gson.Gson
 import dagger.Binds
@@ -26,6 +28,9 @@ class UserConfigurerModule {
 interface UserRepositoryBinder {
     @Binds
     fun bindUserRepository_to_Impl(userRepo: UserRepositoryImpl): UserRepository
+
+    @Binds
+    fun bindUserFirestoreRepository_to_Impl(userFirestoreRepo: UserFirestoreRepositoryImpl): UserFirestoreRepository
 }
 
 @Module
