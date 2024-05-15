@@ -55,6 +55,7 @@ dependencies {
     implementation(project(":feature-settings"))
     implementation(project(":feature-initialize"))
     implementation(project(":feature-user-configurer"))
+    implementation(project(":feature-create-post"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

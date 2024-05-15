@@ -1,5 +1,8 @@
 import java.net.URI
 
+include(":feature-create-post")
+
+
 include(":feature-telegram-bot")
 
 
@@ -28,6 +31,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        jcenter()
+        maven {
+            url = URI("https://jitpack.io")
+        }
         maven {
             url = URI("https://artifactory-external.vkpartner.ru/artifactory/vkid-sdk-andorid/")
         }
