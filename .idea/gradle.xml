@@ -12,6 +12,7 @@
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/feature-authorization" />
+            <option value="$PROJECT_DIR$/feature-create-post" />
             <option value="$PROJECT_DIR$/feature-initialize" />
             <option value="$PROJECT_DIR$/feature-post-publisher-api" />
             <option value="$PROJECT_DIR$/feature-settings" />

@@ -30,6 +30,8 @@ viewBindingDelegate = "1.5.9"
 dataStore = "1.0.0"
 telegramVersion = "7.2.1"
 loggingInterceptor = "4.9.3"
+esafirmImagePicker = "3.0.0"
+customSwitch = "0.0.3"
 
 
 [libraries]
@@ -69,6 +71,8 @@ dataStore = { group = "androidx.datastore", name = "datastore-preferences", vers
 telegramLongPolling = { group = "org.telegram", name = "telegrambots-longpolling", version.ref = "telegramVersion" }
 telegramClient = { group = "org.telegram", name = "telegrambots-client", version.ref = "telegramVersion" }
 loggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor"}
+esafirmImagePicker = { group = "com.github.esafirm", name = "android-image-picker", version.ref = "esafirmImagePicker" }
+customSwitch = { group = "com.github.zcweng", name = "switch-button", version.ref = "customSwitch" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
