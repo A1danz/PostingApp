@@ -64,4 +64,8 @@
         android:id="@+id/tgSettingsFragment"
         android:name="com.a1danz.feature_settings.presentation.screens.social_media.tg.TgSettingsFragment"
         android:label="TgSettingsFragment" />
+    <fragment
+        android:id="@id/createPostFragment"
+        android:name="com.a1danz.feature_create_post.presentation.CreatePostFragment"
+        android:label="CreatePostFragment" />
 </navigation>

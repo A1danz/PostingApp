@@ -29,6 +29,8 @@ jetbrainsKotlinJvm = "1.9.0"
 viewBindingDelegate = "1.5.9"
 dataStore = "1.0.0"
 telegramVersion = "7.2.1"
+esafirmImagePicker = "3.0.0"
+customSwitch = "0.0.3"
 
 
 [libraries]
@@ -67,6 +69,8 @@ viewBindingDelegate = { group = "com.github.kirich1409", name = "viewbindingprop
 dataStore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 telegramLongPolling = { group = "org.telegram", name = "telegrambots-longpolling", version.ref = "telegramVersion" }
 telegramClient = { group = "org.telegram", name = "telegrambots-client", version.ref = "telegramVersion" }
+esafirmImagePicker = { group = "com.github.esafirm", name = "android-image-picker", version.ref = "esafirmImagePicker" }
+customSwitch = { group = "com.github.zcweng", name = "switch-button", version.ref = "customSwitch" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
