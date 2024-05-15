@@ -4,6 +4,8 @@ import com.a1danz.common.di.featureprovide.FeatureApiHolder
 import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.feature_authorization.di.AuthComponent
 import com.a1danz.feature_authorization.di.holder.AuthorizationFeatureHolder
+import com.a1danz.feature_create_post.di.CreatePostComponent
+import com.a1danz.feature_create_post.di.holder.CreatePostFeatureHolder
 import com.a1danz.feature_initialize.di.InitializingComponent
 import com.a1danz.feature_initialize.di.holder.InitializingFeatureHolder
 import com.a1danz.feature_settings.di.SettingsComponent
@@ -40,4 +42,10 @@ interface ComponentHolderModule {
     @ClassKey(UserConfigurerComponent::class)
     @IntoMap
     fun provideUserConfigurerFeatureHolder(userConfigurerFeatureHolder: UserConfigurerFeatureHolder): FeatureApiHolder
+
+    @ApplicationScope
+    @Binds
+    @ClassKey(CreatePostComponent::class)
+    @IntoMap
+    fun provideCreatePostFeatureHolder(createPostFeatureHolder: CreatePostFeatureHolder): FeatureApiHolder
 }

@@ -107,4 +107,13 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">10dp</item>
     </style>
+
+    <style name="roundedImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">10dp</item>
+    </style>
+
+    <style name="roundedImageView5" parent="roundedImageView">
+        <item name="cornerSize">5dp</item>
+    </style>
 </resources>

@@ -28,8 +28,8 @@ class VkSettingsViewModel @Inject constructor(
     }
 
     suspend fun getVkUserGroups(): VkUserGroupsUiModel {
-        return VkUserGroupsUiModel(emptyList())
-//        return userInteractor.getUserGroups()
+//        return VkUserGroupsUiModel(emptyList())
+        return userInteractor.getUserGroups()
     }
 
     fun getUserInfo(): VkUserInfo {
