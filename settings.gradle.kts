@@ -1,5 +1,8 @@
 import java.net.URI
 
+include(":feature-post-publisher-api")
+
+
 include(":feature-telegram-bot")
 
 
