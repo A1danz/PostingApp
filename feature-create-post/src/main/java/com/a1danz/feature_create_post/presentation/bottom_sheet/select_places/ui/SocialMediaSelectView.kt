@@ -1,4 +1,4 @@
-package com.a1danz.feature_create_post.presentation.bottom_sheet.ui
+package com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.ui
 
 import android.content.Context
 import android.util.AttributeSet
@@ -7,10 +7,8 @@ import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.a1danz.feature_create_post.databinding.ViewSocialMediaBinding
 import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
-import com.a1danz.feature_create_post.presentation.bottom_sheet.model.PostPlaceUiModel
+import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.model.PostPlaceUiModel
 import com.bumptech.glide.Glide
-import com.suke.widget.SwitchButton
-import kotlin.reflect.KFunction1
 
 class SocialMediaSelectView @JvmOverloads constructor(
     context: Context,

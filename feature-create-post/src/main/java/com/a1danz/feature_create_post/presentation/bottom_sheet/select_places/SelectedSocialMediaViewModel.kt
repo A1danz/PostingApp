@@ -1,10 +1,10 @@
-package com.a1danz.feature_create_post.presentation.bottom_sheet
+package com.a1danz.feature_create_post.presentation.bottom_sheet.select_places
 
 import androidx.lifecycle.ViewModel
 import com.a1danz.feature_create_post.domain.interactor.UserSelectedMediaInteractor
 import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
 import com.a1danz.feature_create_post.domain.model.PostPlaceType
-import com.a1danz.feature_create_post.presentation.bottom_sheet.model.PostPlaceUiModel
+import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.model.PostPlaceUiModel
 import javax.inject.Inject
 
 class SelectedSocialMediaViewModel @Inject constructor(
