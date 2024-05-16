@@ -1,5 +1,8 @@
 import java.net.URI
 
+include(":feature-vk-page-publisher")
+
+
 include(":feature-post-publisher-api")
 
 
