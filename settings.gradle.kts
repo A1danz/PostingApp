@@ -20,6 +20,8 @@ include(":feature-telegram-bot")
 include(":feature-user-configurer")
 
 
+include(":feature-create-post")
+
 
 include(":feature-initialize")
 
