@@ -8,7 +8,7 @@ import dagger.BindsInstance
 import dagger.Component
 import com.a1danz.common.domain.model.User
 import com.a1danz.feature_create_post.domain.di.DomainModule
-import com.a1danz.feature_create_post.presentation.bottom_sheet.SelectedSocialMediaBottomSheetFragment
+import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaBottomSheetFragment
 
 @Component(
     modules = [

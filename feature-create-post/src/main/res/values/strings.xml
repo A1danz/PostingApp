@@ -6,4 +6,5 @@
     <string name="telegram">Телеграм</string>
     <string name="page">Страница</string>
     <string name="groups">Группы</string>
+    <string name="nothing_selected">Ничего не выбрано</string>
 </resources>
