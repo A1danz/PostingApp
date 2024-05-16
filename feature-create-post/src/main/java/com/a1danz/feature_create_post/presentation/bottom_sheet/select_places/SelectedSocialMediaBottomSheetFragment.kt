@@ -1,4 +1,4 @@
-package com.a1danz.feature_create_post.presentation.bottom_sheet
+package com.a1danz.feature_create_post.presentation.bottom_sheet.select_places
 
 import android.content.DialogInterface
 import androidx.fragment.app.viewModels
@@ -11,7 +11,7 @@ import com.a1danz.feature_create_post.databinding.FragmentSelectedSocialMediaBin
 import com.a1danz.feature_create_post.di.CreatePostComponent
 import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
 import com.a1danz.feature_create_post.domain.model.PostPlaceType
-import com.a1danz.feature_create_post.presentation.bottom_sheet.ui.SocialMediaSelectView
+import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.ui.SocialMediaSelectView
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch

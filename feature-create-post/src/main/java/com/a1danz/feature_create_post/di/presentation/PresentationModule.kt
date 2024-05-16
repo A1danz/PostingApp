@@ -6,7 +6,7 @@ import com.a1danz.common.di.presentation.DaggerViewModelFactory
 import com.a1danz.common.di.presentation.ViewModelKey
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.feature_create_post.presentation.CreatePostViewModel
-import com.a1danz.feature_create_post.presentation.bottom_sheet.SelectedSocialMediaViewModel
+import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
