@@ -8,10 +8,13 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface PostPublisher {
     val creatingStatusFlow: MutableStateFlow<PostPublishingStatus?>
+    var creatingResult: PostCreatingResult?
 
     fun getCreatingStatusFlow(): StateFlow<PostPublishingStatus?> = creatingStatusFlow
-    fun createPost(post: PostModel)
-    fun postDataIsValid(post: PostModel)
-    fun getCreatingResult(): PostCreatingResult
-    fun stopPublishingProcess()
+    suspend fun createPost(post: PostModel)
+    fun postDataIsValid(post: PostModel): Boolean
+
+    companion object {
+        const val MAX_ATTEMPTS = 3
+    }
 }
