@@ -1,5 +1,8 @@
 import java.net.URI
 
+include(":feature-telegram-publisher")
+
+
 include(":feature-vk-api")
 
 
