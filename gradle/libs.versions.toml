@@ -29,6 +29,7 @@ jetbrainsKotlinJvm = "1.9.0"
 viewBindingDelegate = "1.5.9"
 dataStore = "1.0.0"
 telegramVersion = "7.2.1"
+loggingInterceptor = "4.9.3"
 
 
 [libraries]
@@ -67,6 +68,7 @@ viewBindingDelegate = { group = "com.github.kirich1409", name = "viewbindingprop
 dataStore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 telegramLongPolling = { group = "org.telegram", name = "telegrambots-longpolling", version.ref = "telegramVersion" }
 telegramClient = { group = "org.telegram", name = "telegrambots-client", version.ref = "telegramVersion" }
+loggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
