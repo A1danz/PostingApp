@@ -6,6 +6,7 @@ import com.a1danz.common.di.presentation.DaggerViewModelFactory
 import com.a1danz.common.di.presentation.ViewModelKey
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.feature_create_post.presentation.CreatePostViewModel
+import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.PostPublishingViewModel
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaViewModel
 import dagger.Binds
 import dagger.Module
@@ -24,6 +25,11 @@ class PresentationModule {
     @FeatureScope
     @[IntoMap ViewModelKey(SelectedSocialMediaViewModel::class)]
     fun provideSelectedSocialMediaViewModel(viewModel: SelectedSocialMediaViewModel): ViewModel = viewModel
+
+    @Provides
+    @FeatureScope
+    @[IntoMap ViewModelKey(PostPublishingViewModel::class)]
+    fun providePostPublishingViewModel(viewModel: PostPublishingViewModel): ViewModel = viewModel
 }
 
 @Module

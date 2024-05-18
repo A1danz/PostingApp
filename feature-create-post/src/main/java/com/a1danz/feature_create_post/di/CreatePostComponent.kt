@@ -8,6 +8,7 @@ import dagger.BindsInstance
 import dagger.Component
 import com.a1danz.common.domain.model.User
 import com.a1danz.feature_create_post.domain.di.DomainModule
+import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.PostPublishingBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaBottomSheetFragment
 
 @Component(
@@ -33,4 +34,5 @@ interface CreatePostComponent {
 
     fun inject(fragment: CreatePostFragment)
     fun inject(fragment: SelectedSocialMediaBottomSheetFragment)
+    fun inject(fragment: PostPublishingBottomSheetFragment)
 }

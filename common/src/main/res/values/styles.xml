@@ -116,4 +116,8 @@
     <style name="roundedImageView5" parent="roundedImageView">
         <item name="cornerSize">5dp</item>
     </style>
+
+    <style name="roundedImageView20" parent="roundedImageView">
+        <item name="cornerSize">25dp</item>
+    </style>
 </resources>
