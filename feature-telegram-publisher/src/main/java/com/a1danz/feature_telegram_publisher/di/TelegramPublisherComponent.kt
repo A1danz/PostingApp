@@ -20,5 +20,5 @@ interface TelegramPublisherComponent {
         fun build(): TelegramPublisherComponent
     }
 
-    fun inject(publisher: TelegramPublisher)
+    fun telegramPublisherFactory(): TelegramPublisher.Factory
 }
