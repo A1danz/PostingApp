@@ -11,7 +11,8 @@ class SavePhotoResponseDomainMapper @Inject constructor() {
             SavePhotoResultDomainModel(
                 albumId = it.albumId ?: -1,
                 date = it.date ?: -1,
-                id = it.id ?: throw SavedPhotoIdNotFoundException("photo not found")
+                id = it.id ?: throw SavedPhotoIdNotFoundException("photo not found"),
+                ownerId = it.ownerId ?: throw SavedPhotoIdNotFoundException("photo owner id not found")
             )
         }
     }

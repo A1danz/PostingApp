@@ -13,5 +13,7 @@ data class WallPhoto (
     @SerializedName("date")
     val date: Long?,
     @SerializedName("id")
-    val id: Long?
+    val id: Long?,
+    @SerializedName("owner_id")
+    val ownerId: Long?
 )
