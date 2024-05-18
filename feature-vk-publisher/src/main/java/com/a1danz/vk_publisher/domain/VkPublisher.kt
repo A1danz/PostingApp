@@ -6,18 +6,18 @@ import com.a1danz.feature_post_publisher_api.model.PostCreatingResultType
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.feature_post_publisher_api.model.PostPublishingStatus
 import com.a1danz.feature_vk_api.domain.VkApiRepository
-import com.a1danz.vk_publisher.data.remote.repository.VkApiRepositoryImpl
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
-import javax.inject.Inject
 
-class VkPublisher(
-    private val ownerId: Long,
-    private val isGroup: Boolean = false
+class VkPublisher @AssistedInject constructor(
+    @Assisted(OWNER_ID) private val ownerId: Long,
+    @Assisted(IS_GROUP) private val isGroup: Boolean = false,
+    private val vkApiRepository: VkApiRepository
 ) : PostPublisher {
     override val creatingStatusFlow: MutableStateFlow<PostPublishingStatus?> = MutableStateFlow(null)
     override var creatingResult: PostCreatingResult? = null
-
-    @Inject lateinit var vkApiRepository: VkApiRepositoryImpl
 
 
     override suspend fun createPost(post: PostModel) {
@@ -62,5 +62,15 @@ class VkPublisher(
             it.printStackTrace()
             createPost(post, attemptsCount + 1)
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(@Assisted(OWNER_ID) ownerId: Long, @Assisted(IS_GROUP) isGroup: Boolean): VkPublisher
+    }
+
+    companion object {
+        const val OWNER_ID = "OWNER_ID"
+        const val IS_GROUP = "IS_GROUP"
     }
 }

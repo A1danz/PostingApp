@@ -28,7 +28,9 @@ class VkApiRepositoryImpl @Inject constructor(
     ): WallUploadServerDomainModel {
 
         return wallUploadServerResponseDomainMapper.mapToDomainModel(
-            if (isGroup) vkApi.getWallUploadServer(ownerId) else vkApi.getWallUploadServer()
+            if (isGroup) {
+                vkApi.getWallUploadServer(ownerId)
+            } else vkApi.getWallUploadServer()
         )
     }
 
@@ -82,7 +84,9 @@ class VkApiRepositoryImpl @Inject constructor(
         )
 
         val attachments =
-            uploadedPhotos.map { it.id }.joinToString(separator = ", ", prefix = "photo${ownerId}_")
+            uploadedPhotos.joinToString(", ") {
+                "photo${it.ownerId}_${it.id}"
+            }
         return creatingPostResultDomainMapper.mapToDomainModel(
             vkApi.createPost(
                 ownerId = ownerId,

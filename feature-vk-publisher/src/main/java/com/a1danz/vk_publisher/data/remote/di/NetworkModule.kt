@@ -6,6 +6,7 @@ import com.a1danz.feature_vk_api.data.remote.interceptor.VkApiInterceptor
 import com.a1danz.feature_vk_api.domain.VkApiRepository
 import com.a1danz.vk_publisher.data.remote.repository.VkApiRepositoryImpl
 import com.a1danz.vk_publisher.di.qualifiers.VkAccessToken
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -45,5 +46,6 @@ class NetworkModule {
 
 @Module
 interface RepositoryBinderModule {
+    @Binds
     fun bindRepository_to_Impl(vkApiRepositoryImpl: VkApiRepositoryImpl): VkApiRepository
 }
