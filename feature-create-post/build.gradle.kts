@@ -39,6 +39,9 @@ android {
 dependencies {
     implementation(project(":common"))
     implementation(project(":feature-user-configurer"))
+    implementation(project(":feature-post-publisher-api"))
+    implementation(project(":feature-vk-publisher"))
+    implementation(project(":feature-telegram-publisher"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

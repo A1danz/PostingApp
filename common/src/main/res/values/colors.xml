@@ -15,6 +15,8 @@
     <color name="primary_50">#809747FF</color>
     <color name="primary_75">#BF9747FF</color>
     <color name="error">#FF4747</color>
+    <color name="warning">#FFB300</color>
+    <color name="success">#27BD99</color>
 
     <color name="vk_color">#4791FF</color>
     <color name="facebook_color">#1977F3</color>

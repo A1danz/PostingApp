@@ -17,8 +17,10 @@
             <option value="$PROJECT_DIR$/feature-post-publisher-api" />
             <option value="$PROJECT_DIR$/feature-settings" />
             <option value="$PROJECT_DIR$/feature-telegram-bot" />
+            <option value="$PROJECT_DIR$/feature-telegram-publisher" />
             <option value="$PROJECT_DIR$/feature-user-configurer" />
-            <option value="$PROJECT_DIR$/feature-vk-page-publisher" />
+            <option value="$PROJECT_DIR$/feature-vk-api" />
+            <option value="$PROJECT_DIR$/feature-vk-publisher" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />
