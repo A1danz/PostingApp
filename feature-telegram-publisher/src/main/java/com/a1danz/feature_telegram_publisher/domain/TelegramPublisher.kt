@@ -7,20 +7,21 @@ import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.feature_post_publisher_api.model.PostPublishingStatus
 import com.a1danz.feature_telegram_publisher.di.DaggerTelegramPublisherComponent
 import com.a1danz.feature_telegram_publisher.domain.client.ITelegramClientWrapper
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedFactory
+import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
 import java.io.File
 import javax.inject.Inject
 
-class TelegramPublisher(
-    private val chatId: Long
+class TelegramPublisher @AssistedInject constructor(
+    @Assisted(CHAT_ID) private val chatId: Long,
+    private val telegramClientWrapper: ITelegramClientWrapper
 ) : PostPublisher {
     override val creatingStatusFlow: MutableStateFlow<PostPublishingStatus?> =
         MutableStateFlow(null)
     override var creatingResult: PostCreatingResult? = null
-
-    @Inject
-    lateinit var telegramClientWrapper: ITelegramClientWrapper
 
     override suspend fun createPost(post: PostModel) {
         if (!postDataIsValid(post)) {
@@ -57,5 +58,13 @@ class TelegramPublisher(
         }.onFailure {
             createPost(post, attemptsCount + 1)
         }
+    }
+
+    @AssistedFactory
+    interface Factory {
+        fun create(@Assisted(CHAT_ID) chatId: Long): TelegramPublisher
+    }
+    companion object {
+        const val CHAT_ID = "CHAT_ID"
     }
 }
