@@ -1,6 +1,9 @@
 package com.a1danz.feature_create_post.domain.di
 
 import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 @Module(includes = [
     SelectedMediaModule::class,
@@ -8,4 +11,8 @@ import dagger.Module
     PostPublishingModule::class,
     UserConfigModule::class
 ])
-class DomainModule
+class DomainModule {
+
+    @Provides
+    fun provideCoroutineDispatcher(): CoroutineDispatcher = Dispatchers.IO
+}

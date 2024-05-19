@@ -118,6 +118,6 @@
     </style>
 
     <style name="roundedImageView20" parent="roundedImageView">
-        <item name="cornerSize">25dp</item>
+        <item name="cornerSize">50dp</item>
     </style>
 </resources>

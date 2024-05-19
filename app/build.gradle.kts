@@ -23,6 +23,8 @@ android {
             "VKIDClientID" to "vk_id_client_id",
             "VKIDClientSecret" to "vk_id_client_secret"
         ))
+
+        buildConfigField("String", "BOT_TOKEN", properties["botToken"].toString())
     }
 
     buildTypes {
@@ -46,6 +48,7 @@ android {
 
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
