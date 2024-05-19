@@ -1,10 +1,17 @@
 package com.a1danz.feature_create_post.presentation
 
+import android.content.Context
+import android.net.Uri
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.a1danz.feature_create_post.domain.interactor.UserSelectedMediaInteractor
 import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
 import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.esafirm.imagepicker.model.Image
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.io.File
 import javax.inject.Inject
 
 class CreatePostViewModel @Inject constructor(
@@ -21,7 +28,7 @@ class CreatePostViewModel @Inject constructor(
         selectedImages.addAll(images)
     }
 
-    fun getImages(): List<Image> = selectedImages
+    fun getImages(): MutableList<Image> = selectedImages
 
     private fun getPlaces(): HashSet<PostPlaceType> {
         val result = hashSetOf<PostPlaceType>()
@@ -52,5 +59,9 @@ class CreatePostViewModel @Inject constructor(
 
     fun removePlace(placeType: PostPlaceType) {
         selectedPlaces.remove(placeType)
+    }
+
+    suspend fun convertUriToFile(uri: Uri, context: Context): File {
+        return userInteractor.convertUriToFile(uri, context)
     }
 }

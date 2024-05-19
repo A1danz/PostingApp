@@ -1,8 +1,10 @@
 package com.a1danz.feature_create_post.presentation
 
 import android.app.AlertDialog
+import android.net.Uri
 import android.util.Log
 import android.view.View
+import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,7 +16,9 @@ import com.a1danz.common.presentation.base.BaseFragment
 import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.databinding.FragmentCreatePostBinding
 import com.a1danz.feature_create_post.di.CreatePostComponent
+import com.a1danz.feature_create_post.domain.model.PostDomainModel
 import com.a1danz.feature_create_post.domain.model.PostPlaceType
+import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.PostPublishingBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.model.ImageModel
 import com.a1danz.feature_create_post.presentation.rv.ImagesAdapter
@@ -24,6 +28,7 @@ import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
 import kotlinx.coroutines.launch
+import java.io.File
 import javax.inject.Inject
 
 
@@ -188,7 +193,15 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
                         .setTitle("Вы уверены, что хотите опубликовать пост?")
                         .setMessage(postInfoModel.createMessageAboutPost())
                         .setPositiveButton("Опубликовать") { dialog, which ->
+                            lifecycleScope.launch {
+                                val bshFragment = PostPublishingBottomSheetFragment(PostDomainModel(
+                                    postPlaces = viewModel.selectedPlaces.toList(),
+                                    postText = editText.text.toString(),
+                                    postImages = viewModel.getImages().map { viewModel.convertUriToFile(it.uri, requireContext()) }
+                                ))
 
+                                bshFragment.show(childFragmentManager, PostPublishingBottomSheetFragment.TAG)
+                            }
                         }
                         .setNegativeButton("Отмена") { dialog, which ->
 
