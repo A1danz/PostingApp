@@ -1,25 +1,17 @@
 package com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import com.a1danz.common.domain.model.TgChatInfo
 import com.a1danz.common.domain.model.VkConfig
-import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.domain.interactor.UserInteractor
 import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
 import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.domain.model.PostPublishingDomainModel
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingStatusUiModel
-import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.worker.MyWorker
 import com.a1danz.feature_post_publisher_api.PostPublisher
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.feature_post_publisher_api.model.PostPublishingStatus
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PostPublishingViewModel @Inject constructor(
@@ -85,16 +77,6 @@ class PostPublishingViewModel @Inject constructor(
                     com.a1danz.common.R.color.warning
                 )
             }
-        }
-    }
-
-    fun startWorking(context: Context) {
-        val workManager = WorkManager.getInstance(context)
-        val myWorkRequest = OneTimeWorkRequestBuilder<MyWorker>().build()
-
-        workManager.enqueue(myWorkRequest)
-        viewModelScope.launch {
-
         }
     }
 }

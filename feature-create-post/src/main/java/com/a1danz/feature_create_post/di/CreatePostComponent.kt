@@ -1,5 +1,7 @@
 package com.a1danz.feature_create_post.di
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.feature_create_post.di.presentation.PresentationModule
@@ -28,6 +30,9 @@ interface CreatePostComponent {
 
         @BindsInstance
         fun user(user: User): Builder
+
+        @BindsInstance
+        fun dataStore(dataStore: DataStore<Preferences>): Builder
 
         fun build(): CreatePostComponent
     }
