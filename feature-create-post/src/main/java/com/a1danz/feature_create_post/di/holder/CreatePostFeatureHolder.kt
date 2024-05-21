@@ -1,5 +1,7 @@
 package com.a1danz.feature_create_post.di.holder
 
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
 import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.di.featureprovide.FeatureApiHolder
 import com.a1danz.common.di.scope.ApplicationScope
@@ -10,12 +12,14 @@ import javax.inject.Inject
 @ApplicationScope
 class CreatePostFeatureHolder @Inject constructor(
     private val resManager: ResourceManager,
-    private val userModelDelegate: UserModelDelegate
+    private val userModelDelegate: UserModelDelegate,
+    private val dataStore: DataStore<Preferences>
 ) : FeatureApiHolder() {
     override fun getComponent(): Any {
         return DaggerCreatePostComponent.builder()
             .resManager(resManager)
             .user(userModelDelegate.user ?: throw IllegalStateException("[Create Post Screen] User not initialized"))
+            .dataStore(dataStore)
             .build()
     }
 }

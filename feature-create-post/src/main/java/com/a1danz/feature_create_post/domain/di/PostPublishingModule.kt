@@ -2,7 +2,9 @@ package com.a1danz.feature_create_post.domain.di
 
 import com.a1danz.common.domain.model.Config
 import com.a1danz.common.domain.model.User
+import com.a1danz.feature_create_post.domain.interactor.DatastoreUserInteractor
 import com.a1danz.feature_create_post.domain.interactor.UserInteractor
+import com.a1danz.feature_create_post.domain.interactor.impl.DataStoreUserInteractorImpl
 import com.a1danz.feature_create_post.domain.interactor.impl.UserInteractorImpl
 import com.a1danz.feature_telegram_publisher.di.DaggerTelegramPublisherComponent
 import com.a1danz.feature_telegram_publisher.di.TelegramPublisherComponent
@@ -15,7 +17,8 @@ import dagger.Module
 import dagger.Provides
 
 @Module(includes = [
-    UserInteractorBinderModule::class
+    UserInteractorBinderModule::class,
+    DataStoreInteractorBinderModule::class
 ])
 class PostPublishingModule {
 
@@ -35,4 +38,11 @@ interface UserInteractorBinderModule {
 
     @Binds
     fun bindUserInteractor_to_Impl(userInteractorImpl: UserInteractorImpl): UserInteractor
+}
+
+@Module
+interface DataStoreInteractorBinderModule {
+
+    @Binds
+    fun bindDataStoreInteractor_to_Impl(dataStoreUserInteractorImpl: DataStoreUserInteractorImpl): DatastoreUserInteractor
 }

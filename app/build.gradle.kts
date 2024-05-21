@@ -59,6 +59,7 @@ dependencies {
     implementation(project(":feature-initialize"))
     implementation(project(":feature-user-configurer"))
     implementation(project(":feature-create-post"))
+    implementation(project(":feature-post-publisher-api"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
