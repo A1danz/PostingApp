@@ -8,6 +8,7 @@ import com.a1danz.feature_authorization.presentation.screens.signin.SignInViewMo
 import com.a1danz.feature_authorization.presentation.screens.signup.SignUpViewModel
 import com.a1danz.feature_initialize.presentation.screens.initialize.InitializingViewModel
 import com.a1danz.feature_settings.presentation.screens.social_media.SocialMediaSettingsViewModel
+import com.a1danz.posting.presentation.MainActivityViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -22,6 +23,10 @@ class PresentationModule {
     @Provides
     @[IntoMap ViewModelKey(SignInViewModel::class)]
     fun provideSignInViewModel(viewModel: SignInViewModel): ViewModel = viewModel
+
+    @Provides
+    @[IntoMap ViewModelKey(MainActivityViewModel::class)]
+    fun provideMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel = viewModel
 }
 
 @Module

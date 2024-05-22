@@ -1,6 +1,7 @@
 package com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing
 
 import android.util.Log
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import com.a1danz.common.domain.model.TgChatInfo
 import com.a1danz.common.domain.model.VkConfig
@@ -9,6 +10,7 @@ import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
 import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.domain.model.PostPublishingDomainModel
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingStatusUiModel
+import com.a1danz.feature_create_post.utils.PostPublishingStarter
 import com.a1danz.feature_post_publisher_api.PostPublisher
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.feature_post_publisher_api.model.PostPublishingStatus
@@ -33,8 +35,13 @@ class PostPublishingViewModel @Inject constructor(
         return userInteractor.getPostPublishingModel(postPlaceType)
     }
 
-    suspend fun startPublishingProcess(publisher: PostPublisher, postModel: PostModel) {
-        publisher.createPost(postModel)
+    fun startPublishingProcess(activity: FragmentActivity, publisher: PostPublisher, postModel: PostModel) {
+        val postPublishingStarter: PostPublishingStarter? = (activity as? PostPublishingStarter)
+        if (postPublishingStarter == null) {
+            Log.e("CAST EXCEPTION", "Can not cast activity to PostPublishingStarter $activity")
+            return
+        }
+        postPublishingStarter.startPublishingProcess(publisher, postModel)
     }
 
     fun getStatusUiModel(status: PostPublishingStatus): PostPublishingStatusUiModel {
