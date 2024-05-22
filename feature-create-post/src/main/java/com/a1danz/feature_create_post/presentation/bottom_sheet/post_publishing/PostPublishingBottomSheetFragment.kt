@@ -39,11 +39,16 @@ class PostPublishingBottomSheetFragment(
                 }
 
                 viewModel.getPostPublishingDomainModel(postPlaceType)?.let {
+                    // add publishing section(example: VK-page etc)
                     layout.addView(
                         PostPublishingView(requireContext(), null).apply {
                             setPlaceInfo(it.postPlaceStaticInfo)
+
+                            // add items to selected section(for example: add vk-group to VK-group section)
                             it.postPublishingItems.forEach { postPublishingItem ->
                                 val postPublishingItemView = addItem(postPublishingItem)
+
+                                // subscribe to post publishing status updates
                                 lifecycleScope.launch {
                                     postPublishingItem.publisher.creatingStatusFlow.collect { _status ->
                                         _status?.let { status ->
@@ -54,12 +59,15 @@ class PostPublishingBottomSheetFragment(
                                     }
                                 }
 
-                                val creatingJob = lifecycleScope.launch {
-                                    viewModel.startPublishingProcess(postPublishingItem.publisher, PostModel(
+                                // start publishing process
+                                viewModel.startPublishingProcess(
+                                    requireActivity(),
+                                    postPublishingItem.publisher,
+                                    PostModel(
                                         postDomainModel.postImages,
                                         postDomainModel.postText
-                                    ))
-                                }
+                                    )
+                                )
                             }
                         }
                     )
