@@ -52,7 +52,15 @@ class MainActivity : BaseActivity(), PostPublishingStarter {
         _viewBinding = null
     }
 
-    override fun startPublishingProcess(postPublisher: PostPublisher, postModel: PostModel) {
-        viewModel.startPublishingProcess(postPublisher, postModel)
+    override fun startPublishingProcess(uId: String, postPublisher: PostPublisher, postModel: PostModel) {
+        viewModel.startPublishingProcess(uId, postPublisher, postModel)
+    }
+
+    override fun getPublishersMap(): HashMap<String, PostPublisher> {
+        return viewModel.getPublishers()
+    }
+
+    override fun publishingInProcess(): Boolean {
+        return viewModel.getPublishers().isNotEmpty()
     }
 }

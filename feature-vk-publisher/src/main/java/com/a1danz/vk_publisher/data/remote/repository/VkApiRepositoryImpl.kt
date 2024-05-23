@@ -9,6 +9,7 @@ import com.a1danz.vk_publisher.data.remote.mapper.CreatingPostResultDomainMapper
 import com.a1danz.vk_publisher.data.remote.mapper.SavePhotoInServerResultDomainMapper
 import com.a1danz.vk_publisher.data.remote.mapper.SavePhotoResponseDomainMapper
 import com.a1danz.vk_publisher.data.remote.mapper.WallUploadServerResponseDomainMapper
+import kotlinx.coroutines.delay
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
@@ -52,8 +53,8 @@ class VkApiRepositoryImpl @Inject constructor(
                 photo = it.photo,
                 hash = it.hash
             )
-
         }
+        delay(500)
 
         return savePhotoResultDomainMapper.mapToDomainModel(wallPhotoSaveResponse)
     }

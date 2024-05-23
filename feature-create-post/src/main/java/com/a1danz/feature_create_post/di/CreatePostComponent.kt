@@ -9,6 +9,7 @@ import com.a1danz.feature_create_post.presentation.CreatePostFragment
 import dagger.BindsInstance
 import dagger.Component
 import com.a1danz.common.domain.model.User
+import com.a1danz.feature_create_post.data.di.DataModule
 import com.a1danz.feature_create_post.domain.di.DomainModule
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.PostPublishingBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaBottomSheetFragment
@@ -16,7 +17,8 @@ import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.Se
 @Component(
     modules = [
         PresentationModule::class,
-        DomainModule::class
+        DomainModule::class,
+        DataModule::class
     ]
 )
 @FeatureScope

@@ -13,6 +13,12 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+        addManifestPlaceholders(mapOf(
+            "VKIDRedirectHost" to "vk.com", // обычно vk.com
+            "VKIDRedirectScheme" to "vk_redirect_scheme", // обычно vk{ID приложения}
+            "VKIDClientID" to "vk_id_client_id",
+            "VKIDClientSecret" to "vk_id_client_secret"
+        ))
     }
 
     buildTypes {

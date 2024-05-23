@@ -3,8 +3,10 @@ package com.a1danz.feature_create_post.data.di
 import androidx.datastore.core.DataStore
 import com.a1danz.feature_create_post.data.repository.DataStoreRepositoryImpl
 import com.a1danz.feature_create_post.domain.repository.DataStoreRepository
+import com.google.gson.Gson
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
 
 @Module(
     includes = [
@@ -12,6 +14,9 @@ import dagger.Module
     ]
 )
 class DataModule {
+
+    @Provides
+    fun provideGson(): Gson = Gson()
 
 }
 
