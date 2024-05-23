@@ -2,13 +2,19 @@ package com.a1danz.feature_create_post.presentation
 
 import android.content.Context
 import android.net.Uri
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.a1danz.feature_create_post.domain.interactor.UserSelectedMediaInteractor
 import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
 import com.a1danz.feature_create_post.domain.model.PostPlaceType
+import com.a1danz.feature_create_post.presentation.model.PostPlaceDetailInfoUiModel
+import com.a1danz.feature_create_post.utils.PostPublishingStarter
 import com.esafirm.imagepicker.model.Image
 import kotlinx.coroutines.async
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.File
@@ -22,6 +28,9 @@ class CreatePostViewModel @Inject constructor(
     val selectedPlaces: HashSet<PostPlaceType> by lazy {
         getPlaces()
     }
+
+    private val _publishingInProcessStateFlow: MutableStateFlow<Boolean?> =  MutableStateFlow(null)
+    val publishingInProcessFlow: StateFlow<Boolean?> get() = _publishingInProcessStateFlow
 
     fun setImages(images: List<Image>) {
         selectedImages.clear()
@@ -63,5 +72,22 @@ class CreatePostViewModel @Inject constructor(
 
     suspend fun convertUriToFile(uri: Uri, context: Context): File {
         return userInteractor.convertUriToFile(uri, context)
+    }
+
+    private fun isPublishingInProcess(activity: FragmentActivity): Boolean {
+        return (activity as? PostPublishingStarter)?.publishingInProcess() ?: false
+    }
+
+    fun initUpdatesInPublishingInProcessFlow(activity: FragmentActivity) {
+        viewModelScope.launch {
+            while(true) {
+                _publishingInProcessStateFlow.value = isPublishingInProcess(activity)
+                delay(1000)
+            }
+        }
+    }
+
+    suspend fun getPostPlaceDetailInfoUiModels(): List<PostPlaceDetailInfoUiModel> {
+        return userInteractor.getPostPlaceDetailInfoUiModels(selectedPlaces.toList())
     }
 }

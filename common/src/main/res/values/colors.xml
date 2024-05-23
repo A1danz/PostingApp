@@ -17,6 +17,8 @@
     <color name="error">#FF4747</color>
     <color name="warning">#FFB300</color>
     <color name="success">#27BD99</color>
+    <color name="correction_background">#FFEC8B</color>
+    <color name="correction_text">#A78200</color>
 
     <color name="vk_color">#4791FF</color>
     <color name="facebook_color">#1977F3</color>

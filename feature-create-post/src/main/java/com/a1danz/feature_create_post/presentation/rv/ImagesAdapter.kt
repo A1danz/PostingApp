@@ -1,5 +1,6 @@
 package com.a1danz.feature_create_post.presentation.rv
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,6 +13,7 @@ import com.bumptech.glide.Glide
 
 class ImagesAdapter : ListAdapter<ImageModel, ImagesAdapter.ImageViewHolder>(object: DiffUtil.ItemCallback<ImageModel>() {
     override fun areItemsTheSame(oldItem: ImageModel, newItem: ImageModel): Boolean {
+        Log.e("SAME", "ITEMS ARE SAMe")
         return oldItem.imgUri == newItem.imgUri
     }
 

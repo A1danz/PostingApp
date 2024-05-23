@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/warning_rect"
+    android:padding="10dp">
+    <ImageView
+        android:id="@+id/iv_icon"
+
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:src="@drawable/warnning_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:contentDescription="@string/icon" />
+    <TextView
+        android:id="@+id/tv_text"
+
+        style="@style/TextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_icon"
+        android:layout_marginStart="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Вы не прикрепили ни одного фото"
+        android:textColor="@color/correction_text"
+        android:textSize="16sp"
+        android:paddingHorizontal="5dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

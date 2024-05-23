@@ -7,4 +7,8 @@
     <string name="page">Страница</string>
     <string name="groups">Группы</string>
     <string name="nothing_selected">Ничего не выбрано</string>
+    <string name="publication_in_process">Идет публикация...</string>
+    <string name="publish">Опубликовать</string>
+    <string name="invalid_data">Невалидные данные</string>
+    <string name="invalid_data_description">Пожалуйста, заполните данные. Без этого публикация невозможна.</string>
 </resources>

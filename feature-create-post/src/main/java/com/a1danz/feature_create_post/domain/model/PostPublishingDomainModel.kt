@@ -4,5 +4,5 @@ import com.a1danz.feature_post_publisher_api.PostPublisher
 
 class PostPublishingDomainModel (
     val postPlaceStaticInfo: PostPlaceStaticInfo,
-    val postPublishingItems: List<PostPublishingItemDomainModel>
+    val postPublishingItems: MutableList<PostPublishingItemDomainModel>
 )

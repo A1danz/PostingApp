@@ -23,10 +23,14 @@ import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.Se
 import com.a1danz.feature_create_post.presentation.model.ImageModel
 import com.a1danz.feature_create_post.presentation.rv.ImagesAdapter
 import com.a1danz.feature_create_post.presentation.model.PostInfoUiModel
+import com.a1danz.feature_create_post.presentation.ui.PostPublishingDialogView
 import com.a1danz.feature_create_post.presentation.ui.SocialMediaTagView
+import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -43,7 +47,15 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
     }
 
     override fun subscribe() {
-        return
+        lifecycleScope.launch {
+            viewModel.initUpdatesInPublishingInProcessFlow(requireActivity())
+            viewModel.publishingInProcessFlow.collect {
+                it?.let { inProcess ->
+                    if (inProcess) viewBinding.btnPublish.setText(R.string.publication_in_process)
+                    else viewBinding.btnPublish.setText(R.string.publish)
+                }
+            }
+        }
     }
 
     override fun initViews() {
@@ -80,8 +92,7 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
         if (isAdded) {
             addPlaceToLayout(placeType)
             viewModel.addPlace(placeType)
-        }
-        else {
+        } else {
             removePlaceFromLayout(placeType)
             viewModel.removePlace(placeType)
         }
@@ -106,7 +117,6 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
 
     private fun checkPlacesAreEmpty() {
         with(viewBinding) {
-            Log.d("CHILD COUNT", "COUNT - ${layoutPlaces.childCount}")
             layoutPlaces.childCount.let { itemsCount ->
                 if (itemsCount == 0) {
                     layoutPlaces.addView(SocialMediaTagView(requireContext(), null).apply {
@@ -121,6 +131,7 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
     }
 
     private fun initMediaInteraction() {
+        Log.d("IMAGES", "${viewModel.getImages()}")
         with(viewBinding) {
             val adapter = ImagesAdapter()
             rvImages.adapter = adapter
@@ -159,13 +170,14 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
         }
     }
 
-    private fun selectedImagesCallback(images: List<Image>, config: ImagePickerConfig,
-                                       adapter: ImagesAdapter, byClearBtn: Boolean) {
+    private fun selectedImagesCallback(
+        images: List<Image>, config: ImagePickerConfig,
+        adapter: ImagesAdapter, byClearBtn: Boolean
+    ) {
         if (images.isNotEmpty() || byClearBtn) {
             with(viewBinding) {
-                rvImages.visibility = if(images.isEmpty()) View.GONE else View.VISIBLE
                 config.selectedImages = images
-                adapter.submitList(images.map { ImageModel(it.uri)} )
+                adapter.submitList(images.map { ImageModel(it.uri) })
                 tvMediaCount.text = images.size.toString()
                 viewModel.setImages(images)
             }
@@ -183,33 +195,75 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
         with(viewBinding) {
             btnPublish.setOnClickListener {
                 val postInfoModel = PostInfoUiModel(
-                    places = viewModel.selectedPlaces.map { viewModel.getPostPlaceStaticInfo(it).title },
                     text = editText.text.toString(),
                     mediaSize = tvMediaCount.text.toString().toInt()
                 )
+
                 if (postIsValid()) {
+                    if (btnPublish.text.toString() == getString(R.string.publish)) {
+                        val alertDialog = AlertDialog.Builder(requireContext())
+                            .setCancelable(true)
+                            .create()
 
-                    AlertDialog.Builder(requireContext())
-                        .setTitle("Вы уверены, что хотите опубликовать пост?")
-                        .setMessage(postInfoModel.createMessageAboutPost())
-                        .setPositiveButton("Опубликовать") { dialog, which ->
-                            lifecycleScope.launch {
-                                val bshFragment = PostPublishingBottomSheetFragment(PostDomainModel(
-                                    postPlaces = viewModel.selectedPlaces.toList(),
-                                    postText = editText.text.toString(),
-                                    postImages = viewModel.getImages().map { viewModel.convertUriToFile(it.uri, requireContext()) }
-                                ))
+                        alertDialog.setView(PostPublishingDialogView(requireContext(), null).apply {
+                            setText(postInfoModel.text)
+                            setMediaCount(postInfoModel.mediaSize)
+                            setCancelCallback { alertDialog.dismiss() }
+                            setContinueCallback {
+                                lifecycleScope.launch {
+                                    val bshFragment =
+                                        PostPublishingBottomSheetFragment(PostDomainModel(
+                                            postPlaces = viewModel.selectedPlaces.toList(),
+                                            postText = editText.text.toString(),
+                                            postImages = viewModel.getImages().map {
+                                                viewModel.convertUriToFile(
+                                                    it.uri,
+                                                    requireContext()
+                                                )
+                                            }
+                                        ))
 
-                                bshFragment.show(childFragmentManager, PostPublishingBottomSheetFragment.TAG)
+                                    bshFragment.show(
+                                        childFragmentManager,
+                                        PostPublishingBottomSheetFragment.TAG
+                                    )
+                                    alertDialog.dismiss()
+                                }
                             }
-                        }
-                        .setNegativeButton("Отмена") { dialog, which ->
+                            lifecycleScope.launch {
+                                setPostPlacesDetailInfo(viewModel.getPostPlaceDetailInfoUiModels())
+                            }
+                            postInfoModel.getCorrections().forEach { addCorrection(it) }
+                        })
 
-                        }
-                        .show()
+                        alertDialog.show()
+                    } else {
+                        PostPublishingBottomSheetFragment(null).show(
+                            childFragmentManager,
+                            PostPublishingBottomSheetFragment.TAG
+                        )
+                    }
+                } else {
+                    showInvalidDataDialog()
                 }
 
             }
+        }
+    }
+
+    private fun showInvalidDataDialog() {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.invalid_data))
+            .setMessage(getString(R.string.invalid_data_description))
+            .show()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        with(viewBinding) {
+            rvImages.visibility = if (viewModel.getImages().isEmpty()) View.GONE else View.VISIBLE
         }
     }
 }
