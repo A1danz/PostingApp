@@ -62,6 +62,7 @@ dependencies {
     implementation(project(":feature-post-publisher-api"))
     implementation(project(":feature-posts-feed-database"))
     implementation(project(":feature-posts-feed"))
+    implementation(project(":feature-places-info"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

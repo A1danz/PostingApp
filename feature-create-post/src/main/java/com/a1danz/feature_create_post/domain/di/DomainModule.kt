@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 
 @Module(includes = [
     SelectedMediaModule::class,
-    PostPlacesInfoModule::class,
     PostPublishingModule::class,
     UserConfigModule::class
 ])

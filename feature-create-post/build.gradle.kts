@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":feature-post-publisher-api"))
     implementation(project(":feature-vk-publisher"))
     implementation(project(":feature-telegram-publisher"))
+    implementation(project(":feature-places-info"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

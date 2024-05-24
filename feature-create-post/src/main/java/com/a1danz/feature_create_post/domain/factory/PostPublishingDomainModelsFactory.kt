@@ -2,11 +2,11 @@ package com.a1danz.feature_create_post.domain.factory
 
 import android.util.Log
 import com.a1danz.common.domain.model.Config
-import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
-import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.domain.model.PostPublishingDomainModel
 import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
 import com.a1danz.feature_create_post.domain.model.PostPublishingItemInfoDomainModel
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
+import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 import com.a1danz.feature_telegram_publisher.di.TelegramPublisherComponent
 import com.a1danz.vk_publisher.di.VkPublisherComponent
 import javax.inject.Inject

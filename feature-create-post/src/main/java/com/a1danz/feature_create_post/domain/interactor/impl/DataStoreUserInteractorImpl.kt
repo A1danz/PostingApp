@@ -1,13 +1,13 @@
 package com.a1danz.feature_create_post.domain.interactor.impl
 
 import android.util.Log
-import com.a1danz.feature_create_post.data.mapper.PostPlaceTypeMapper
 import com.a1danz.feature_create_post.data.model.PostPublishingModel
 import com.a1danz.feature_create_post.data.model.PostPublishingModels
 import com.a1danz.feature_create_post.domain.interactor.DatastoreUserInteractor
-import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.domain.model.PostPublishingItemInfoDomainModel
 import com.a1danz.feature_create_post.domain.repository.DataStoreRepository
+import com.a1danz.feature_places_info.data.mapper.PostPlaceTypeMapper
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

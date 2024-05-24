@@ -8,12 +8,12 @@ import com.a1danz.common.domain.model.TgChatInfo
 import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.feature_create_post.domain.interactor.DatastoreUserInteractor
 import com.a1danz.feature_create_post.domain.interactor.UserInteractor
-import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
-import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.domain.model.PostPublishingDomainModel
-import com.a1danz.feature_create_post.domain.model.PostPublishingItemInfoDomainModel
+import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingStatusUiModel
 import com.a1danz.feature_create_post.utils.PostPublishingStarter
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
+import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 import com.a1danz.feature_post_publisher_api.PostPublisher
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.feature_post_publisher_api.model.PostPublishingStatus
@@ -43,8 +43,7 @@ class PostPublishingViewModel @Inject constructor(
     fun startPublishingProcess(
         activity: FragmentActivity,
         postPlaceType: PostPlaceType,
-        postPublishingItemInfo: PostPublishingItemInfoDomainModel,
-        publisher: PostPublisher,
+        postPublishingItem: PostPublishingItemDomainModel,
         postModel: PostModel
     ) {
         val postPublishingStarter: PostPublishingStarter? = (activity as? PostPublishingStarter)
@@ -53,10 +52,10 @@ class PostPublishingViewModel @Inject constructor(
             return
         }
         viewModelScope.launch {
-            dataStoreUserInteractor.addPostPublishingModel(postPlaceType, postPublishingItemInfo)
+            dataStoreUserInteractor.addPostPublishingModel(postPlaceType, postPublishingItem.itemInfo)
         }
 
-        postPublishingStarter.startPublishingProcess(postPublishingItemInfo.uId, publisher, postModel)
+        postPublishingStarter.startPublishingProcess(postPublishingItem, postModel)
     }
 
     fun getStatusUiModel(status: PostPublishingStatus): PostPublishingStatusUiModel {

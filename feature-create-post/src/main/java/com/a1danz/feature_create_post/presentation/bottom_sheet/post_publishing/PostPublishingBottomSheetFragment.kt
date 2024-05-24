@@ -11,9 +11,9 @@ import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.databinding.FragmentPostPublishingBinding
 import com.a1danz.feature_create_post.di.CreatePostComponent
 import com.a1danz.feature_create_post.domain.model.PostDomainModel
-import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.domain.model.PostPublishingDomainModel
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.ui.PostPublishingView
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -116,8 +116,7 @@ class PostPublishingBottomSheetFragment(
                             viewModel.startPublishingProcess(
                                 requireActivity(),
                                 postPlaceType,
-                                postPublishingItem.itemInfo,
-                                postPublishingItem.publisher,
+                                postPublishingItem,
                                 PostModel(
                                     postDomainModel.postImages,
                                     postDomainModel.postText
