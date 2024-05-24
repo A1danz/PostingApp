@@ -8,6 +8,8 @@ import com.a1danz.feature_create_post.di.CreatePostComponent
 import com.a1danz.feature_create_post.di.holder.CreatePostFeatureHolder
 import com.a1danz.feature_initialize.di.InitializingComponent
 import com.a1danz.feature_initialize.di.holder.InitializingFeatureHolder
+import com.a1danz.feature_posts_feed.di.PostsFeedComponent
+import com.a1danz.feature_posts_feed.di.holder.PostsFeedFeatureHolder
 import com.a1danz.feature_settings.di.SettingsComponent
 import com.a1danz.feature_settings.di.holder.SettingsFeatureHolder
 import com.a1danz.feature_user_configurer.di.UserConfigurerComponent
@@ -48,4 +50,10 @@ interface ComponentHolderModule {
     @ClassKey(CreatePostComponent::class)
     @IntoMap
     fun provideCreatePostFeatureHolder(createPostFeatureHolder: CreatePostFeatureHolder): FeatureApiHolder
+
+    @ApplicationScope
+    @Binds
+    @ClassKey(PostsFeedComponent::class)
+    @IntoMap
+    fun providePostsFeedFeatureHolder(postsFeedFeatureHolder: PostsFeedFeatureHolder): FeatureApiHolder
 }

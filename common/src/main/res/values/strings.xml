@@ -6,4 +6,5 @@
     <string name="password">Пароль</string>
     <string name="register">Зарегестрироваться</string>
     <string name="repeat_password">Поворите пароль</string>
+    <string name="icon">icon\n</string>
 </resources>

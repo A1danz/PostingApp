@@ -17,7 +17,7 @@ import dagger.Component
     AppModule::class, NavigationModule::class,
     ComponentHolderModule::class, FeatureManagerModule::class,
     AuthorizationModule::class, PresentationModule::class,
-    FirebaseModule::class, DomainModule::class
+    FirebaseModule::class
 ])
 @ApplicationScope
 interface AppComponent {

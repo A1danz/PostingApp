@@ -11,6 +11,9 @@
       <entry key="common">
         <State />
       </entry>
+      <entry key="feature-posts-feed">
+        <State />
+      </entry>
     </value>
   </component>
 </project>

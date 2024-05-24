@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="icon">icon\n</string>
+    <string name="nothing_selected">Ничего не выбрано</string>
+    <string name="vk_page_title">Вконтакте - страница</string>
+    <string name="vk_group_title">Вконтакте - группа</string>
+    <string name="telegram">Телеграм</string>
+    <string name="page">Страница</string>
+    <string name="groups">Группы</string>
+</resources>

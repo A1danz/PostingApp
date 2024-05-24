@@ -60,6 +60,8 @@ dependencies {
     implementation(project(":feature-user-configurer"))
     implementation(project(":feature-create-post"))
     implementation(project(":feature-post-publisher-api"))
+    implementation(project(":feature-posts-feed-database"))
+    implementation(project(":feature-posts-feed"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
