@@ -13,6 +13,8 @@ import com.a1danz.feature_create_post.data.di.DataModule
 import com.a1danz.feature_create_post.domain.di.DomainModule
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.PostPublishingBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaBottomSheetFragment
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
+import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 
 @Component(
     modules = [
@@ -35,6 +37,9 @@ interface CreatePostComponent {
 
         @BindsInstance
         fun dataStore(dataStore: DataStore<Preferences>): Builder
+
+        @BindsInstance
+        fun placesStaticInfo(places: HashMap<PostPlaceType, PostPlaceStaticInfo>): Builder
 
         fun build(): CreatePostComponent
     }

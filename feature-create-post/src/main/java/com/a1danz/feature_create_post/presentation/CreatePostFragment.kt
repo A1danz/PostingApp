@@ -1,10 +1,8 @@
 package com.a1danz.feature_create_post.presentation
 
 import android.app.AlertDialog
-import android.net.Uri
 import android.util.Log
 import android.view.View
-import androidx.core.net.toFile
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,7 +15,6 @@ import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.databinding.FragmentCreatePostBinding
 import com.a1danz.feature_create_post.di.CreatePostComponent
 import com.a1danz.feature_create_post.domain.model.PostDomainModel
-import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.PostPublishingBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.model.ImageModel
@@ -25,14 +22,11 @@ import com.a1danz.feature_create_post.presentation.rv.ImagesAdapter
 import com.a1danz.feature_create_post.presentation.model.PostInfoUiModel
 import com.a1danz.feature_create_post.presentation.ui.PostPublishingDialogView
 import com.a1danz.feature_create_post.presentation.ui.SocialMediaTagView
-import com.a1danz.feature_post_publisher_api.model.PostModel
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import java.io.File
 import javax.inject.Inject
 
 

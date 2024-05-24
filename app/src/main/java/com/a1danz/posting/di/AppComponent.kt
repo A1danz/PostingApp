@@ -1,6 +1,7 @@
 package com.a1danz.posting.di
 
 import com.a1danz.common.di.scope.ApplicationScope
+import com.a1danz.feature_places_info.di.PostPlacesInfoModule
 import com.a1danz.posting.App
 import com.a1danz.posting.presentation.MainActivity
 import com.a1danz.posting.di.authorization.AuthorizationModule
@@ -17,7 +18,7 @@ import dagger.Component
     AppModule::class, NavigationModule::class,
     ComponentHolderModule::class, FeatureManagerModule::class,
     AuthorizationModule::class, PresentationModule::class,
-    FirebaseModule::class
+    FirebaseModule::class, PostPlacesInfoModule::class
 ])
 @ApplicationScope
 interface AppComponent {

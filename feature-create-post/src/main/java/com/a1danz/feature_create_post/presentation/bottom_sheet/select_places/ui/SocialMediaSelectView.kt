@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.a1danz.feature_create_post.databinding.ViewSocialMediaBinding
-import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.model.PostPlaceUiModel
+import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 import com.bumptech.glide.Glide
 
 class SocialMediaSelectView @JvmOverloads constructor(
@@ -21,19 +21,19 @@ class SocialMediaSelectView @JvmOverloads constructor(
         true
     )
 
-    var staticInfo: PostPlaceStaticInfo? = null
+    private var staticInfo: PostPlaceStaticInfo? = null
 
-    fun setIcon(@DrawableRes drawable: Int?) {
+    private fun setIcon(@DrawableRes drawable: Int?) {
         Glide.with(this)
             .load(drawable)
             .into(viewBinding.ivIcon)
     }
 
-    fun setTitle(title: String) {
+    private fun setTitle(title: String) {
         viewBinding.tvTitle.text = title
     }
 
-    fun setAdditionalInfo(text: String) {
+    private fun setAdditionalInfo(text: String) {
         viewBinding.tvAdditionalInfo.text = text
     }
 
@@ -41,7 +41,7 @@ class SocialMediaSelectView @JvmOverloads constructor(
         return viewBinding.switchBtn.isSelected
     }
 
-    fun setSelectedState(selected: Boolean) {
+    private fun setSelectedState(selected: Boolean) {
         viewBinding.switchBtn.isChecked = selected
     }
 

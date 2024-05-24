@@ -1,17 +1,14 @@
 package com.a1danz.feature_create_post.presentation.ui
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.a1danz.feature_create_post.R
-import com.a1danz.feature_create_post.databinding.ViewSocialMediaBinding
 import com.a1danz.feature_create_post.databinding.ViewTagSocialMediaBinding
-import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
+import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 import com.bumptech.glide.Glide
 
 class SocialMediaTagView @JvmOverloads constructor(

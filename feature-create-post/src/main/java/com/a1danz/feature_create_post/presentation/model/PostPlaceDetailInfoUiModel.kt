@@ -1,6 +1,6 @@
 package com.a1danz.feature_create_post.presentation.model
 
-import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
+import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 
 data class PostPlaceDetailInfoUiModel(
     val staticInfo: PostPlaceStaticInfo,

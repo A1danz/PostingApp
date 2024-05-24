@@ -1,6 +1,7 @@
 package com.a1danz.feature_places_info.di
 
 import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.feature_places_info.R
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
@@ -9,7 +10,9 @@ import dagger.Provides
 
 @Module
 class PostPlacesInfoModule {
+
     @Provides
+    @ApplicationScope
     fun providesPostPlacesStaticInfo(resManager: ResourceManager): HashMap<PostPlaceType, PostPlaceStaticInfo> {
         val result = hashMapOf<PostPlaceType, PostPlaceStaticInfo>()
 

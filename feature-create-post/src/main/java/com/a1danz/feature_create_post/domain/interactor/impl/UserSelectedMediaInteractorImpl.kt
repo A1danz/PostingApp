@@ -8,8 +8,8 @@ import com.a1danz.common.domain.model.TgConfig
 import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.feature_create_post.domain.factory.PostPlacesDetailInfoFactory
 import com.a1danz.feature_create_post.domain.interactor.UserSelectedMediaInteractor
-import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.presentation.model.PostPlaceDetailInfoUiModel
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.io.File

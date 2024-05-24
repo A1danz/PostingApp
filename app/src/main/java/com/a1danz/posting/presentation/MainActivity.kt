@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ui.setupWithNavController
 import com.a1danz.common.presentation.base.BaseActivity
+import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
 import com.a1danz.feature_create_post.utils.PostPublishingStarter
 import com.a1danz.feature_post_publisher_api.PostPublisher
 import com.a1danz.feature_post_publisher_api.model.PostModel
@@ -52,8 +53,8 @@ class MainActivity : BaseActivity(), PostPublishingStarter {
         _viewBinding = null
     }
 
-    override fun startPublishingProcess(uId: String, postPublisher: PostPublisher, postModel: PostModel) {
-        viewModel.startPublishingProcess(uId, postPublisher, postModel)
+    override fun startPublishingProcess(postPublishingItem: PostPublishingItemDomainModel, postModel: PostModel) {
+        viewModel.startPublishingProcess(postPublishingItem.itemInfo.uId, postPublishingItem.publisher, postModel)
     }
 
     override fun getPublishersMap(): HashMap<String, PostPublisher> {

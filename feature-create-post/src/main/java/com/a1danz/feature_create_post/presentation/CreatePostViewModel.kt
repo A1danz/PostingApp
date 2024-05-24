@@ -6,17 +6,15 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.a1danz.feature_create_post.domain.interactor.UserSelectedMediaInteractor
-import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
-import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.presentation.model.PostPlaceDetailInfoUiModel
 import com.a1danz.feature_create_post.utils.PostPublishingStarter
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
+import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 import com.esafirm.imagepicker.model.Image
-import kotlinx.coroutines.async
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 

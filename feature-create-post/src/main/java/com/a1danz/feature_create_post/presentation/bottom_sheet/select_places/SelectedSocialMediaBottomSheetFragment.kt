@@ -9,9 +9,9 @@ import com.a1danz.common.presentation.base.BaseBottomSheetDialogFragment
 import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.databinding.FragmentSelectedSocialMediaBinding
 import com.a1danz.feature_create_post.di.CreatePostComponent
-import com.a1danz.feature_create_post.domain.model.PostPlaceStaticInfo
-import com.a1danz.feature_create_post.domain.model.PostPlaceType
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.ui.SocialMediaSelectView
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
+import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
