@@ -14,7 +14,10 @@
             <option value="$PROJECT_DIR$/feature-authorization" />
             <option value="$PROJECT_DIR$/feature-create-post" />
             <option value="$PROJECT_DIR$/feature-initialize" />
+            <option value="$PROJECT_DIR$/feature-places-info" />
             <option value="$PROJECT_DIR$/feature-post-publisher-api" />
+            <option value="$PROJECT_DIR$/feature-posts-feed" />
+            <option value="$PROJECT_DIR$/feature-posts-feed-database" />
             <option value="$PROJECT_DIR$/feature-settings" />
             <option value="$PROJECT_DIR$/feature-telegram-bot" />
             <option value="$PROJECT_DIR$/feature-telegram-publisher" />

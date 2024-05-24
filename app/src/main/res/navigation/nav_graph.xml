@@ -68,4 +68,8 @@
         android:id="@id/createPostFragment"
         android:name="com.a1danz.feature_create_post.presentation.CreatePostFragment"
         android:label="CreatePostFragment" />
+    <fragment
+        android:id="@+id/postsFeedFragment"
+        android:name="com.a1danz.feature_posts_feed.presentation.screens.feed.PostsFeedFragment"
+        android:label="PostsFeedFragment" />
 </navigation>

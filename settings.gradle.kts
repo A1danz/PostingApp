@@ -1,5 +1,15 @@
 import java.net.URI
 
+include(":feature-places-info")
+
+
+include(":feature-posts-feed-database")
+
+
+include(":feature-posts-feed")
+
+
+
 include(":feature-telegram-publisher")
 
 

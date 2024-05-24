@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:paddingVertical="5dp"
+    android:paddingHorizontal="8dp"
+    android:gravity="center_horizontal">
+    <TextView
+        style="@style/TextView.SemiBold"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:text="История"
+        android:gravity="start"
+        android:textSize="22sp"
+        android:textColor="@color/dark"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_posts"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical"
+        tools:listitem="@layout/item_rv_post_in_feed"/>
+    <LinearLayout
+        android:id="@+id/layout_progress_bar"
+
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="@android:color/transparent">
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:indeterminate="true"
+            android:indeterminateTintMode="src_atop"
+            android:indeterminateTint="@color/primary"/>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

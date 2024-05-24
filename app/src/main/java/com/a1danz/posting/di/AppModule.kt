@@ -11,16 +11,24 @@ import com.a1danz.common.core.resources.ResourceManagerImpl
 import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.common.domain.UserModelDelegate
 import com.a1danz.posting.App
+import com.a1danz.posting.di.data.DataModule
+import com.a1danz.posting.domain.di.DomainModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
 
 
-@Module(includes = [ContextBinder::class])
+@Module(
+    includes = [
+        ContextBinder::class,
+        DomainModule::class,
+        DataModule::class
+    ]
+)
 class AppModule {
     @ApplicationScope
     @Provides
-    fun provideResourceManager(ctx : Context) : ResourceManager = ResourceManagerImpl(ctx)
+    fun provideResourceManager(ctx: Context): ResourceManager = ResourceManagerImpl(ctx)
 
     @ApplicationScope
     @Provides
