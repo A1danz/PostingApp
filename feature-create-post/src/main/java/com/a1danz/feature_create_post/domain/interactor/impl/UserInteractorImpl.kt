@@ -79,7 +79,8 @@ class UserInteractorImpl @Inject constructor(
                     PostPublishingItemInfoDomainModel(
                         name = it.name,
                         img = it.img,
-                        uId = it.uId
+                        uId = it.uId,
+                        postPlaceType = postPlaceTypeMapper.mapDataToDomain(it.place)
                     )
                 )
             )

@@ -6,7 +6,7 @@ import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 import com.a1danz.feature_posts_feed.di.DaggerPostsFeedComponent
-import com.a1danz.feature_posts_feed_database.data.data.local.dao.PostDao
+import com.a1danz.feature_posts_feed_database.data.local.dao.PostDao
 import javax.inject.Inject
 
 @ApplicationScope

@@ -49,7 +49,8 @@ class PostPublishingDomainModelsFactory @Inject constructor(
                             PostPublishingItemInfoDomainModel(
                                 chat.name,
                                 chat.photo ?: "",
-                                chat.id.toString()
+                                chat.id.toString(),
+                                PostPlaceType.TG
                             )
                         )
                     )
@@ -72,7 +73,8 @@ class PostPublishingDomainModelsFactory @Inject constructor(
                         PostPublishingItemInfoDomainModel(
                             vkConfig.userInfo.fullName,
                             vkConfig.userInfo.userImg ?: "",
-                            vkConfig.userId.toString()
+                            vkConfig.userId.toString(),
+                            PostPlaceType.VK_PAGE
                         )
                     )
                 )
@@ -97,7 +99,8 @@ class PostPublishingDomainModelsFactory @Inject constructor(
                             PostPublishingItemInfoDomainModel(
                                 group.groupName,
                                 "https://mmbuk-rodnik.ru/images/info/PinClipartcom_campin.png",
-                                group.groupId.toString()
+                                group.groupId.toString(),
+                                PostPlaceType.VK_GROUP
                             )
                         )
                     )

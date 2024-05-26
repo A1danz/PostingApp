@@ -1,4 +1,4 @@
-package com.a1danz.feature_posts_feed_database.data.data.local.entites
+package com.a1danz.feature_posts_feed_database.data.local.entites
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

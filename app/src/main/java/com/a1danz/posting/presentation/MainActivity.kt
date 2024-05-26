@@ -1,6 +1,7 @@
 package com.a1danz.posting.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
@@ -54,7 +55,8 @@ class MainActivity : BaseActivity(), PostPublishingStarter {
     }
 
     override fun startPublishingProcess(postPublishingItem: PostPublishingItemDomainModel, postModel: PostModel) {
-        viewModel.startPublishingProcess(postPublishingItem.itemInfo.uId, postPublishingItem.publisher, postModel)
+        Log.e("PLACE", "PLACE - ${postPublishingItem.itemInfo.postPlaceType}")
+        viewModel.startPublishingProcess(postPublishingItem, postModel)
     }
 
     override fun getPublishersMap(): HashMap<String, PostPublisher> {
