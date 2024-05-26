@@ -6,7 +6,7 @@ import com.a1danz.feature_post_publisher_api.model.PostModel
 import java.util.UUID
 
 interface PostPublishingStarter {
-    fun startPublishingProcess(postPublishingItemDomainModel: PostPublishingItemDomainModel, postModel: PostModel)
+    fun startPublishingProcess(postPublishingItem: PostPublishingItemDomainModel, postModel: PostModel)
     fun getPublishersMap(): HashMap<String, PostPublisher>
     fun publishingInProcess(): Boolean
 }

@@ -1,13 +1,12 @@
 package com.a1danz.posting.di.data
 
 import android.content.Context
-import androidx.room.ProvidedTypeConverter
 import androidx.room.Room
 import com.a1danz.common.di.scope.ApplicationScope
-import com.a1danz.feature_posts_feed_database.data.data.local.AppDatabase
-import com.a1danz.feature_posts_feed_database.data.data.local.converters.Converters
-import com.a1danz.feature_posts_feed_database.data.data.local.dao.PostDao
-import com.a1danz.feature_posts_feed_database.data.data.local.dao.PostPlaceDao
+import com.a1danz.feature_posts_feed_database.data.local.AppDatabase
+import com.a1danz.feature_posts_feed_database.data.local.converters.Converters
+import com.a1danz.feature_posts_feed_database.data.local.dao.PostDao
+import com.a1danz.feature_posts_feed_database.data.local.dao.PostPlaceDao
 import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides

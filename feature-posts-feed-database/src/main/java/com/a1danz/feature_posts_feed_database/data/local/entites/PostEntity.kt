@@ -1,9 +1,8 @@
-package com.a1danz.feature_posts_feed_database.data.data.local.entites
+package com.a1danz.feature_posts_feed_database.data.local.entites
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.sql.Date
 import java.util.Calendar
 
 @Entity(tableName = "posts")

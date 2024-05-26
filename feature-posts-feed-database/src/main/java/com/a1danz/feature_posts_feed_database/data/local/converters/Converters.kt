@@ -1,12 +1,11 @@
-package com.a1danz.feature_posts_feed_database.data.data.local.converters
+package com.a1danz.feature_posts_feed_database.data.local.converters
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.a1danz.feature_posts_feed_database.data.data.local.entites.PostPlaceEntity
+import com.a1danz.feature_posts_feed_database.data.local.entites.PostPlaceEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
-import java.sql.Date
 import java.util.Calendar
 import javax.inject.Inject
 

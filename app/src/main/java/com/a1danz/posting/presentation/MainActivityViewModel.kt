@@ -2,6 +2,7 @@ package com.a1danz.posting.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
 import com.a1danz.feature_post_publisher_api.PostPublisher
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.posting.domain.interactor.MainActivityUserInteractor
@@ -13,31 +14,29 @@ class MainActivityViewModel @Inject constructor(
     private val interactor: MainActivityUserInteractor
 ) : ViewModel() {
 
-    private val publishers: HashMap<String, PostPublisher> = hashMapOf()
+    private val publishers: HashMap<String, PostPublishingItemDomainModel> = hashMapOf()
 
-    fun startPublishingProcess(uId: String, postPublisher: PostPublisher, postModel: PostModel) {
-        addPublisher(uId, postPublisher)
+    fun startPublishingProcess(postPublishingItem: PostPublishingItemDomainModel, postModel: PostModel) {
+        addPublisher(postPublishingItem.itemInfo.uId, postPublishingItem)
         viewModelScope.launch {
-            interactor.startPublishingProcess(postPublisher, postModel)
+            interactor.startPublishingProcess(postPublishingItem.publisher, postModel)
             delay(1000)
             processAllPublishersFinishWorking()
         }
     }
 
-    fun getPublisher(uId: String): PostPublisher? = publishers[uId]
-
-    private fun addPublisher(uId: String, postPublisher: PostPublisher) {
-        publishers[uId] = postPublisher
+    private fun addPublisher(uId: String, postPublishingItem: PostPublishingItemDomainModel) {
+        publishers[uId] = postPublishingItem
     }
 
     fun getPublishers(): HashMap<String, PostPublisher> {
-        return publishers
+        return HashMap(publishers.mapValues { it.value.publisher })
     }
 
     suspend fun processAllPublishersFinishWorking() {
         val allEnded = true
         publishers.values.forEach {
-            if (it.creatingResult == null) return
+            if (it.publisher.creatingResult == null) return
             else return@forEach
         }
 
