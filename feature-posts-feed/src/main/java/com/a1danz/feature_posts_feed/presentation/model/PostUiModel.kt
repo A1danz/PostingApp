@@ -4,6 +4,7 @@ import android.net.Uri
 import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
 
 data class PostUiModel(
+    val id: Int,
     val text: String,
     val imgs: List<Uri>,
     val date: String,

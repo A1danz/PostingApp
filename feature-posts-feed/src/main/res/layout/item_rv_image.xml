@@ -8,5 +8,5 @@
     android:scaleType="centerCrop"
     android:src="@drawable/image"
 
-    app:shapeAppearanceOverlay="@style/roundedImageView5">
+    app:shapeAppearance="@style/roundedImageView5">
 </com.google.android.material.imageview.ShapeableImageView>

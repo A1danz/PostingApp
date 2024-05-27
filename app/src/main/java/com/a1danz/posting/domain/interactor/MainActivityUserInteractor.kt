@@ -6,5 +6,5 @@ import com.a1danz.feature_post_publisher_api.model.PostModel
 
 interface MainActivityUserInteractor {
     suspend fun startPublishingProcess(postPublisher: PostPublisher, postModel: PostModel)
-    suspend fun savePostToFeed(items: List<PostPublishingItemDomainModel>)
+    suspend fun savePostToFeed(postModel: PostModel, items: List<PostPublishingItemDomainModel>)
 }

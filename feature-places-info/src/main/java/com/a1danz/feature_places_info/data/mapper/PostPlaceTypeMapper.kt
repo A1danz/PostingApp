@@ -8,27 +8,22 @@ class PostPlaceTypeMapper @Inject constructor() {
 
     fun mapDomainToData(postPlaceType: PostPlaceType): String {
         return when(postPlaceType) {
-            PostPlaceType.VK_PAGE -> VK_PAGE_NAME
-            PostPlaceType.TG -> VK_GROUP_NAME
-            PostPlaceType.VK_GROUP -> TG_NAME
+            PostPlaceType.VK_PAGE -> PostPlaceType.VK_PAGE.name
+            PostPlaceType.TG -> PostPlaceType.TG.name
+            PostPlaceType.VK_GROUP -> PostPlaceType.VK_GROUP.name
         }
     }
 
     fun mapDataToDomain(placeString: String): PostPlaceType? {
         return when(placeString) {
-            VK_PAGE_NAME -> PostPlaceType.VK_PAGE
-            VK_GROUP_NAME -> PostPlaceType.VK_GROUP
-            TG_NAME -> PostPlaceType.TG
+            PostPlaceType.VK_PAGE.name -> PostPlaceType.VK_PAGE
+            PostPlaceType.VK_GROUP.name -> PostPlaceType.VK_GROUP
+            PostPlaceType.TG.name -> PostPlaceType.TG
             else ->  {
                 Log.e("ERROR", "UNCATCHABLE PostPlaceType $placeString")
                 null
             }
         }
-    }
-    companion object {
-        const val VK_PAGE_NAME = "vk_page"
-        const val VK_GROUP_NAME = "vk_group"
-        const val TG_NAME = "tg"
     }
 
 }
