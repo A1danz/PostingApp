@@ -24,9 +24,6 @@ include(":feature-post-publisher-api")
 include(":feature-create-post")
 
 
-include(":feature-telegram-bot")
-
-
 include(":feature-user-configurer")
 
 
