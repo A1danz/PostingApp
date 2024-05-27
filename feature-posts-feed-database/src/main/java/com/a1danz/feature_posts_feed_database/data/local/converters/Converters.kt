@@ -2,7 +2,7 @@ package com.a1danz.feature_posts_feed_database.data.local.converters
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import com.a1danz.feature_posts_feed_database.data.local.entites.PostPlaceEntity
+import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -41,13 +41,13 @@ class Converters @Inject constructor(
 
     // post_places list converter
     @TypeConverter
-    fun convertToString(list: List<PostPlaceEntity>): String {
+    fun convertToString(list: List<PostPlaceType>): String {
         return gson.toJson(list)
     }
 
     @TypeConverter
-    fun fromString(string: String): List<PostPlaceEntity> {
-        val type: Type = object : TypeToken<List<PostPlaceEntity?>?>() {}.type
+    fun fromString(string: String): List<PostPlaceType> {
+        val type: Type = object : TypeToken<List<PostPlaceType?>?>() {}.type
         return gson.fromJson(string, type)
     }
 }

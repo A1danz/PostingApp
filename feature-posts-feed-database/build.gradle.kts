@@ -36,6 +36,7 @@ android {
 dependencies {
 
     implementation(project(":common"))
+    implementation(project(":feature-places-info"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

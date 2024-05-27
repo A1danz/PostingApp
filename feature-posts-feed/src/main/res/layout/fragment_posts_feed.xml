@@ -13,11 +13,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="4dp"
         android:text="История"
         android:gravity="start"
         android:textSize="22sp"
         android:textColor="@color/dark"/>
+    <TextView
+        android:id="@+id/tv_empty_posts"
+
+        android:visibility="gone"
+        style="@style/TextView.Medium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Здесь пока пусто."
+        android:gravity="center"
+        android:textColor="@color/gray"
+        android:textSize="16sp"/>
+
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_posts"
 
@@ -25,7 +38,9 @@
         android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
-        tools:listitem="@layout/item_rv_post_in_feed"/>
+        tools:listitem="@layout/item_rv_post_in_feed"
+        tools:itemCount="1"
+        android:paddingBottom="50dp"/>
     <LinearLayout
         android:id="@+id/layout_progress_bar"
 

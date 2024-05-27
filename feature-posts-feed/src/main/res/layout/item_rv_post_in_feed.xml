@@ -4,39 +4,58 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="5dp"
-    android:orientation="vertical">
-    <TextView
-        android:id="@+id/tv_date"
-
-        style="@style/TextView"
-        android:layout_width="wrap_content"
+    android:paddingHorizontal="5dp"
+    android:paddingVertical="5dp"
+    android:orientation="vertical"
+    android:background="@color/white">
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="12.02.2023 14:47"
-        android:textColor="@color/gray"/>
+        >
+        <TextView
+            android:id="@+id/tv_date"
+
+            style="@style/TextView"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="12.02.2023 14:47"
+            android:textColor="@color/gray"/>
+        <TextView
+            android:id="@+id/btn_remove"
+
+            style="@style/TextView.Medium"
+            android:textAllCaps="false"
+            android:textColor="@color/error"
+            android:fontFamily="@font/rubik_medium"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Удалить"
+            android:textSize="12sp"/>
+    </LinearLayout>
     <EditText
         android:id="@+id/editText"
-
 
         style="@style/TextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@null"
-        android:gravity="start"
-        android:maxHeight="80dp"
-        android:inputType="textMultiLine"
+        android:inputType="textNoSuggestions|textMultiLine"
         android:hint="Пост без текста"
-        android:paddingBottom="3dp"
+        android:paddingBottom="5dp"
         android:clickable="false"
         android:focusable="false"
-        android:text="dsadasdasdaadsdsada"
+        android:maxLines="5"
+        android:text="Example text in post"
         android:scrollbars="vertical"
         android:textColor="@color/dark"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_images"
 
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_rv_image"
         android:divider="@drawable/images_divider"
@@ -46,13 +65,11 @@
     <LinearLayout
         android:id="@+id/layout_places"
 
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        android:divider="@drawable/social_media_tag_divider">
     </LinearLayout>
-
-
-
-
 </LinearLayout>

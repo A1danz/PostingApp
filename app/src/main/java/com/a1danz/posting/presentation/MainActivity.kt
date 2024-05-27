@@ -55,7 +55,7 @@ class MainActivity : BaseActivity(), PostPublishingStarter {
     }
 
     override fun startPublishingProcess(postPublishingItem: PostPublishingItemDomainModel, postModel: PostModel) {
-        Log.e("PLACE", "PLACE - ${postPublishingItem.itemInfo.postPlaceType}")
+        Log.d("PUBLISHING PLACE", "PLACE - ${postPublishingItem.itemInfo.postPlaceType}")
         viewModel.startPublishingProcess(postPublishingItem, postModel)
     }
 

@@ -16,9 +16,15 @@ class UserInteractorImpl @Inject constructor(
 
     override suspend fun getPosts(): List<PostUiModel> {
         return withContext(dispatcher) {
-            postsRepository.getPosts().map {
+            postsRepository.getPosts().sortedByDescending { it.date }.map {
                 postModelUiMapper.mapToUiModel(it)
             }
+        }
+    }
+
+    override suspend fun removePost(post: PostUiModel) {
+        withContext(dispatcher) {
+            postsRepository.deletePostById(post.id)
         }
     }
 }

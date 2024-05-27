@@ -15,4 +15,8 @@ class PostsRepositoryImpl @Inject constructor(
             postModelDomainMapper.postToDomainModel(it)
         }
     }
+
+    override suspend fun deletePostById(id: Int) {
+        dao.removeById(id)
+    }
 }

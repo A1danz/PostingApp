@@ -15,6 +15,7 @@ class PostModelUiMapper @Inject constructor(
 
     fun mapToUiModel(domainModel: PostDomainModel): PostUiModel {
         return PostUiModel(
+            id = domainModel.id,
             text = domainModel.text,
             imgs = domainModel.imgs,
             date = convertDateToString(domainModel.date),
@@ -26,11 +27,11 @@ class PostModelUiMapper @Inject constructor(
 
     private fun convertDateToString(date: Calendar): String {
         val sb = StringBuilder()
-        sb.append(date.get(Calendar.DAY_OF_MONTH)).append(".")
-            .append(date.get(Calendar.MONTH) + 1).append(".")
-            .append(date.get(Calendar.YEAR)).append(" ")
-            .append(date.get(Calendar.HOUR_OF_DAY)).append(":")
-            .append(date.get(Calendar.MINUTE))
+        sb.append(convertNumber(date.get(Calendar.DAY_OF_MONTH))).append(".")
+            .append(convertNumber(date.get(Calendar.MONTH) + 1)).append(".")
+            .append(convertNumber(date.get(Calendar.YEAR))).append(" ")
+            .append(convertNumber(date.get(Calendar.HOUR_OF_DAY))).append(":")
+            .append(convertNumber(date.get(Calendar.MINUTE)))
 
         return sb.toString()
     }
@@ -39,5 +40,10 @@ class PostModelUiMapper @Inject constructor(
         val result = postPlacesStaticInfo.get(postPlaceType)
         if (result == null) Log.e("STATIC NOT FOUND", "STATIC INFO ABOUT $postPlaceType NOT FOUND")
         return result
+    }
+
+    private fun convertNumber(number: Int): String {
+        if (number >= 10) return number.toString()
+        else return "0" + number
     }
 }

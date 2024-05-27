@@ -20,7 +20,6 @@ class PostsFeedViewModel @Inject constructor(
     val errorFlow: StateFlow<String?> get() = _errorFlow
 
     fun getPosts() {
-
         viewModelScope.launch {
             _postsStateFlow.value = null
             _errorFlow.value = null
@@ -32,6 +31,12 @@ class PostsFeedViewModel @Inject constructor(
                 error.printStackTrace()
                 _errorFlow.value = error.message
             }
+        }
+    }
+
+    fun removePost(postUiModel: PostUiModel) {
+        viewModelScope.launch {
+            userInteractor.removePost(postUiModel)
         }
     }
 

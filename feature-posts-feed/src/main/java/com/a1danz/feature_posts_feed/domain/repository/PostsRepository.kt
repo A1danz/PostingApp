@@ -5,4 +5,5 @@ import com.a1danz.feature_posts_feed.domain.model.PostDomainModel
 interface PostsRepository {
 
     suspend fun getPosts(): List<PostDomainModel>
+    suspend fun deletePostById(id: Int)
 }

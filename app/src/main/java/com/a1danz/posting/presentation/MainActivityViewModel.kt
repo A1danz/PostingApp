@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
 import com.a1danz.feature_post_publisher_api.PostPublisher
+import com.a1danz.feature_post_publisher_api.model.PostCreatingResult
+import com.a1danz.feature_post_publisher_api.model.PostCreatingResultType
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.posting.domain.interactor.MainActivityUserInteractor
 import kotlinx.coroutines.delay
@@ -15,8 +17,10 @@ class MainActivityViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val publishers: HashMap<String, PostPublishingItemDomainModel> = hashMapOf()
+    private var postModel: PostModel? = null
 
     fun startPublishingProcess(postPublishingItem: PostPublishingItemDomainModel, postModel: PostModel) {
+        this.postModel = postModel
         addPublisher(postPublishingItem.itemInfo.uId, postPublishingItem)
         viewModelScope.launch {
             interactor.startPublishingProcess(postPublishingItem.publisher, postModel)
@@ -33,7 +37,7 @@ class MainActivityViewModel @Inject constructor(
         return HashMap(publishers.mapValues { it.value.publisher })
     }
 
-    suspend fun processAllPublishersFinishWorking() {
+    private suspend fun processAllPublishersFinishWorking() {
         val allEnded = true
         publishers.values.forEach {
             if (it.publisher.creatingResult == null) return
@@ -41,6 +45,11 @@ class MainActivityViewModel @Inject constructor(
         }
 
         if (allEnded) {
+            viewModelScope.launch {
+                postModel?.let {
+                    interactor.savePostToFeed(it, publishers.values.toList())
+                }
+            }
             publishers.clear()
         }
     }

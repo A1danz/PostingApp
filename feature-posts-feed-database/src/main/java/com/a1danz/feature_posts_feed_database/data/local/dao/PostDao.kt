@@ -13,4 +13,7 @@ interface PostDao {
 
     @Query("SELECT * FROM posts")
     fun getAll(): List<PostEntity>
+
+    @Query("DELETE FROM posts WHERE id=:id")
+    fun removeById(id: Int)
 }
