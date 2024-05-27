@@ -23,4 +23,6 @@
     <color name="vk_color">#4791FF</color>
     <color name="facebook_color">#1977F3</color>
     <color name="telegram_color">#2AAAED</color>
+
+    <color name="onBackgroundColor">?attr/colorOnBackground</color>
 </resources>

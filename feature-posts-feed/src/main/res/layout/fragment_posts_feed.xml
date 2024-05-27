@@ -14,10 +14,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginStart="4dp"
-        android:text="История"
+        android:text="@string/history"
         android:gravity="start"
         android:textSize="22sp"
-        android:textColor="@color/dark"/>
+        android:textColor="?attr/colorOnBackground"/>
     <TextView
         android:id="@+id/tv_empty_posts"
 
@@ -25,7 +25,7 @@
         style="@style/TextView.Medium"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Здесь пока пусто."
+        android:text="@string/Its_still_empty_here"
         android:gravity="center"
         android:textColor="@color/gray"
         android:textSize="16sp"/>

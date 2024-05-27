@@ -82,6 +82,8 @@ dependencies {
 
     implementation(libs.viewBindingDelegate)
 
+    implementation(libs.customSwitch)
+
     coreLibraryDesugaring(libs.desugarJdkLibs)
 
     testImplementation(libs.junit)

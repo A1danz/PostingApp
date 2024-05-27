@@ -34,8 +34,8 @@
             style="@style/TextView.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Telegram"
-            android:textColor="@color/dark"
+            android:text=""
+            android:textColor="?attr/colorOnBackground"
             android:textSize="16sp"/>
         <TextView
             android:id="@+id/tv_additional_info"
@@ -43,7 +43,7 @@
             style="@style/TextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="testChannel_group, testChannel_group, testChannel_group"
+            android:text=""
             android:maxLines="2"
             android:ellipsize="end"
             android:textColor="@color/gray"
@@ -60,7 +60,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:text="Открыть"/>
+        android:text="@string/open_text"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

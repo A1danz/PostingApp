@@ -10,11 +10,11 @@
         <item name="materialThemeOverlay"></item>
     </style>
 
-    <style name="AppImagePickerTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Измените цвета и стили по вашему желанию -->
+    <style name="AppImagePickerTheme" parent="ef_BaseTheme">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primary</item>
         <item name="colorAccent">@color/primary</item>
+        <item name="backgroundColor">?attr/backgroundColor</item>
     </style>
 
 

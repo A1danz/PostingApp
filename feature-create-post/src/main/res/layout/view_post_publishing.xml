@@ -11,7 +11,7 @@
         style="@style/TextView.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Вконтакте-страница"
+        android:text=""
         android:textColor="@color/gray"
         android:textSize="18sp"/>
     <LinearLayout

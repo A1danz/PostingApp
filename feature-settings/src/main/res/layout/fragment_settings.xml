@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik_medium"
                 android:text="@string/social_media_settings"
-                android:textColor="@color/dark"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="18sp"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
@@ -75,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/rubik_medium"
                 android:text="@string/proxy_configuration"
-                android:textColor="@color/dark"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="18sp"
                 android:gravity="center"/>
         </LinearLayout>
@@ -99,7 +99,7 @@
                 android:layout_height="match_parent"
                 android:fontFamily="@font/rubik_medium"
                 android:text="@string/about_app"
-                android:textColor="@color/dark"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="18sp"
                 android:gravity="center"/>
         </LinearLayout>

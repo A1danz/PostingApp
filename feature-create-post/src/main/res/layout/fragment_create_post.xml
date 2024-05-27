@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="8dp">
+    android:layout_marginHorizontal="8dp"
+    android:background="?attr/backgroundColor">
 
     <TextView
         android:id="@+id/tv_title"
@@ -14,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="Публикация поста"
-        android:textColor="@color/dark"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,7 +45,7 @@
         android:paddingBottom="3dp"
 
         android:scrollbars="vertical"
-        android:textColor="@color/dark"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@id/text_guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -94,7 +95,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Медиа:"
-                    android:textColor="@color/dark"
+                    android:textColor="?attr/colorOnBackground"
                     android:textSize="16sp" />
 
                 <TextView
@@ -135,7 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Выбранные площадки для публикации:"
-                android:textColor="@color/dark"
+                android:textColor="?attr/colorOnBackground"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -177,7 +178,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:text="Редактировать медиа"
-                    android:textColor="@color/dark"
+                    android:textColor="?attr/colorOnBackground"
                     android:textSize="16sp" />
 
                 <TextView
@@ -186,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text=">"
-                    android:textColor="@color/dark"
+                    android:textColor="?attr/colorOnBackground"
                     android:textSize="16sp" />
             </LinearLayout>
 
@@ -211,7 +212,7 @@
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
                     android:text="Настроить социальные сети"
-                    android:textColor="@color/dark"
+                    android:textColor="?attr/colorOnBackground"
                     android:textSize="16sp" />
 
                 <TextView
@@ -222,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:text=">"
-                    android:textColor="@color/dark"
+                    android:textColor="?attr/colorOnBackground"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>

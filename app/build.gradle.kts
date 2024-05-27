@@ -102,6 +102,8 @@ dependencies {
 
     implementation(libs.viewBindingDelegate)
 
+    implementation(libs.esafirmImagePicker)
+
     coreLibraryDesugaring(libs.desugarJdkLibs)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
