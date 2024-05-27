@@ -19,8 +19,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:text="Настройте соц. сети"
-        android:textColor="@color/dark"
+        android:text="@string/configure_social_media"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="20sp"/>
 
 </LinearLayout>

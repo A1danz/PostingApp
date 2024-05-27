@@ -12,7 +12,6 @@ import com.a1danz.feature_settings.presentation.screens.main.SettingsFragment
 import com.a1danz.feature_settings.presentation.screens.social_media.SocialMediaSettingsFragment
 import com.a1danz.feature_settings.presentation.screens.social_media.tg.TgSettingsFragment
 import com.a1danz.feature_settings.presentation.screens.social_media.vk.VkSettingsFragment
-import com.a1danz.feature_settings.presentation.view.FacebookBtn
 import com.a1danz.feature_user_configurer.UserConfigurer
 import com.google.firebase.firestore.FirebaseFirestore
 import dagger.BindsInstance

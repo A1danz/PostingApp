@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:text="@string/telegram"
         android:textSize="26sp"
-        android:textColor="@color/dark"
+        android:textColor="?attr/colorOnBackground"
         android:layout_marginBottom="10dp"
         />
     <LinearLayout
@@ -174,7 +174,7 @@
                 app:layout_constraintEnd_toStartOf="@id/btn_unlink"
                 app:layout_constraintHorizontal_bias="0.0"
                 android:text="@string/tg_username"
-                android:textColor="@color/dark"
+                android:textColor="?attr/colorOnBackground"
                 android:layout_marginHorizontal="10dp"/>
             <Button
                 android:id="@+id/btn_unlink"

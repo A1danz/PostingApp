@@ -27,21 +27,23 @@
         app:layout_constraintEnd_toStartOf="@id/switcher"
         app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="5dp"
-        android:textColor="@color/dark"
-        android:text="Итис КФУ"
+        android:textColor="?attr/colorOnBackground"
+        android:text=""
         />
-    <com.google.android.material.materialswitch.MaterialSwitch
-        style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
 
+    <com.suke.widget.SwitchButton
         android:id="@+id/switcher"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/tv_group_name"
-        app:thumbTint="@color/white"
-        app:trackTint="@color/gray"
+        app:sb_show_indicator="false"
+        app:sb_checked="false"
+        app:sb_checked_color="@color/primary"
+        app:sb_background="@color/gray_light"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

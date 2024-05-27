@@ -11,4 +11,15 @@
     <string name="publish">Опубликовать</string>
     <string name="invalid_data">Невалидные данные</string>
     <string name="invalid_data_description">Пожалуйста, заполните данные. Без этого публикация невозможна.</string>
+    <string name="publication">Публикация</string>
+    <string name="configure_social_media">Настройте соц. сети</string>
+    <string name="info_about_publication">Информация о публикации</string>
+    <string name="media_count">Количество медиа:</string>
+    <string name="text">Текст:</string>
+    <string name="post_without_text">Пост без текста</string>
+    <string name="sites">Площадки:</string>
+    <string name="cancel">Отмена</string>
+    <string name="continue_text">Продолжить</string>
+    <string name="open_text">Открыть</string>
+    <string name="publication_with_dots">Публикация...</string>
 </resources>

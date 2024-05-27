@@ -12,8 +12,8 @@
         style="@style/TextView.SemiBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Информация о публикации"
-        android:textColor="@color/dark"
+        android:text="@string/info_about_publication"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="22sp"/>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -24,8 +24,8 @@
             style="@style/TextView.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Количество медиа:"
-            android:textColor="@color/dark"
+            android:text="@string/media_count"
+            android:textColor="?attr/colorOnBackground"
             android:textSize="18sp"/>
         <TextView
             android:id="@+id/tv_media_count"
@@ -33,7 +33,7 @@
             style="@style/TextView.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10"
+            android:text=""
             android:textColor="@color/primary"
             android:textSize="18sp"/>
     </LinearLayout>
@@ -41,8 +41,8 @@
         style="@style/TextView.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Текст:"
-        android:textColor="@color/dark"
+        android:text="@string/text"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="18sp"/>
     <EditText
         android:id="@+id/editText"
@@ -55,20 +55,20 @@
         android:gravity="center"
         android:maxHeight="100dp"
         android:inputType="textMultiLine"
-        android:hint="Пост без текста"
+        android:hint="@string/post_without_text"
         android:paddingBottom="3dp"
         android:clickable="false"
         android:focusable="false"
 
         android:scrollbars="vertical"
-        android:textColor="@color/dark"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="16sp"/>
     <TextView
         style="@style/TextView.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Площадки:"
-        android:textColor="@color/dark"
+        android:text="@string/sites"
+        android:textColor="?attr/colorOnBackground"
         android:textSize="18sp"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_places"
@@ -101,7 +101,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Отмена"
+            android:text="@string/cancel"
             android:layout_marginEnd="5dp"
             />
         <Button
@@ -111,7 +111,7 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="Продолжить"
+            android:text="@string/continue_text"
             android:layout_marginStart="5dp"
             />
     </LinearLayout>
