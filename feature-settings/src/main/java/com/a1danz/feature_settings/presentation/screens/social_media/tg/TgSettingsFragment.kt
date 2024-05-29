@@ -67,12 +67,17 @@ class TgSettingsFragment : BaseFragment(R.layout.fragment_tg_settings) {
         with(viewBinding) {
             layoutLinked.isVisible = true
             lifecycleScope.launch {
-                val chats = viewModel.getChats().chats
-                Log.d("CHATS", chats.toString())
-                rvChats.adapter = TgChatsAdapter(chats = chats, ::chatChosenCallback)
-                if (chats.isEmpty()) {
-                    tvChatsEmpty.visibility = View.VISIBLE
+                val adapter = TgChatsAdapter(::chatChosenCallback)
+                rvChats.adapter = adapter
+                lifecycleScope.launch {
+                    val chats = viewModel.getChats().chats
+                    adapter.setItems(chats)
+
+                    if (chats.isEmpty()) {
+                        tvChatsEmpty.visibility = View.VISIBLE
+                    }
                 }
+
             }
             layoutUnlinked.visibility = View.GONE
             val tgUserInfo = viewModel.getTgUserInfo()

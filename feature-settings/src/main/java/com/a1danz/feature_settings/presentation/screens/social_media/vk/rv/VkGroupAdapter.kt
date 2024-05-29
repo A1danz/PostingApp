@@ -6,30 +6,58 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.a1danz.feature_settings.databinding.GroupItemLayoutBinding
 import com.a1danz.feature_settings.databinding.ItemRvVkGroupBinding
+import com.a1danz.feature_settings.databinding.ItemRvVkGroupPreviewBinding
 import com.a1danz.feature_settings.presentation.model.VkUserGroupUiModel
 import com.bumptech.glide.Glide
 
 class VkGroupAdapter(
-    private val items: List<VkUserGroupUiModel>,
     private val chosenCallback: (Boolean, VkUserGroupUiModel) -> Unit
-) : RecyclerView.Adapter<VkGroupAdapter.VkGroupViewHolder>() {
+) : RecyclerView.Adapter<ViewHolder>() {
+    private var items: List<VkUserGroupUiModel>? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VkGroupViewHolder {
-        return VkGroupViewHolder(
-            ItemRvVkGroupBinding.inflate(
-                LayoutInflater.from(parent.context),
-                parent,
-                false
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return if (viewType == VIEW_TYPE_LOADED) {
+            VkGroupViewHolder(
+                ItemRvVkGroupBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
             )
-        )
+        } else {
+            LoadingViewHolder(
+                ItemRvVkGroupPreviewBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
+                )
+            )
+        }
     }
 
-    override fun onBindViewHolder(holder: VkGroupViewHolder, position: Int) {
-        holder.bindItem(items[position])
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        when (getItemViewType(position)) {
+            VIEW_TYPE_LOADING -> {}
+            VIEW_TYPE_LOADED -> {
+                items?.get(position)?.let {
+                    (holder as? VkGroupViewHolder)?.bindItem(it)
+                }
+            }
+        }
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return items?.size ?: 10
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (items == null) VIEW_TYPE_LOADING
+        else VIEW_TYPE_LOADED
+    }
+
+    fun setItems(items: List<VkUserGroupUiModel>) {
+        this.items = items
+        notifyDataSetChanged()
     }
 
     inner class VkGroupViewHolder(
@@ -48,5 +76,14 @@ class VkGroupAdapter(
                 }
             }
         }
+    }
+
+    inner class LoadingViewHolder(
+        private val viewBinding: ItemRvVkGroupPreviewBinding
+    ) : ViewHolder(viewBinding.root)
+
+    companion object {
+        const val VIEW_TYPE_LOADING = 0
+        const val VIEW_TYPE_LOADED = 1
     }
 }
