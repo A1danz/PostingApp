@@ -234,7 +234,7 @@
                     android:text="@string/account_is_unlinked"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:textColor="@color/dark"
+                    android:textColor="?attr/colorOnBackground"
                     />
                 <ImageView
                     android:id="@+id/btn_tg_settings"

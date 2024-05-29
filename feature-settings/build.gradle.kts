@@ -84,6 +84,8 @@ dependencies {
 
     implementation(libs.customSwitch)
 
+    implementation(libs.shimmerLayout)
+
     coreLibraryDesugaring(libs.desugarJdkLibs)
 
     testImplementation(libs.junit)

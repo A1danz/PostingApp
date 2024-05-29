@@ -74,14 +74,16 @@ class VkSettingsFragment : BaseFragment(R.layout.fragment_vk_settings) {
                     .load(userInfo.userImg)
                     .into(ivUserImg)
             }
-            val groupsUiModels = viewModel.getVkUserGroups()
-            rvGroups.adapter = VkGroupAdapter(
-                groupsUiModels.groups,
-                ::groupChosenCallback
-            )
-            if (groupsUiModels.groups.isEmpty()) {
-                tvGroupsEmpty.isVisible = true
+            val adapter = VkGroupAdapter(::groupChosenCallback)
+            rvGroups.adapter = adapter
+            lifecycleScope.launch {
+                val groupsUiModels = viewModel.getVkUserGroups()
+                adapter.setItems(groupsUiModels.groups)
+                if (groupsUiModels.groups.isEmpty()) {
+                    tvGroupsEmpty.isVisible = true
+                }
             }
+
 
             Log.d("ADAPTER ATTACHED", "ATTACHED - ${rvGroups.adapter}")
 

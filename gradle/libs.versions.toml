@@ -32,6 +32,7 @@ telegramVersion = "7.2.1"
 loggingInterceptor = "4.9.3"
 esafirmImagePicker = "3.0.0"
 customSwitch = "0.0.3"
+shimmerLayout = "1.1"
 
 
 [libraries]
@@ -73,6 +74,7 @@ telegramClient = { group = "org.telegram", name = "telegrambots-client", version
 loggingInterceptor = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "loggingInterceptor"}
 esafirmImagePicker = { group = "com.github.esafirm", name = "android-image-picker", version.ref = "esafirmImagePicker" }
 customSwitch = { group = "com.github.zcweng", name = "switch-button", version.ref = "customSwitch" }
+shimmerLayout = { group = "xyz.peridy.shimmer", name = "shimmerlayout", version.ref = "shimmerLayout"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
