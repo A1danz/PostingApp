@@ -63,39 +63,46 @@ class PostPublishingViewModel @Inject constructor(
             PostPublishingStatus.INVALID_DATA -> PostPublishingStatusUiModel(
                 status,
                 "Невалидные данные",
-                com.a1danz.common.R.color.error
+                com.a1danz.common.R.color.error,
+                "Завершена"
             )
             PostPublishingStatus.SUCCESS -> PostPublishingStatusUiModel(
                 status,
                 "Успешно",
-                com.a1danz.common.R.color.success
+                com.a1danz.common.R.color.success,
+                "Завершена"
             )
             PostPublishingStatus.RETRYING -> PostPublishingStatusUiModel(
                 status,
                 "Повторная попытка...",
-                com.a1danz.common.R.color.warning
+                com.a1danz.common.R.color.warning,
+                "Публикация..."
             )
             PostPublishingStatus.FAILURE -> PostPublishingStatusUiModel(
                 status,
                 "Публикация не удалась",
-                com.a1danz.common.R.color.error
+                com.a1danz.common.R.color.error,
+                "Завершена"
             )
             PostPublishingStatus.IN_PROCESS -> PostPublishingStatusUiModel(
                 status,
                 "В процессе...",
-                com.a1danz.common.R.color.primary
+                com.a1danz.common.R.color.primary,
+                "Публикация..."
             )
             PostPublishingStatus.CANCELLED -> PostPublishingStatusUiModel(
                 status,
                 "Публикация прервана",
-                com.a1danz.common.R.color.error
+                com.a1danz.common.R.color.error,
+                "Завершена"
             )
             else -> {
                 Log.e("UNDCATCHABLE STATUS", "UNDEFINED STATUS - $status")
                 PostPublishingStatusUiModel(
                     status,
                     "Статус не определен",
-                    com.a1danz.common.R.color.warning
+                    com.a1danz.common.R.color.warning,
+                    "Неизвестный статус"
                 )
             }
         }
