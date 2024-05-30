@@ -24,5 +24,7 @@ data class VkGroupInfo(
     @SerializedName("group_id")
     val groupId: Long,
     @SerializedName("group_name")
-    var groupName: String
+    var groupName: String,
+    @SerializedName("img")
+    val img: String
 )

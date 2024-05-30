@@ -26,7 +26,7 @@ class PostPlacesDetailInfoFactory @Inject constructor(
                             PostPlaceDetailInfoUiModel(
                                 placeStaticInfo,
                                 it.groupName,
-                                "https://img.mvideo.ru/Pdb/400123281.jpg"
+                                it.img
                             )
                         )
                     }

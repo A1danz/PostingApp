@@ -15,7 +15,7 @@ class VkUserGroupsMapper @Inject constructor(){
                         VkGroupDomainModel(
                         group.groupId!!,
                         group.groupName ?: "id: ${group.groupId}",
-                        group.groupImgUrl ?: "https://vk.com/images/community_50.png"
+                        group.groupImgUrl ?: "https://vk.com/images/community_100.png"
                     )
                     )
                 }
