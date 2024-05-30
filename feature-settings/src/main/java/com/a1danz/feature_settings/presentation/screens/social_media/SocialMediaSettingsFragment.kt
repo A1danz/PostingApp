@@ -1,11 +1,14 @@
 package com.a1danz.feature_settings.presentation.screens.social_media
 
+import android.animation.Animator
+import android.view.View
+import android.view.ViewAnimationUtils
+import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.common.di.featureprovide.FeatureContainer
-import com.a1danz.common.domain.model.TgConfig
-import com.a1danz.common.domain.model.TgUserInfo
 import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.common.presentation.base.BaseFragment
 import com.a1danz.feature_settings.R
@@ -13,6 +16,7 @@ import com.a1danz.feature_settings.databinding.FragmentSocialMediaSettingsBindin
 import com.a1danz.feature_settings.di.SettingsComponent
 import com.a1danz.feature_settings.presentation.model.TgUserInfoUiModel
 import com.bumptech.glide.Glide
+import kotlin.math.hypot
 
 
 class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_settings) {

@@ -132,7 +132,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:elevation="1dp"
-                    android:contentDescription="@string/settings_btn" />
+                    android:contentDescription="@string/settings_btn"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
         <LinearLayout
@@ -245,7 +248,10 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:elevation="1dp"
-                    android:contentDescription="@string/vk_settings_btn" />
+                    android:contentDescription="@string/vk_settings_btn"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>

@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Публикация поста"
+        android:text="@string/post_publication"
         android:textColor="?attr/colorOnBackground"
         android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         android:layout_height="0dp"
         android:background="@null"
         android:gravity="top"
-        android:hint="Введите текст здесь"
+        android:hint="@string/type_text_here"
         android:inputType="textMultiLine"
         android:paddingBottom="3dp"
 
@@ -94,7 +94,7 @@
                     style="@style/TextView.Medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Медиа:"
+                    android:text="@string/media"
                     android:textColor="?attr/colorOnBackground"
                     android:textSize="16sp" />
 
@@ -118,7 +118,7 @@
                 android:layout_gravity="center"
                 android:background="@drawable/danger_rect"
                 android:fontFamily="@font/rubik_medium"
-                android:text="Сбросить медиа"
+                android:text="@string/reset_media"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="10sp" />
@@ -135,7 +135,7 @@
                 style="@style/TextView.Medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Выбранные площадки для публикации:"
+                android:text="@string/chosen_sites_for_publication"
                 android:textColor="?attr/colorOnBackground"
                 android:textSize="16sp" />
 
@@ -164,7 +164,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="10dp">
+                android:paddingVertical="12dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:layout_width="18dp"
@@ -177,7 +180,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:text="Редактировать медиа"
+                    android:text="@string/edit_media"
                     android:textColor="?attr/colorOnBackground"
                     android:textSize="16sp" />
 
@@ -198,7 +201,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:paddingVertical="10dp">
+                android:paddingVertical="12dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true">
 
                 <ImageView
                     android:layout_width="18dp"
@@ -211,7 +217,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="5dp"
                     android:layout_weight="1"
-                    android:text="Настроить социальные сети"
+                    android:text="@string/setting_social_media"
                     android:textColor="?attr/colorOnBackground"
                     android:textSize="16sp" />
 
@@ -234,6 +240,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Опубликовать" />
+            android:text="@string/publish" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

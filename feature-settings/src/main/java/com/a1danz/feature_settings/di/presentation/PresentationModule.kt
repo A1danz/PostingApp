@@ -8,6 +8,7 @@ import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.common.presentation.nav.GoBackRouter
 import com.a1danz.feature_settings.presentation.navigation.SettingsRouter
 import com.a1danz.feature_settings.presentation.navigation.SocialMediaRouter
+import com.a1danz.feature_settings.presentation.screens.main.SettingsViewModel
 import com.a1danz.feature_settings.presentation.screens.social_media.SocialMediaSettingsViewModel
 import com.a1danz.feature_settings.presentation.screens.social_media.tg.TgSettingsViewModel
 import com.a1danz.feature_settings.presentation.screens.social_media.vk.VkSettingsViewModel
@@ -36,6 +37,10 @@ class PresentationModule {
     @[IntoMap ViewModelKey(TgSettingsViewModel::class)]
     fun provideTgSettingsViewModel(viewModel: TgSettingsViewModel): ViewModel = viewModel
 
+    @Provides
+    @FeatureScope
+    @[IntoMap ViewModelKey(SettingsViewModel::class)]
+    fun provideSettingsViewModel(viewModel: SettingsViewModel): ViewModel = viewModel
 
 }
 

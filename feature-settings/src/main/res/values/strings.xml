@@ -3,8 +3,8 @@
     <string name="fb_icon">fb_icon</string>
     <string name="choose_subsection">Выберите подраздел:</string>
     <string name="social_media_settings">Настройка социальных сетей</string>
-    <string name="proxy_configuration">Конфигурация прокси</string>
     <string name="about_app">О приложении</string>
+    <string name="about_big_text">Posting - приложение для автоматизации процесса постинга в различных социальных сетях. Здесь вы сможете в пару простых кликов связать ваши учетные записи на разных медиа-площадках. После этого вам будет досутпен функционал постинга.</string>
     <string name="choose_group">Выберите группу</string>
     <string name="tg_username">\@%1s</string>
     <string name="text_was_succesfully_copied">Текст успешно скопирован в буфер обмена!</string>
@@ -31,4 +31,10 @@
     <string name="settings_btn">settings_btn</string>
     <string name="vk_settings_btn">vk_settings_btn</string>
     <string name="chat">Чат</string>
+    <string name="feedback_about_app">Фидбэк по приложению</string>
+    <string name="about_us">О нас</string>
+    <string name="feedback">Фидбэк</string>
+    <string name="feedback_description">Сейчас будет открыта ссылка, по которой вы сможете оставить свой фидбэк.</string>
+    <string name="open">Открыть</string>
+    <string name="cancel">Отмена</string>
 </resources>

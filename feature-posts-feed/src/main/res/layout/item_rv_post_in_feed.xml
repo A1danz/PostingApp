@@ -27,12 +27,14 @@
             android:textAllCaps="false"
             android:textColor="@color/error"
             android:fontFamily="@font/rubik_medium"
-            android:background="@android:color/transparent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="Удалить"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"/>
     </LinearLayout>
     <EditText
         android:id="@+id/editText"

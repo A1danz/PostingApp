@@ -1,53 +1,44 @@
 package com.a1danz.feature_settings.presentation.screens.main
 
-import android.content.Context
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import android.app.AlertDialog
+import androidx.fragment.app.viewModels
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.common.di.featureprovide.FeatureContainer
+import com.a1danz.common.presentation.base.BaseFragment
+import com.a1danz.feature_settings.R
 import com.a1danz.feature_settings.databinding.FragmentSettingsBinding
 import com.a1danz.feature_settings.di.SettingsComponent
-import com.a1danz.feature_settings.presentation.navigation.SettingsRouter
-import javax.inject.Inject
 
-class SettingsFragment : Fragment() {
-    var _viewBinding : FragmentSettingsBinding? = null
-    val viewBinding : FragmentSettingsBinding get() = _viewBinding!!
-
-    @Inject lateinit var settingsRouter: SettingsRouter
-    override fun onAttach(context: Context) {
-        (requireActivity().application as FeatureContainer).getFeature(SettingsComponent::class.java)
-            .inject(this)
-        super.onAttach(context)
-    }
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _viewBinding = FragmentSettingsBinding.inflate(inflater)
-        return viewBinding.root
+class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
+    private val viewBinding: FragmentSettingsBinding by viewBinding(FragmentSettingsBinding::bind)
+    private val viewModel: SettingsViewModel by viewModels { vmFactory }
+    override fun inject() {
+        (requireActivity().application as? FeatureContainer)?.getFeature(SettingsComponent::class.java)
+            ?.inject(this)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initViews()
+    override fun subscribe() {
+        return
     }
 
-    fun initViews() {
+    override fun initViews() {
         with(viewBinding) {
             itemSocialMediaSettings.setOnClickListener {
-                settingsRouter.openSocialMediaSettings()
+                viewModel.navigateToSocialMediaSettingsScreen()
+            }
+            itemAbout.setOnClickListener {
+                viewModel.navigateToAboutScreen()
+            }
+            itemFeedback.setOnClickListener {
+                AlertDialog.Builder(requireContext())
+                    .setTitle(getString(R.string.feedback))
+                    .setMessage(getString(R.string.feedback_description))
+                    .setPositiveButton(getString(R.string.open)) { dialog, _ ->
+                        viewModel.openFeedbackLink(requireContext())
+                    }
+                    .setNegativeButton(getString(R.string.cancel)) { dialog, _ -> }
+                    .show()
             }
         }
-    }
-
-
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _viewBinding = null
     }
 }

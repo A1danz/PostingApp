@@ -38,6 +38,10 @@ class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter, GoBack
         navController?.navigate(R.id.action_settingsFragment_to_socialMediaSettingsFragment)
     }
 
+    override fun openAboutScreen() {
+        navController?.navigate(R.id.action_settingsFragment_to_aboutFragment)
+    }
+
     override fun navigateFromInitializingToAuthorization() {
         navController?.navigate(R.id.action_initializingFragment_to_signInFragment2)
     }
