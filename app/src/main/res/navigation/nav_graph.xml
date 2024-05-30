@@ -30,7 +30,14 @@
         android:label="SettingsFragment" >
         <action
             android:id="@+id/action_settingsFragment_to_socialMediaSettingsFragment"
-            app:destination="@id/socialMediaSettingsFragment" />
+            app:destination="@id/socialMediaSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_settingsFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/socialMediaSettingsFragment"
@@ -38,10 +45,18 @@
         android:label="SocialMediaSettingsFragment" >
         <action
             android:id="@+id/action_socialMediaSettingsFragment_to_vkSettingsFragment"
-            app:destination="@id/vkSettingsFragment" />
+            app:destination="@id/vkSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_socialMediaSettingsFragment_to_tgSettingsFragment"
-            app:destination="@id/tgSettingsFragment" />
+            app:destination="@id/tgSettingsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/initializingFragment"
@@ -54,7 +69,7 @@
             android:id="@+id/action_initializingFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"
             app:popUpTo="@id/settingsFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/vkSettingsFragment"
@@ -72,4 +87,8 @@
         android:id="@+id/postsFeedFragment"
         android:name="com.a1danz.feature_posts_feed.presentation.screens.feed.PostsFeedFragment"
         android:label="PostsFeedFragment" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.a1danz.feature_settings.presentation.screens.about.AboutFragment"
+        android:label="AboutFragment" />
 </navigation>

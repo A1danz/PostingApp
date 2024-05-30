@@ -22,4 +22,11 @@
     <string name="continue_text">Продолжить</string>
     <string name="open_text">Открыть</string>
     <string name="publication_with_dots">Публикация...</string>
+    <string name="edit_media">Редактировать медиа</string>
+    <string name="setting_social_media">Настроить социальные сети</string>
+    <string name="media">Медиа:</string>
+    <string name="post_publication">Публикация поста</string>
+    <string name="type_text_here">Введите текст здесь</string>
+    <string name="reset_media">Сбросить медиа</string>
+    <string name="chosen_sites_for_publication">Выбранные площадки для публикации:</string>
 </resources>
