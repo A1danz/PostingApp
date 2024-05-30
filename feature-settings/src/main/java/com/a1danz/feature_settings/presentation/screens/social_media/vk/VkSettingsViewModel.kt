@@ -47,7 +47,8 @@ class VkSettingsViewModel @Inject constructor(
     private fun narrowUserGroupDown(userGroupUiModel: VkUserGroupUiModel): VkGroupInfo {
         return VkGroupInfo(
             userGroupUiModel.groupId,
-            userGroupUiModel.name
+            userGroupUiModel.name,
+            userGroupUiModel.imageUrl
         )
 
     }

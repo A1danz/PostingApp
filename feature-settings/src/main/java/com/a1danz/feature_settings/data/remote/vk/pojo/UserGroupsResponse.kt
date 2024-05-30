@@ -19,6 +19,6 @@ class GroupData(
     var groupId: Long? = null,
     @SerializedName("name")
     var groupName: String? = null,
-    @SerializedName("photo_50")
+    @SerializedName("photo_100")
     var groupImgUrl: String? = null
 )
