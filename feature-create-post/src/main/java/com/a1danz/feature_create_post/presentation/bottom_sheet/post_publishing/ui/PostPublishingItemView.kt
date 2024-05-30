@@ -33,6 +33,7 @@ class PostPublishingItemView @JvmOverloads constructor(
         with(viewBinding) {
             tvPublishingStatus.text = status.uiName
             tvPublishingStatus.setTextColor(ContextCompat.getColor(context, status.color))
+            tvGlobalStatus.text = status.globalStatus
         }
     }
 

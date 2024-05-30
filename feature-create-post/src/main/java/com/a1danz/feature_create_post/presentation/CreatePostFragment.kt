@@ -3,6 +3,8 @@ package com.a1danz.feature_create_post.presentation
 import android.app.AlertDialog
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,8 +20,8 @@ import com.a1danz.feature_create_post.domain.model.PostDomainModel
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.PostPublishingBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.SelectedSocialMediaBottomSheetFragment
 import com.a1danz.feature_create_post.presentation.model.ImageModel
-import com.a1danz.feature_create_post.presentation.rv.ImagesAdapter
 import com.a1danz.feature_create_post.presentation.model.PostInfoUiModel
+import com.a1danz.feature_create_post.presentation.rv.ImagesAdapter
 import com.a1danz.feature_create_post.presentation.ui.PostPublishingDialogView
 import com.a1danz.feature_create_post.presentation.ui.SocialMediaTagView
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
@@ -62,7 +64,6 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
         with(viewBinding) {
             viewModel.selectedPlaces.forEach {
                 addPlaceToLayout(it)
-                checkPlacesAreEmpty()
             }
 
 
@@ -90,7 +91,7 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
             removePlaceFromLayout(placeType)
             viewModel.removePlace(placeType)
         }
-        checkPlacesAreEmpty()
+
     }
 
     private fun addPlaceToLayout(postPlace: PostPlaceType) {
@@ -98,14 +99,51 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
             val view = SocialMediaTagView(requireContext(), null).apply {
                 setStaticInfo(viewModel.getPostPlaceStaticInfo(postPlace))
             }
+            addPostPlaceView(view)
+        }
+    }
 
+    private fun addPostPlaceView(view: View) {
+        with(viewBinding) {
+            val fadeIn = AnimationUtils.loadAnimation(context, R.anim.fade_in)
+            Log.d("ADDING VIEW", "ADDING POST PLACE VIEW")
+            fadeIn.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {
+                    Log.d("STARTED", "ANIMATION STARTED")
+                    checkPlacesAreEmpty()
+                }
+
+                override fun onAnimationEnd(animation: Animation?) {}
+
+                override fun onAnimationRepeat(animation: Animation?) {}
+            })
             layoutPlaces.addView(view)
+            view.startAnimation(fadeIn)
+
         }
     }
 
     private fun removePlaceFromLayout(placeType: PostPlaceType) {
         with(viewBinding) {
-            layoutPlaces.removeView(layoutPlaces.findViewWithTag<SocialMediaTagView>(placeType))
+            val view = layoutPlaces.findViewWithTag<SocialMediaTagView>(placeType)
+            removePostPlaceView(view)
+        }
+    }
+
+    private fun removePostPlaceView(view: View) {
+        with(viewBinding) {
+            val fadeOut = AnimationUtils.loadAnimation(context, R.anim.fade_out)
+            view.startAnimation(fadeOut)
+            fadeOut.setAnimationListener(object : Animation.AnimationListener {
+                override fun onAnimationStart(animation: Animation?) {}
+
+                override fun onAnimationEnd(animation: Animation?) {
+                    layoutPlaces.removeView(view)
+                    checkPlacesAreEmpty()
+                }
+
+                override fun onAnimationRepeat(animation: Animation?) {}
+            })
         }
     }
 
@@ -113,14 +151,15 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
         with(viewBinding) {
             layoutPlaces.childCount.let { itemsCount ->
                 if (itemsCount == 0) {
-                    layoutPlaces.addView(SocialMediaTagView(requireContext(), null).apply {
+                    addPostPlaceView(SocialMediaTagView(requireContext(), null).apply {
                         setEmptyTag()
                     })
                 } else if (itemsCount == 2) {
-                    layoutPlaces.removeView(layoutPlaces.findViewWithTag(SocialMediaTagView.EMPTY_TAG))
+                    layoutPlaces.findViewWithTag<View>(SocialMediaTagView.EMPTY_TAG)?.let {
+                        removePostPlaceView(it)
+                    }
                 }
             }
-
         }
     }
 
@@ -257,6 +296,8 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
         super.onResume()
 
         with(viewBinding) {
+            val fadeIn = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
+            rvImages.startAnimation(fadeIn)
             rvImages.visibility = if (viewModel.getImages().isEmpty()) View.GONE else View.VISIBLE
         }
     }

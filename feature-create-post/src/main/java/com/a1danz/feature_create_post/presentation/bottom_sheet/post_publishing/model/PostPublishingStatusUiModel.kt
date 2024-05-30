@@ -6,5 +6,6 @@ import com.a1danz.feature_post_publisher_api.model.PostPublishingStatus
 data class PostPublishingStatusUiModel (
     val publishingStatus: PostPublishingStatus,
     val uiName: String,
-    @ColorRes val color: Int
+    @ColorRes val color: Int,
+    val globalStatus: String
 )
