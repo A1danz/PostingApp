@@ -1,0 +1,6 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Ваш текущий фон -->
+    <item android:drawable="@drawable/empty_tag_background" />
+    <!-- selectableItemBackground -->
+    <item android:drawable="?attr/selectableItemBackgroundBorderless" />
+</layer-list>
