@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.a1danz.common.presentation.base.BaseActivity
 import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
@@ -39,7 +40,11 @@ class MainActivity : BaseActivity(), PostPublishingStarter {
     override fun activateBnv() {
         viewBinding.bnv.let { bnv ->
             bnv.isVisible = true
-            bnv.setupWithNavController(getNavController())
+            bnv.setOnItemSelectedListener { item ->
+                NavigationUI.onNavDestinationSelected(item, getNavController())
+
+                return@setOnItemSelectedListener true
+            }
             navigator.navigateToMainScreen()
         }
     }
