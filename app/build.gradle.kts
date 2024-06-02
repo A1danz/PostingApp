@@ -19,12 +19,10 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         addManifestPlaceholders(mapOf(
             "VKIDRedirectHost" to "vk.com", // обычно vk.com
-            "VKIDRedirectScheme" to "vk_redirect_scheme", // обычно vk{ID приложения}
-            "VKIDClientID" to "vk_id_client_id",
-            "VKIDClientSecret" to "vk_id_client_secret"
+            "VKIDRedirectScheme" to (project.properties["vkRedirectScheme"] ?: throw IllegalStateException("redirect scheme doesn't initalized in properties")), // обычно vk{ID приложения}
+            "VKIDClientID" to (project.properties["vkClientId"] ?: throw IllegalStateException("vk client id doesn't initalized in properties")),
+            "VKIDClientSecret" to (project.properties["vkClientSecret"] ?: throw IllegalStateException("vk client secret doesn't initalized in properties"))
         ))
-
-        buildConfigField("String", "BOT_TOKEN", properties["botToken"].toString())
     }
 
     buildTypes {
