@@ -3,7 +3,7 @@
     <string name="email">E-mail</string>
     <string name="repeat_password">Повторите пароль</string>
     <string name="enter">Войти</string>
-    <string name="register">Зарегестрироваться</string>
+    <string name="register">Зарегистрироваться</string>
     <string name="remember_me">Запомнить меня</string>
     <string name="empty_input">Пустые данные</string>
     <string name="invalid_email">E-mail невалидный</string>
@@ -13,7 +13,7 @@
     <string name="authorization_error">Ошибка авторизации</string>
     <string name="password_dont_match">Пароли не совпадают</string>
     <string name="weak_password">Пароль слишком легкий, попробуйте его усложнить</string>
-    <string name="user_already_exists">Пользователь с данным e-mail уже зарегестрирован</string>
+    <string name="user_already_exists">Пользователь с данным e-mail уже зарегистрирован</string>
     <string name="failed_to_create_account">Не удалось создать аккаунт.</string>
     <string name="your_name">Ваше имя</string>
 </resources>
