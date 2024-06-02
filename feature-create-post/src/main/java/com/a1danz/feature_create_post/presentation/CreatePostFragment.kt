@@ -188,7 +188,15 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
             btnClearMedia.setOnClickListener {
                 selectedImagesCallback(emptyList(), baseConfig, adapter, true)
             }
+
+            btnClearText.setOnClickListener {
+                clearText()
+            }
         }
+    }
+
+    private fun clearText() {
+        viewBinding.editText.text.clear()
     }
 
     private fun initRvDecorations() {

@@ -7,19 +7,61 @@
     android:layout_marginHorizontal="8dp"
     android:background="?attr/backgroundColor">
 
-    <TextView
-        android:id="@+id/tv_title"
+    <LinearLayout
+        android:id="@+id/layout_header"
 
-        style="@style/TextView.SemiBold"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/post_publication"
-        android:textColor="?attr/colorOnBackground"
-        android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        android:gravity="center_vertical"
+        android:baselineAligned="false">
+        <LinearLayout
+            android:id="@+id/btn_clear_media"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/clear_btn_background"
+            android:padding="5dp"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/image_clear_icon"
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/tv_title"
+
+            style="@style/TextView.SemiBold"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="@string/post_publication"
+            android:textColor="?attr/colorOnBackground"
+            android:textSize="22sp"
+            android:textAlignment="center"
+            />
+
+        <LinearLayout
+            android:id="@+id/btn_clear_text"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/clear_btn_background"
+            android:padding="5dp"
+            android:clickable="true"
+            android:focusable="true">
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/edit_clear_icon"/>
+        </LinearLayout>
+    </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/text_guideline"
@@ -50,7 +92,7 @@
         app:layout_constraintBottom_toTopOf="@id/text_guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_title"
+        app:layout_constraintTop_toBottomOf="@id/layout_header"
         app:layout_constraintVertical_bias="0.0" />
 
     <LinearLayout
@@ -109,19 +151,6 @@
                     android:textColor="@color/primary"
                     android:textSize="16sp" />
             </LinearLayout>
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_clear_media"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/danger_rect"
-                android:fontFamily="@font/rubik_medium"
-                android:text="@string/reset_media"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
         </LinearLayout>
 
         <LinearLayout
