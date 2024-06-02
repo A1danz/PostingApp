@@ -3,6 +3,7 @@ package com.a1danz.feature_create_post.domain.interactor.impl
 import android.util.Log
 import com.a1danz.common.domain.model.Config
 import com.a1danz.common.domain.model.TgChatInfo
+import com.a1danz.common.domain.model.User
 import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.feature_create_post.data.model.PostPublishingModels
 import com.a1danz.feature_create_post.domain.factory.PostPublishingDomainModelsFactory
@@ -19,17 +20,17 @@ import javax.inject.Inject
 
 class UserInteractorImpl @Inject constructor(
     private val dispatcher: CoroutineDispatcher,
-    private val config: Config,
+    private val user: User,
     private val placesStaticInfo: HashMap<PostPlaceType, PostPlaceStaticInfo>,
     private val postPublishingFactory: PostPublishingDomainModelsFactory,
     private val postPlaceTypeMapper: PostPlaceTypeMapper
 ) : UserInteractor {
     override fun getTgChats(): List<TgChatInfo>? {
-        return config.tgConfig?.selectedChats
+        return user.config.tgConfig?.selectedChats
     }
 
     override fun getVkUserInfo(): VkConfig? {
-        return config.vkConfig
+        return user.config.vkConfig
     }
 
     override fun getPostPlaceStaticInfo(postPlaceType: PostPlaceType): PostPlaceStaticInfo? {
