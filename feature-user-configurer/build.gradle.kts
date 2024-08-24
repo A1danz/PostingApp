@@ -15,12 +15,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        addManifestPlaceholders(mapOf(
-            "VKIDRedirectHost" to "vk.com", // обычно vk.com
-            "VKIDRedirectScheme" to (project.properties["vkRedirectScheme"] ?: throw IllegalStateException("redirect scheme doesn't initalized in properties")), // обычно vk{ID приложения}
-            "VKIDClientID" to (project.properties["vkClientId"] ?: throw IllegalStateException("vk client id doesn't initalized in properties")),
-            "VKIDClientSecret" to (project.properties["vkClientSecret"] ?: throw IllegalStateException("vk client secret doesn't initalized in properties"))
-        ))
     }
 
     buildTypes {
