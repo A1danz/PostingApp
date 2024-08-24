@@ -24,7 +24,7 @@ class PostPublishingModule {
 
     @Provides
     fun providesTelegramPublisherComponent(): TelegramPublisherComponent = DaggerTelegramPublisherComponent.builder()
-        .botToken(BuildConfig.BOT_TOKEN)
+        .botToken(BuildConfig.TG_BOT_TOKEN)
         .build()
 
     @Provides

@@ -3,6 +3,12 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
     alias(libs.plugins.googleServices)
+    id(libs.plugins.gradleSecrets.get().pluginId)
+}
+
+secrets {
+    propertiesFileName = "secrets.properties"
+    defaultPropertiesFileName = "secrets.properties"
 }
 
 android {
