@@ -13,8 +13,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        buildConfigField("String", "BOT_TOKEN", project.properties["tgBotToken"] as String?
-            ?: throw IllegalStateException("bot token doesn't initilized"))
     }
 
     buildTypes {
