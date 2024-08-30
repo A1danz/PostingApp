@@ -5,7 +5,6 @@ import androidx.core.net.toUri
 import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import com.a1danz.feature_post_publisher_api.PostPublisher
-import com.a1danz.feature_post_publisher_api.model.PostCreatingResult
 import com.a1danz.feature_post_publisher_api.model.PostCreatingResultType
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.feature_posts_feed.domain.model.PostDomainModel

@@ -1,36 +1,6 @@
 import java.net.URI
 
-include(":feature-places-info")
-
-
-include(":feature-posts-feed-database")
-
-
-include(":feature-posts-feed")
-
-
-
-include(":feature-telegram-publisher")
-
-
-include(":feature-vk-api")
-
-
-include(":feature-vk-publisher")
-
-
-include(":feature-post-publisher-api")
-
-include(":feature-create-post")
-
-
-include(":feature-user-configurer")
-
-
-include(":feature-create-post")
-
-
-include(":feature-initialize")
+include(":core:data")
 
 
 pluginManagement {
@@ -64,6 +34,17 @@ dependencyResolutionManagement {
 
 rootProject.name = "PostingApp"
 include(":app")
-include(":common")
-include(":feature-authorization")
-include(":feature-settings")
+include(":core:common")
+include(":feature:authorization")
+include(":feature:settings")
+include(":feature:places-info")
+include(":feature:posts-feed-database")
+include(":feature:posts-feed")
+include(":feature:telegram-publisher")
+include(":feature:vk-api")
+include(":feature:vk-publisher")
+include(":feature:post-publisher-api")
+include(":feature:create-post")
+include(":feature:user-configurer")
+include(":feature:create-post")
+include(":feature:initialize")
