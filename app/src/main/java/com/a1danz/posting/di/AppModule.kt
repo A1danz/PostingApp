@@ -3,8 +3,6 @@ package com.a1danz.posting.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.a1danz.common.core.datastore.DataStoreManager
-import com.a1danz.common.core.datastore.impl.DataStoreManagerImpl
 import com.a1danz.common.core.datastore.impl.dataStore
 import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.core.resources.ResourceManagerImpl

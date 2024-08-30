@@ -10,7 +10,6 @@ import com.a1danz.posting.di.featureprovide.FeatureManagerModule
 import com.a1danz.posting.di.firebase.FirebaseModule
 import com.a1danz.posting.di.navigation.NavigationModule
 import com.a1danz.posting.di.presentation.PresentationModule
-import com.a1danz.posting.domain.di.DomainModule
 import dagger.BindsInstance
 import dagger.Component
 

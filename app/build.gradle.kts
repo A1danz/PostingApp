@@ -27,7 +27,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -51,16 +51,16 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation(project(":feature-authorization"))
-    implementation(project(":feature-settings"))
-    implementation(project(":feature-initialize"))
-    implementation(project(":feature-user-configurer"))
-    implementation(project(":feature-create-post"))
-    implementation(project(":feature-post-publisher-api"))
-    implementation(project(":feature-posts-feed-database"))
-    implementation(project(":feature-posts-feed"))
-    implementation(project(":feature-places-info"))
+    implementation(project(":core:common"))
+    implementation(project(":feature:authorization"))
+    implementation(project(":feature:settings"))
+    implementation(project(":feature:initialize"))
+    implementation(project(":feature:user-configurer"))
+    implementation(project(":feature:create-post"))
+    implementation(project(":feature:post-publisher-api"))
+    implementation(project(":feature:posts-feed-database"))
+    implementation(project(":feature:posts-feed"))
+    implementation(project(":feature:places-info"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

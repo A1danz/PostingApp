@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
 import com.a1danz.feature_post_publisher_api.PostPublisher
-import com.a1danz.feature_post_publisher_api.model.PostCreatingResult
-import com.a1danz.feature_post_publisher_api.model.PostCreatingResultType
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.posting.domain.interactor.MainActivityUserInteractor
 import kotlinx.coroutines.delay

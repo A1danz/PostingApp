@@ -1,7 +1,5 @@
 package com.a1danz.posting.data.repository
 
-import androidx.room.Dao
-import com.a1danz.feature_places_info.data.mapper.PostPlaceTypeMapper
 import com.a1danz.feature_posts_feed.domain.model.PostDomainModel
 import com.a1danz.feature_posts_feed_database.data.local.dao.PostDao
 import com.a1danz.feature_posts_feed_database.data.local.entites.PostEntity
