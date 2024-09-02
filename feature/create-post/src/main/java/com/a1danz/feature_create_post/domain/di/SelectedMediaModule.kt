@@ -12,6 +12,7 @@ class SelectedMediaModule
 
 @Module
 interface SelectedMediaInteractorBinder {
+
     @Binds
     fun bindSelectedMediaInteractor_to_Impl(interactor: UserSelectedMediaInteractorImpl): UserSelectedMediaInteractor
 }

@@ -8,6 +8,7 @@ import kotlinx.coroutines.Dispatchers
 @Module(includes = [
     SelectedMediaModule::class,
     PostPublishingModule::class,
+    CreatePostModule::class,
     UserConfigModule::class
 ])
 class DomainModule {

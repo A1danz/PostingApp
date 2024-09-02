@@ -2,10 +2,10 @@ package com.a1danz.feature_create_post.domain.di
 
 import com.a1danz.common.domain.model.User
 import com.a1danz.feature_create_post.BuildConfig
-import com.a1danz.feature_create_post.domain.interactor.DatastoreUserInteractor
-import com.a1danz.feature_create_post.domain.interactor.UserInteractor
-import com.a1danz.feature_create_post.domain.interactor.impl.DataStoreUserInteractorImpl
-import com.a1danz.feature_create_post.domain.interactor.impl.UserInteractorImpl
+import com.a1danz.feature_create_post.domain.interactor.CreatePostInteractor
+import com.a1danz.feature_create_post.domain.interactor.PostPublishingInteractor
+import com.a1danz.feature_create_post.domain.interactor.impl.CreatePostInteractorImpl
+import com.a1danz.feature_create_post.domain.interactor.impl.PostPublishingInteractorImpl
 import com.a1danz.feature_telegram_publisher.di.DaggerTelegramPublisherComponent
 import com.a1danz.feature_telegram_publisher.di.TelegramPublisherComponent
 import com.a1danz.vk_publisher.di.DaggerVkPublisherComponent
@@ -15,8 +15,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module(includes = [
-    UserInteractorBinderModule::class,
-    DataStoreInteractorBinderModule::class
+    PostPublishingInteractorBinderModule::class
 ])
 class PostPublishingModule {
 
@@ -33,15 +32,9 @@ class PostPublishingModule {
 }
 
 @Module
-interface UserInteractorBinderModule {
+interface PostPublishingInteractorBinderModule {
 
     @Binds
-    fun bindUserInteractor_to_Impl(userInteractorImpl: UserInteractorImpl): UserInteractor
-}
+    fun bindPostPublishingInteractor_to_Impl(postPublishingInteractorImpl: PostPublishingInteractorImpl): PostPublishingInteractor
 
-@Module
-interface DataStoreInteractorBinderModule {
-
-    @Binds
-    fun bindDataStoreInteractor_to_Impl(dataStoreUserInteractorImpl: DataStoreUserInteractorImpl): DatastoreUserInteractor
 }

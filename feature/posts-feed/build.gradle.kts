@@ -33,8 +33,8 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(project(":core:data"))
     implementation(project(":feature:places-info"))
-    implementation(project(":feature:posts-feed-database"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

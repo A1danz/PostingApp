@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.a1danz.common.di.presentation.ViewModelKey
 import com.a1danz.feature_authorization.presentation.screens.signin.SignInViewModel
 import com.a1danz.feature_authorization.presentation.screens.signup.SignUpViewModel
-import com.a1danz.posting.presentation.MainActivityViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -20,10 +19,6 @@ class PresentationModule {
     @Provides
     @[IntoMap ViewModelKey(SignInViewModel::class)]
     fun provideSignInViewModel(viewModel: SignInViewModel): ViewModel = viewModel
-
-    @Provides
-    @[IntoMap ViewModelKey(MainActivityViewModel::class)]
-    fun provideMainActivityViewModel(viewModel: MainActivityViewModel): ViewModel = viewModel
 }
 
 @Module

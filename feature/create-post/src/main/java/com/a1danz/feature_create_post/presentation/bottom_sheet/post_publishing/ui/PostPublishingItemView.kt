@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.databinding.ViewPostPublishingItemBinding
-import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
+import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingDestinationUiModel
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingStatusUiModel
 import com.bumptech.glide.Glide
 
@@ -22,30 +22,29 @@ class PostPublishingItemView @JvmOverloads constructor(
 
     private val viewBinding: ViewPostPublishingItemBinding by viewBinding(ViewPostPublishingItemBinding::bind)
 
-    fun setGlobalStatus(status: String) {
-        viewBinding.tvGlobalStatus.text = status
-    }
-
     fun setPublishingStatus(status: PostPublishingStatusUiModel) {
         with(viewBinding) {
-            tvPublishingStatus.text = status.uiName
+            tvPublishingStatus.text = context.getString(status.title)
             tvPublishingStatus.setTextColor(ContextCompat.getColor(context, status.color))
-            tvGlobalStatus.text = status.globalStatus
+            tvGlobalStatus.text = context.getString(
+                if (status.inProcess) R.string.in_process
+                else R.string.finished
+            )
         }
     }
 
-    fun setItemName(name: String) {
+    private fun setItemName(name: String) {
         viewBinding.tvName.text = name
     }
 
-    fun setImage(uri: String) {
+    private fun setImage(uri: String) {
         Glide.with(this)
             .load(uri)
             .into(viewBinding.ivImg)
     }
 
-    fun setItemModel(itemModel: PostPublishingItemDomainModel) {
-        setItemName(itemModel.itemInfo.name)
-        setImage(itemModel.itemInfo.img)
+    fun setItemModel(itemModel: PostPublishingDestinationUiModel) {
+        setItemName(itemModel.name)
+        setImage(itemModel.img)
     }
 }

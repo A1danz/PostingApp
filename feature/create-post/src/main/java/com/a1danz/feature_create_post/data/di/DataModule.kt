@@ -1,7 +1,7 @@
 package com.a1danz.feature_create_post.data.di
 
-import com.a1danz.feature_create_post.data.repository.DataStoreRepositoryImpl
-import com.a1danz.feature_create_post.domain.repository.DataStoreRepository
+import com.a1danz.feature_create_post.data.repository.PostsLocalRepositoryImpl
+import com.a1danz.feature_create_post.domain.repository.PostsLocalRepository
 import com.google.gson.Gson
 import dagger.Binds
 import dagger.Module
@@ -9,7 +9,7 @@ import dagger.Provides
 
 @Module(
     includes = [
-        DataStoreRepositoryBinderModule::class
+        RepositoryBinderModule::class
     ]
 )
 class DataModule {
@@ -21,8 +21,8 @@ class DataModule {
 
 
 @Module
-interface DataStoreRepositoryBinderModule {
+interface RepositoryBinderModule {
 
     @Binds
-    fun bindDataStore_to_Impl(dataStoreRepositoryImpl: DataStoreRepositoryImpl): DataStoreRepository
+    fun bindPostLocalRepository_to_Impl(postsLocalRepositoryImpl: PostsLocalRepositoryImpl): PostsLocalRepository
 }

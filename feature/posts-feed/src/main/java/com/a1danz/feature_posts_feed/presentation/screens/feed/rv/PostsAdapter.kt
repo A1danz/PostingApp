@@ -64,7 +64,7 @@ class PostsAdapter(
                 postUiModel.postPlaces.forEach {
                     layoutPlaces.addView(
                         SocialMediaTagView(viewBinding.root.context, null).apply {
-                            setStaticInfo(it)
+                            setPostPlaceUiInfo(it)
                         }
                     )
                 }

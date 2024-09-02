@@ -4,5 +4,5 @@ import com.a1danz.feature_post_publisher_api.PostPublisher
 
 class PostPublishingItemDomainModel (
     val publisher: PostPublisher,
-    val itemInfo: PostPublishingItemInfoDomainModel
+    val destinationInfo: PostDestinationDomainModel
 )

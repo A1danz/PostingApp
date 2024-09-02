@@ -6,9 +6,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.OutputStream
 
-class FileHelper {
-}
-
 fun Uri.toFile(context: Context): File {
     val contentResolver = context.contentResolver
     val file = createTempFile(context, contentResolver.getType(this))
@@ -23,7 +20,7 @@ fun Uri.toFile(context: Context): File {
 }
 
 private fun createTempFile(context: Context, mimeType: String?): File {
-    val tempDir = context.cacheDir
+    val tempDir = context.filesDir
     val fileExtension = when(mimeType) {
         "image/jpeg" -> ".jpg"
         "image/png" -> ".png"

@@ -1,16 +1,14 @@
 package com.a1danz.feature_posts_feed.domain.mapper
 
-import android.util.Log
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
-import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
+import com.a1danz.feature_places_info.presentation.model.PostPlaceUiInfo
+import com.a1danz.feature_places_info.presentation.model.getUiInfo
 import com.a1danz.feature_posts_feed.domain.model.PostDomainModel
 import com.a1danz.feature_posts_feed.presentation.model.PostUiModel
 import java.util.Calendar
 import javax.inject.Inject
 
-class PostModelUiMapper @Inject constructor(
-    private val postPlacesStaticInfo: HashMap<PostPlaceType, PostPlaceStaticInfo>
-) {
+class PostModelUiMapper @Inject constructor() {
 
     fun mapToUiModel(domainModel: PostDomainModel): PostUiModel {
         return PostUiModel(
@@ -18,8 +16,8 @@ class PostModelUiMapper @Inject constructor(
             text = domainModel.text,
             imgs = domainModel.imgs,
             date = convertDateToString(domainModel.date),
-            postPlaces = domainModel.postPlaces.mapNotNull {
-                getPostPlaceStaticInfo(it)
+            postPlaces = domainModel.postPlaces.map {
+                it.getUiInfo()
             }
         )
     }
@@ -33,12 +31,6 @@ class PostModelUiMapper @Inject constructor(
             .append(convertNumber(date.get(Calendar.MINUTE)))
 
         return sb.toString()
-    }
-
-    private fun getPostPlaceStaticInfo(postPlaceType: PostPlaceType): PostPlaceStaticInfo? {
-        val result = postPlacesStaticInfo.get(postPlaceType)
-        if (result == null) Log.e("STATIC NOT FOUND", "STATIC INFO ABOUT $postPlaceType NOT FOUND")
-        return result
     }
 
     private fun convertNumber(number: Int): String {

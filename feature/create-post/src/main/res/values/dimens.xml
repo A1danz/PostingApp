@@ -2,4 +2,5 @@
 <resources>
     <dimen name="horizontal_padding">5dp</dimen>
     <dimen name="vertical_padding">2dp</dimen>
+    <dimen name="spacing_between_images">5dp</dimen>
 </resources>

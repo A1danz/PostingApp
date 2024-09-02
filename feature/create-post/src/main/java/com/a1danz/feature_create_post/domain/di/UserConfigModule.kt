@@ -7,6 +7,7 @@ import dagger.Provides
 
 @Module
 class UserConfigModule {
+
     @Provides
     fun provideUserConfig(user: User): Config = user.config
 }
