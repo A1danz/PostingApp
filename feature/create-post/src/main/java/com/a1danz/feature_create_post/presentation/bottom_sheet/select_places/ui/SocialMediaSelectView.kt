@@ -2,12 +2,13 @@ package com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.u
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.LayoutInflater
 import androidx.annotation.DrawableRes
 import androidx.constraintlayout.widget.ConstraintLayout
+import by.kirich1409.viewbindingdelegate.viewBinding
+import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.databinding.ViewSocialMediaBinding
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.model.PostPlaceUiModel
-import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
+import com.a1danz.feature_places_info.presentation.model.PostPlaceUiInfo
 import com.bumptech.glide.Glide
 
 class SocialMediaSelectView @JvmOverloads constructor(
@@ -15,13 +16,14 @@ class SocialMediaSelectView @JvmOverloads constructor(
     attrs: AttributeSet?,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
-    private val viewBinding: ViewSocialMediaBinding = ViewSocialMediaBinding.inflate(
-        LayoutInflater.from(context),
-        this,
-        true
-    )
 
-    private var staticInfo: PostPlaceStaticInfo? = null
+    init {
+        inflate(context, R.layout.view_social_media, this)
+    }
+
+    private val viewBinding by viewBinding(ViewSocialMediaBinding::bind)
+
+    private var placeUiInfo: PostPlaceUiInfo? = null
 
     private fun setIcon(@DrawableRes drawable: Int?) {
         Glide.with(this)
@@ -29,34 +31,21 @@ class SocialMediaSelectView @JvmOverloads constructor(
             .into(viewBinding.ivIcon)
     }
 
-    private fun setTitle(title: String) {
-        viewBinding.tvTitle.text = title
-    }
-
-    private fun setAdditionalInfo(text: String) {
-        viewBinding.tvAdditionalInfo.text = text
-    }
-
-    fun isThisSelected(): Boolean {
-        return viewBinding.switchBtn.isSelected
-    }
-
-    private fun setSelectedState(selected: Boolean) {
-        viewBinding.switchBtn.isChecked = selected
-    }
-
-    fun setSelectCallback(callback: (Boolean, PostPlaceStaticInfo) -> Unit) {
+    private fun setSelectCallback(callback: (Boolean, PostPlaceUiInfo) -> Unit) {
         viewBinding.switchBtn.setOnCheckedChangeListener { view, isChecked ->
-            staticInfo?.let { callback.invoke(isChecked, it) }
+            placeUiInfo?.let { callback.invoke(isChecked, it) }
         }
     }
 
-    fun setUiModel(postPlace: PostPlaceUiModel) {
-        setAdditionalInfo(postPlace.additionalInfo)
-        setIcon(postPlace.staticInfo.img)
-        setTitle(postPlace.staticInfo.title)
-        setSelectedState(postPlace.isSelected)
-        staticInfo = postPlace.staticInfo
+    fun setupData(postPlace: PostPlaceUiModel, selectCallback: (Boolean, PostPlaceUiInfo) -> Unit) {
+        setIcon(postPlace.uiInfo.img)
+        setSelectCallback(selectCallback)
+
+        viewBinding.tvTitle.text = context.getString(postPlace.uiInfo.title)
+        viewBinding.tvAdditionalInfo.text = postPlace.additionalInfo
+        viewBinding.switchBtn.isChecked = postPlace.isSelected
+
+        placeUiInfo = postPlace.uiInfo
     }
 
 

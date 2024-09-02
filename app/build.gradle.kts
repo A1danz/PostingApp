@@ -52,13 +52,13 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(project(":core:data"))
     implementation(project(":feature:authorization"))
     implementation(project(":feature:settings"))
     implementation(project(":feature:initialize"))
     implementation(project(":feature:user-configurer"))
     implementation(project(":feature:create-post"))
     implementation(project(":feature:post-publisher-api"))
-    implementation(project(":feature:posts-feed-database"))
     implementation(project(":feature:posts-feed"))
     implementation(project(":feature:places-info"))
 

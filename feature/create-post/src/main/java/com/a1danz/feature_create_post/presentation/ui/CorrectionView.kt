@@ -13,6 +13,7 @@ class CorrectionView @JvmOverloads constructor(
     attrs: AttributeSet?,
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
+
     init {
         inflate(context, R.layout.view_correction, this)
     }

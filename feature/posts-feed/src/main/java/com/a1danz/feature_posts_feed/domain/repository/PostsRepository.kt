@@ -6,4 +6,5 @@ interface PostsRepository {
 
     suspend fun getPosts(): List<PostDomainModel>
     suspend fun deletePostById(id: Int)
+    suspend fun savePost(postDomainModel: PostDomainModel)
 }

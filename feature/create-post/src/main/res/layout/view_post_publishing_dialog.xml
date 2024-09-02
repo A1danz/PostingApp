@@ -71,7 +71,7 @@
         android:textColor="?attr/colorOnBackground"
         android:textSize="18sp"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_places"
+        android:id="@+id/rv_destinations"
 
         android:layout_width="match_parent"
         android:layout_height="200dp"

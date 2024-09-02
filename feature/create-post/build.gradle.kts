@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
     id(libs.plugins.gradleSecrets.get().pluginId)
+    id(libs.plugins.safeArgs.get().pluginId)
 }
 
 secrets {
@@ -40,6 +41,7 @@ android {
 
 dependencies {
     implementation(project(":core:common"))
+    implementation(project(":core:data"))
     implementation(project(":feature:user-configurer"))
     implementation(project(":feature:post-publisher-api"))
     implementation(project(":feature:vk-publisher"))

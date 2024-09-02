@@ -1,10 +1,13 @@
 package com.a1danz.common.presentation.base
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
+import com.a1danz.common.presentation.base.model.AlertDialogData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
@@ -22,6 +25,22 @@ abstract class BaseBottomSheetDialogFragment(@LayoutRes layoutRes: Int) : Bottom
         super.onViewCreated(view, savedInstanceState)
         subscribe()
         initViews()
+    }
+
+    fun showAlertDialog(alertDialogData: AlertDialogData) {
+        val dialogBuilder = AlertDialog.Builder(requireContext())
+            .setTitle(alertDialogData.title)
+        alertDialogData.apply {
+            if (message != null) dialogBuilder.setMessage(message)
+            if (positiveButton != null) dialogBuilder.setPositiveButton(positiveButton.text) { _, _ ->
+                positiveButton.callback?.invoke()
+            }
+            if (negativeButton != null) dialogBuilder.setNegativeButton(negativeButton.text) { _, _ ->
+                negativeButton.callback?.invoke()
+            }
+        }
+
+        dialogBuilder.show()
     }
 
     abstract fun inject()

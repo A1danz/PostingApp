@@ -2,7 +2,6 @@ package com.a1danz.vk_publisher.domain
 
 import com.a1danz.feature_post_publisher_api.PostPublisher
 import com.a1danz.feature_post_publisher_api.model.PostCreatingResult
-import com.a1danz.feature_post_publisher_api.model.PostCreatingResultType
 import com.a1danz.feature_post_publisher_api.model.PostModel
 import com.a1danz.feature_post_publisher_api.model.PostPublishingStatus
 import com.a1danz.feature_vk_api.domain.VkApiRepository
@@ -15,53 +14,18 @@ class VkPublisher @AssistedInject constructor(
     @Assisted(OWNER_ID) private val ownerId: Long,
     @Assisted(IS_GROUP) private val isGroup: Boolean = false,
     private val vkApiRepository: VkApiRepository
-) : PostPublisher {
-    override val creatingStatusFlow: MutableStateFlow<PostPublishingStatus?> = MutableStateFlow(null)
-    override var creatingResult: PostCreatingResult? = null
-
-
+) : PostPublisher() {
     override suspend fun createPost(post: PostModel) {
-        if (!postDataIsValid(post)) {
-            creatingStatusFlow.value = PostPublishingStatus.INVALID_DATA
-            return
-        }
-        createPost(post, 0)
-
+        vkApiRepository.createPost(
+            ownerId = ownerId,
+            message = post.text,
+            photos = post.images,
+            isGroup = isGroup
+        )
     }
 
     override fun postDataIsValid(post: PostModel): Boolean {
         return post.images.isNotEmpty() || post.text.isNotBlank()
-    }
-
-    private suspend fun createPost(post: PostModel, attemptsCount: Int) {
-        if (attemptsCount > PostPublisher.MAX_ATTEMPTS) {
-            creatingStatusFlow.value = PostPublishingStatus.FAILURE
-            creatingResult = PostCreatingResult(PostCreatingResultType.FAILURE)
-            return
-        } else if (attemptsCount == 0) {
-            creatingStatusFlow.value = PostPublishingStatus.IN_PROCESS
-        } else {
-            creatingStatusFlow.value = PostPublishingStatus.RETRYING
-        }
-
-        runCatching {
-            vkApiRepository.createPost(
-                ownerId = ownerId,
-                message = post.text,
-                photos = post.images,
-                isGroup = isGroup
-            )
-        }.onSuccess {
-            creatingResult = PostCreatingResult(
-                PostCreatingResultType.SUCCESS,
-
-                )
-            creatingStatusFlow.value = PostPublishingStatus.SUCCESS
-            return
-        }.onFailure {
-            it.printStackTrace()
-            createPost(post, attemptsCount + 1)
-        }
     }
 
     @AssistedFactory

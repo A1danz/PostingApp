@@ -40,7 +40,7 @@ class ImagesAdapter : ListAdapter<Uri, ImagesAdapter.ImageViewHolder>(object : D
 
         fun bindItem(image: Uri) {
             Glide.with(itemView)
-                .load(image)
+                .load(image.path)
                 .into(viewBinding.iv)
         }
     }

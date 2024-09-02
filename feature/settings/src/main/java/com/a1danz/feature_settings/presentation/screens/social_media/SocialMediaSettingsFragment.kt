@@ -27,18 +27,16 @@ class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_
     }
 
     override fun initViews() {
+        initVkSection()
+        initTgSection()
+    }
+
+    private fun initVkSection() {
         with(viewBinding) {
             btnVkSettings.setOnClickListener {
                 viewModel.openVkSettingsScreen()
             }
 
-            initVkSection()
-            initTgSection()
-        }
-    }
-
-    private fun initVkSection() {
-        with(viewBinding) {
             val vkConfig = viewModel.getUserVkConfig()
             if (vkConfig == null) tvVkPleaseDoOuath.isVisible = true
             else showVkInfo(vkConfig)

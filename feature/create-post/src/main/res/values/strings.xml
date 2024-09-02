@@ -29,4 +29,20 @@
     <string name="type_text_here">Введите текст здесь</string>
     <string name="reset_media">Сбросить медиа</string>
     <string name="chosen_sites_for_publication">Выбранные площадки для публикации:</string>
+    <string name="post_successfully_published">Пост успешно выложен!</string>
+    <string name="you_can_view_results_in_feed">Результаты вы можете посмотреть в ленте постов</string>
+    <string name="success">Успешно</string>
+    <string name="retrying_attempt">Повторная попытка...</string>
+    <string name="publication_failed">Публикация не удалась</string>
+    <string name="in_process">В процессе...</string>
+    <string name="finished">Завершена</string>
+    <string name="publication_cancelled">Публикация прервана</string>
+    <string name="error_title">Ошибка</string>
+    <string name="cant_get_data">Не удалось получить данные.</string>
+    <string name="ok">Ок</string>
+    <string name="cant_get_publication_data">Не удалось получить данные о публикации. Попробуйте позже.</string>
+    <string name="you_havent_attached_any_photos">Вы не прикрепили ни одного фото</string>
+    <string name="publication_text_will_be_empty">Текст публикации будет пустой</string>
+    <string name="post_publishing_timeout_expired">Время ожидания публикации поста истекло.</string>
+
 </resources>

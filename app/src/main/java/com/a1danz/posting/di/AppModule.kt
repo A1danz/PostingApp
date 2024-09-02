@@ -8,9 +8,8 @@ import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.core.resources.ResourceManagerImpl
 import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.common.domain.UserModelDelegate
+import com.a1danz.feature_posts_feed.data.di.DataModule
 import com.a1danz.posting.App
-import com.a1danz.posting.di.data.DataModule
-import com.a1danz.posting.domain.di.DomainModule
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -19,8 +18,8 @@ import dagger.Provides
 @Module(
     includes = [
         ContextBinder::class,
-        DomainModule::class,
-        DataModule::class
+        DataModule::class,
+        com.a1danz.core_data.di.DataModule::class
     ]
 )
 class AppModule {

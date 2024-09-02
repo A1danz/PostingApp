@@ -1,144 +1,150 @@
 package com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing
 
+import android.content.Context
 import android.util.Log
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.a1danz.common.domain.model.TgChatInfo
-import com.a1danz.common.domain.model.VkConfig
-import com.a1danz.feature_create_post.domain.interactor.DatastoreUserInteractor
-import com.a1danz.feature_create_post.domain.interactor.UserInteractor
+import com.a1danz.feature_create_post.domain.interactor.PostPublishingInteractor
 import com.a1danz.feature_create_post.domain.model.PostPublishingDomainModel
-import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
-import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingStatusUiModel
-import com.a1danz.feature_create_post.utils.PostPublishingStarter
+import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingUiModel
+import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.event.UiEvent
+import com.a1danz.feature_create_post.presentation.mapper.toPostPublishingDestinationUiModel
+import com.a1danz.feature_create_post.presentation.model.PostUiModel
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
-import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
+import com.a1danz.feature_places_info.presentation.model.toPostPlaceType
 import com.a1danz.feature_post_publisher_api.PostPublisher
 import com.a1danz.feature_post_publisher_api.model.PostModel
-import com.a1danz.feature_post_publisher_api.model.PostPublishingStatus
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
 class PostPublishingViewModel @Inject constructor(
-    private val userInteractor: UserInteractor,
-    private val dataStoreUserInteractor: DatastoreUserInteractor
+    private val postPublishingInteractor: PostPublishingInteractor
 ) : ViewModel() {
-    fun getTgChats(): List<TgChatInfo>? {
-        return userInteractor.getTgChats()
+
+    private val _publishingInProcessFlow: MutableStateFlow<Boolean?> = MutableStateFlow(null)
+    val publishingInProcessFlow: StateFlow<Boolean?> = _publishingInProcessFlow
+
+    private val _uiEvent: MutableSharedFlow<UiEvent> = MutableSharedFlow()
+    val uiEvent: SharedFlow<UiEvent> = _uiEvent
+
+    private val postPublishingModels: MutableList<PostPublishingDomainModel> = mutableListOf()
+
+    private var postModel: PostModel? = null
+
+
+    fun publishingAlreadyInProcess() = publishingInProcessFlow.value == true
+
+    fun getAlreadyStartedPublishingUiModels(): List<PostPublishingUiModel> {
+        return postPublishingModels.map { it.toPostPublishingDestinationUiModel(
+            viewModelScope
+        ) }
     }
 
-    fun getVkConfig(): VkConfig? {
-        return userInteractor.getVkUserInfo()
+    private suspend fun getPostModelByUiModel(postUiModel: PostUiModel, context: Context): PostModel {
+        return PostModel(
+            text = postUiModel.text,
+            images = postUiModel.images.map { postPublishingInteractor.convertUriToFile(it.imgUri, context)}
+        )
     }
 
-    fun getPostPlaceStaticInfo(postPlaceType: PostPlaceType): PostPlaceStaticInfo? {
-        return userInteractor.getPostPlaceStaticInfo(postPlaceType)
-    }
-
-    fun getPostPublishingDomainModel(postPlaceType: PostPlaceType): PostPublishingDomainModel? {
-        return userInteractor.getPostPublishingModel(postPlaceType)
-    }
-
-    fun startPublishingProcess(
-        activity: FragmentActivity,
-        postPlaceType: PostPlaceType,
-        postPublishingItem: PostPublishingItemDomainModel,
-        postModel: PostModel
-    ) {
-        val postPublishingStarter: PostPublishingStarter? = (activity as? PostPublishingStarter)
-        if (postPublishingStarter == null) {
-            Log.e("CAST EXCEPTION", "Can not cast activity to PostPublishingStarter $activity")
-            return
-        }
+    fun startPublishingProcess(postUiModel: PostUiModel, context: Context) {
         viewModelScope.launch {
-            dataStoreUserInteractor.addPostPublishingModel(postPlaceType, postPublishingItem.itemInfo)
-        }
+            _publishingInProcessFlow.value = true
 
-        postPublishingStarter.startPublishingProcess(postPublishingItem, postModel)
+            postModel = getPostModelByUiModel(postUiModel, context)
+            val publishers = mutableListOf<PostPublisher>()
+            postPublishingModels.forEach { publishingModel ->
+                publishingModel.publishingItems.forEach { publishingItem ->
+                    publishers.add(publishingItem.publisher)
+                }
+            }
+
+            postPublishingInteractor.startPublishing(
+                postPublishers = publishers,
+                postModel = postModel!!
+            )
+            checkForFinishing(publishers, postModel!!)
+        }
     }
 
-    fun getStatusUiModel(status: PostPublishingStatus): PostPublishingStatusUiModel {
-        return when(status) {
-            PostPublishingStatus.INVALID_DATA -> PostPublishingStatusUiModel(
-                status,
-                "Невалидные данные",
-                com.a1danz.common.R.color.error,
-                "Завершена"
-            )
-            PostPublishingStatus.SUCCESS -> PostPublishingStatusUiModel(
-                status,
-                "Успешно",
-                com.a1danz.common.R.color.success,
-                "Завершена"
-            )
-            PostPublishingStatus.RETRYING -> PostPublishingStatusUiModel(
-                status,
-                "Повторная попытка...",
-                com.a1danz.common.R.color.warning,
-                "Публикация..."
-            )
-            PostPublishingStatus.FAILURE -> PostPublishingStatusUiModel(
-                status,
-                "Публикация не удалась",
-                com.a1danz.common.R.color.error,
-                "Завершена"
-            )
-            PostPublishingStatus.IN_PROCESS -> PostPublishingStatusUiModel(
-                status,
-                "В процессе...",
-                com.a1danz.common.R.color.primary,
-                "Публикация..."
-            )
-            PostPublishingStatus.CANCELLED -> PostPublishingStatusUiModel(
-                status,
-                "Публикация прервана",
-                com.a1danz.common.R.color.error,
-                "Завершена"
-            )
-            else -> {
-                Log.e("UNDCATCHABLE STATUS", "UNDEFINED STATUS - $status")
-                PostPublishingStatusUiModel(
-                    status,
-                    "Статус не определен",
-                    com.a1danz.common.R.color.warning,
-                    "Неизвестный статус"
-                )
+    private suspend fun checkForFinishing(publishers: List<PostPublisher>, postModel: PostModel) {
+        val checkFinishingJob = Job()
+        val finishedPublishingCount = AtomicInteger(0)
+        withContext(checkFinishingJob + Dispatchers.IO) {
+            publishers.forEach { publisher ->
+                launch {
+                    publisher.resultFlow.collect {
+                        it?.let {
+                            if (finishedPublishingCount.incrementAndGet() == publishers.size) {
+                                Log.e("COUNT", "PUBLISHING COUNT - $finishedPublishingCount")
+                                _publishingInProcessFlow.value = false
+                                val savingJob = launch {
+                                    savePostToFeed(postPublishingModels, postModel)
+                                }
+                                savingJob.join()
+                                postPublishingModels.clear()
+                                checkFinishingJob.cancel()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        withContext(Dispatchers.IO) {
+            launch {
+                delay(PUBLISHING_TIMEOUT_SECONDS * 1000)
+                if (publishingInProcessFlow.value != false) {
+                    checkFinishingJob.cancel()
+                    postPublishingModels.clear()
+                    _publishingInProcessFlow.value = null
+                    _uiEvent.emit(UiEvent.TimeoutExpired)
+                }
             }
         }
     }
 
-    fun initPostPublishingSaving() {
-        viewModelScope.launch {
-            dataStoreUserInteractor.initPostPublishingModels()
+    private suspend fun savePostToFeed(
+        publishingModelsList: List<PostPublishingDomainModel>,
+        postModel: PostModel,
+    ) {
+        val places = HashSet<PostPlaceType>()
+        publishingModelsList.forEach {
+            places.add(it.postPlaceType)
+        }
+
+        if (places.isNotEmpty()) {
+            postPublishingInteractor.savePostToDatabase(postModel, places.toList())
         }
     }
 
-    fun publishingAlreadyInProcess(activity: FragmentActivity): Boolean {
-        return (activity as? PostPublishingStarter)?.publishingInProcess() ?: false
-    }
+    fun getPostPublishingUiModels(postUiModel: PostUiModel): List<PostPublishingUiModel> {
+        val places = postUiModel.destinations.map {
+            it.uiInfo.toPostPlaceType()
+        }.toHashSet()
 
-    suspend fun getPostPublishingDomainModels(activity: FragmentActivity): List<PostPublishingDomainModel> {
-
-        val result = listOf<PostPublishingDomainModel>()
-        val savedPostPublishingModels = dataStoreUserInteractor.getPostPublishingModels()
-        val postPublishers = getPublishersMap(activity)
-        if (postPublishers == null) {
-            Log.e("POST PUBLISHER", "POST PUBLISHERS IS NULL [PostPublishingViewModel]")
-            return result
-        }
-
-        return userInteractor.getAlreadyCreatedPublishingModels(savedPostPublishingModels, postPublishers).sortedBy {
-            it.postPlaceStaticInfo.placeType
+        return ArrayList<PostPublishingUiModel>().also { result ->
+            places.forEach { place ->
+                postPublishingInteractor.getPostPublishingModel(place)?.let {
+                    postPublishingModels.add(it)
+                    result.add(
+                        it.toPostPublishingDestinationUiModel(viewModelScope)
+                    )
+                }
+            }
         }
     }
 
-    fun getPublishersMap(activity: FragmentActivity): HashMap<String, PostPublisher>? {
-        val publishingStarter = (activity as? PostPublishingStarter)
-        if (publishingStarter == null) {
-            Log.e("ERROR", "CAN NOT CAST ACTIVITY")
-        }
-
-        return publishingStarter?.getPublishersMap()
+    companion object {
+        private const val PUBLISHING_TIMEOUT_SECONDS = 60L
     }
 }

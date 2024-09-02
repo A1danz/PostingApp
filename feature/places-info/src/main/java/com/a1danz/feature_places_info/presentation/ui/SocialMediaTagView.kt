@@ -8,7 +8,8 @@ import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import com.a1danz.feature_places_info.R
 import com.a1danz.feature_places_info.databinding.ViewTagSocialMediaBinding
-import com.a1danz.feature_places_info.presentation.model.PostPlaceStaticInfo
+import com.a1danz.feature_places_info.presentation.model.PostPlaceUiInfo
+import com.a1danz.feature_places_info.presentation.model.toPostPlaceType
 import com.bumptech.glide.Glide
 
 class SocialMediaTagView @JvmOverloads constructor(
@@ -21,18 +22,17 @@ class SocialMediaTagView @JvmOverloads constructor(
         this,
         true
     )
-    private var staticInfo: PostPlaceStaticInfo? = null
 
 
-    fun setStaticInfo(info: PostPlaceStaticInfo) {
-        staticInfo = info
-        tag = info.placeType
+    fun setPostPlaceUiInfo(info: PostPlaceUiInfo) {
+        tag = info.toPostPlaceType()
         with(viewBinding) {
-            setBackgroundResource(R.drawable.tag_background)
-            tvName.text = info.shortTitle
             Glide.with(this@SocialMediaTagView)
                 .load(info.transparentIcon)
                 .into(ivIcon)
+
+            setBackgroundResource(R.drawable.tag_background)
+            tvName.text = context.getString(info.shortTitle)
         }
     }
 
