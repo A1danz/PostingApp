@@ -6,8 +6,13 @@ import com.a1danz.feature_initialize.domain.interactor.impl.InitializerInteracto
 import dagger.Binds
 import dagger.Module
 
-@Module(includes = [PresentationModule::class])
+@Module(
+    includes = [
+        PresentationModule::class
+    ]
+)
 interface InitializingModule {
+
     @Binds
     fun bindInteractor_to_Impl(interactorImpl: InitializerInteractorImpl): InitializerInteractor
 }

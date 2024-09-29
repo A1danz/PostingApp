@@ -13,23 +13,10 @@ import com.a1danz.feature_initialize.di.InitializingComponent
 import kotlinx.coroutines.launch
 
 class InitializingFragment : BaseFragment(R.layout.fragment_initializing) {
-    private val viewBinding: FragmentInitializingBinding by viewBinding(FragmentInitializingBinding::bind)
-    private val viewModel: InitializingViewModel by viewModels { vmFactory }
 
-    override fun initViews() {
-        Log.d("INITIALIZE", "INITIALIZE SCREEN OPENED")
-        lifecycleScope.launch {
-            val checkFlow = viewModel.checkUser()
-            checkFlow.collect {result ->
-                if (result) {
-                    (requireActivity() as BaseActivity).activateBnv()
-                    Log.d("INITIALIZE", "ACTIVATE BNV")
-                } else {
-                    Log.d("INITIALIZE", "MOVE TO AUTH")
-                }
-            }
-        }
-    }
+    private val viewBinding: FragmentInitializingBinding by viewBinding(FragmentInitializingBinding::bind)
+
+    private val viewModel: InitializingViewModel by viewModels { vmFactory }
 
     override fun inject() {
         (requireActivity().application as FeatureContainer)
@@ -38,7 +25,17 @@ class InitializingFragment : BaseFragment(R.layout.fragment_initializing) {
     }
 
     override fun subscribe() {
-        return
+        viewModel.userAuthorizedState.observe { result ->
+            if (result) {
+                (requireActivity() as BaseActivity).activateBnv()
+            } else {
+                viewModel.goToAuthorizationScreen()
+            }
+        }
+    }
+
+    override fun initViews() {
+        viewModel.checkUserAuthorization()
     }
 
 }
