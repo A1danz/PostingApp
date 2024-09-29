@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.a1danz.common.di.presentation.DaggerViewModelFactory
 import com.a1danz.common.di.presentation.ViewModelKey
+import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.feature_initialize.presentation.screens.initialize.InitializingViewModel
 import dagger.Binds
 import dagger.Module
@@ -15,11 +16,13 @@ class PresentationModule {
 
     @Provides
     @[IntoMap ViewModelKey(InitializingViewModel::class)]
+    @FeatureScope
     fun provideLoadingViewModel(viewModel: InitializingViewModel): ViewModel = viewModel
 }
 
 @Module
 interface FactoryBinderModule {
+
     @Binds
     fun bindFactory_to_DaggerFactory(daggerViewModelFactory: DaggerViewModelFactory): ViewModelProvider.Factory
 }

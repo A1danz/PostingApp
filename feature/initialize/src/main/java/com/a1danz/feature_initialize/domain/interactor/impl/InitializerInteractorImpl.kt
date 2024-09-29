@@ -9,11 +9,10 @@ import javax.inject.Inject
 class InitializerInteractorImpl @Inject constructor(
     private val userConfigurer: UserConfigurer,
     private val authorizationService: AuthorizationService
-) : InitializerInteractor{
+) : InitializerInteractor {
 
     override suspend fun initializeUser(user: AuthorizedUser) {
         userConfigurer.updateUserDelegate(user.id)
-        userConfigurer.initUser()
     }
 
     override suspend fun getAuthorizedUser(): AuthorizedUser? {

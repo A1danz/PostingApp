@@ -12,7 +12,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class InitializingViewModel @Inject constructor(
-    private val initInteractor: InitializerInteractor,
+    private val interactor: InitializerInteractor,
     private val router: InitializingRouter
 ) : ViewModel() {
 
@@ -21,11 +21,9 @@ class InitializingViewModel @Inject constructor(
 
     fun checkUserAuthorization() {
         viewModelScope.launch {
-            val user = initInteractor.getAuthorizedUser()
+            val user = interactor.getAuthorizedUser()
             if (user != null) {
-                initInteractor.initializeUser(user)
-            } else {
-                router.navigateFromInitializingToAuthorization()
+                interactor.initializeUser(user)
             }
 
             _userAuthorizedState.emit(user != null)
@@ -34,5 +32,9 @@ class InitializingViewModel @Inject constructor(
 
     fun goToAuthorizationScreen() {
         router.navigateFromInitializingToAuthorization()
+    }
+
+    fun goToMainScreen() {
+        router.navigateFromInitializingToMain()
     }
 }

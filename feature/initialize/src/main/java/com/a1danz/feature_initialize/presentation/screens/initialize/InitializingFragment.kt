@@ -25,8 +25,9 @@ class InitializingFragment : BaseFragment(R.layout.fragment_initializing) {
     }
 
     override fun subscribe() {
-        viewModel.userAuthorizedState.observe { result ->
-            if (result) {
+        viewModel.userAuthorizedState.observe { isAuthorized ->
+            if (isAuthorized) {
+                viewModel.goToMainScreen()
                 (requireActivity() as BaseActivity).activateBnv()
             } else {
                 viewModel.goToAuthorizationScreen()
@@ -37,5 +38,4 @@ class InitializingFragment : BaseFragment(R.layout.fragment_initializing) {
     override fun initViews() {
         viewModel.checkUserAuthorization()
     }
-
 }
