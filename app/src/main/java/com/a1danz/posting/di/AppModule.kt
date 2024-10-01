@@ -8,7 +8,6 @@ import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.core.resources.ResourceManagerImpl
 import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.common.domain.UserModelDelegate
-import com.a1danz.feature_posts_feed.data.di.DataModule
 import com.a1danz.posting.App
 import dagger.Binds
 import dagger.Module
@@ -18,8 +17,7 @@ import dagger.Provides
 @Module(
     includes = [
         ContextBinder::class,
-        DataModule::class,
-        com.a1danz.core_data.di.DataModule::class
+        com.a1danz.core_data.di.DataModule::class,
     ]
 )
 class AppModule {
@@ -38,7 +36,6 @@ class AppModule {
 
 @Module
 interface ContextBinder {
-    @ApplicationScope
     @Binds
     fun bindApplication_to_Context(application: App): Context
 }

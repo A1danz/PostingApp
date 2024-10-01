@@ -27,7 +27,7 @@ class SettingsFeatureHolder @Inject constructor(
             .resourceManager(resourceManager)
             .user(userModelDelegate.user ?: throw IllegalStateException("User not initialized in SettingsComp"))
             .firebaseFirestore(firestore)
-            .userConfigurer((userConfHolder.getComponent() as UserConfigurerComponent).getUserConfigurer())
+            .userConfigurer((userConfHolder.getComponent() as UserConfigurerComponent).userConfigurer())
             .build()
     }
 }

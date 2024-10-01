@@ -1,27 +1,23 @@
 package com.a1danz.feature_authorization.domain.service
 
-import com.a1danz.feature_authorization.domain.service.exceptions.AuthException
-import com.a1danz.feature_authorization.domain.service.exceptions.InvalidCredentialsException
-import com.a1danz.feature_authorization.domain.service.exceptions.InvalidUserException
-import com.a1danz.feature_authorization.domain.service.exceptions.UserAlreadyExistsException
-import com.a1danz.feature_authorization.domain.service.exceptions.WeakPasswordException
-import com.google.firebase.auth.FirebaseUser
-import kotlin.jvm.Throws
+import com.a1danz.feature_authorization.domain.exceptions.AuthException
+import com.a1danz.feature_authorization.domain.model.AuthorizedUser
 
 interface AuthorizationService {
-    @Throws(AuthException::class,
-        InvalidCredentialsException::class,
-        InvalidUserException::class)
+    /**
+     * @throws AuthException.UnknownException base authorization exception
+     * @throws AuthException.InvalidCredentialsException if credentials are invalid
+     * @throws AuthException.InvalidUserException if user not found
+     */
     suspend fun signIn(email: String, password: String)
-
-    @Throws(
-        AuthException::class,
-        InvalidCredentialsException::class,
-        WeakPasswordException::class,
-        UserAlreadyExistsException::class
-    )
+    /**
+     * @throws AuthException.UnknownException base authorization exception
+     * @throws AuthException.InvalidCredentialsException if the credentials are invalid
+     * @throws AuthException.WeakPasswordException if the password is too easy
+     * @throws AuthException.UserAlreadyExistsException if user already exists in system
+     */
     suspend fun signUp(email : String, password : String, name: String)
     suspend fun signOut()
     suspend fun hasUser() : Boolean
-    suspend fun getUser(): FirebaseUser
+    suspend fun getUser(): AuthorizedUser?
 }

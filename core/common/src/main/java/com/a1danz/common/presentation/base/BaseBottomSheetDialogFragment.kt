@@ -7,8 +7,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
+import com.a1danz.common.ext.observe
 import com.a1danz.common.presentation.base.model.AlertDialogData
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
@@ -41,6 +43,10 @@ abstract class BaseBottomSheetDialogFragment(@LayoutRes layoutRes: Int) : Bottom
         }
 
         dialogBuilder.show()
+    }
+
+    fun <T> Flow<T>.observe(block: (T) -> Unit) {
+        this.observe(this@BaseBottomSheetDialogFragment, block)
     }
 
     abstract fun inject()
