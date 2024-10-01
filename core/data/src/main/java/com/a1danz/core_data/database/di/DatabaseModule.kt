@@ -11,7 +11,7 @@ import dagger.Module
 import dagger.Provides
 
 @Module
-internal class DatabaseModule {
+class DatabaseModule {
 
     @Provides
     @ApplicationScope

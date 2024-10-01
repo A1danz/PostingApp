@@ -3,16 +3,22 @@ package com.a1danz.feature_authorization.di
 import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.feature_authorization.AuthorizationRouter
+import com.a1danz.feature_authorization.di.scope.AuthorizationScope
 import com.a1danz.feature_authorization.domain.service.AuthorizationService
 import com.a1danz.feature_authorization.presentation.screens.signin.SignInFragment
 import com.a1danz.feature_authorization.presentation.screens.signup.SignUpFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.BindsInstance
 import dagger.Component
 
 
 @Component(modules = [AuthModule::class])
-@FeatureScope
+@AuthorizationScope
 interface AuthComponent {
+
+    fun authorizationService(): AuthorizationService
+
     @Component.Builder
     interface Builder {
         fun build(): AuthComponent
@@ -24,7 +30,10 @@ interface AuthComponent {
         fun resourceManager(resManager: ResourceManager): Builder
 
         @BindsInstance
-        fun authorizationService(authorizationService: AuthorizationService): Builder
+        fun firebaseAuth(firebaseAuth: FirebaseAuth): Builder
+
+        @BindsInstance
+        fun firebaseFirestore(firebaseFirestore: FirebaseFirestore): Builder
     }
 
     fun inject(fragment: SignInFragment)

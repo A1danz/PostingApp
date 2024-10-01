@@ -16,4 +16,9 @@
     <string name="user_already_exists">Пользователь с данным e-mail уже зарегистрирован</string>
     <string name="failed_to_create_account">Не удалось создать аккаунт.</string>
     <string name="your_name">Ваше имя</string>
+    <string name="input_is_invalid">Данные введены некорректно</string>
+    <string name="already_have_account">Есть аккаунт?</string>
+    <string name="havent_account">Еще нет аккаунта?</string>
+    <string name="name_placeholder">Имя</string>
+    <string name="email_placeholder">example@example.com</string>
 </resources>

@@ -8,16 +8,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
-fun <T> Flow<T>.observe(lifecycleOwner: LifecycleOwner, block: (T) -> Unit) {
-    lifecycleOwner.lifecycleScope.launch {
-        lifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
-            collect {
-                block.invoke(it)
+inline fun <T> Flow<T>.observe(fragment: Fragment, crossinline block: (T) -> Unit) {
+    fragment.viewLifecycleOwner.let { lifecycleOwner ->
+        lifecycleOwner.lifecycleScope.launch {
+            lifecycleOwner.repeatOnLifecycle(state = Lifecycle.State.STARTED) {
+                collect { data -> block(data) }
             }
         }
     }
-}
-
-fun <T> Fragment.observe(flow: Flow<T>, block: (T) -> Unit) {
-    flow.observe(this.viewLifecycleOwner, block)
 }

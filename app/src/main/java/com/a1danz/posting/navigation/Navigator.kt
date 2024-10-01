@@ -19,19 +19,15 @@ class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter, GoBack
     }
 
     override fun openSignInScreen() {
-        navController?.navigate(R.id.action_signUpFragment_to_signInFragment2)
+        navController?.navigate(R.id.action_signUpFragment_to_signInFragment)
     }
 
     override fun openSignUpScreen() {
-        navController?.navigate(R.id.action_signInFragment2_to_signUpFragment)
+        navController?.navigate(R.id.action_signInFragment_to_signUpFragment)
     }
 
     override fun openMainScreen() {
         navController?.navigate(R.id.initializingFragment)
-    }
-
-    fun navigateToMainScreen() {
-        navController?.navigate(R.id.action_initializingFragment_to_settingsFragment)
     }
 
     override fun openSocialMediaSettings() {
@@ -43,7 +39,11 @@ class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter, GoBack
     }
 
     override fun navigateFromInitializingToAuthorization() {
-        navController?.navigate(R.id.action_initializingFragment_to_signInFragment2)
+        navController?.navigate(R.id.action_initializingFragment_to_signInFragment)
+    }
+
+    override fun navigateFromInitializingToMain() {
+        navController?.navigate(R.id.action_initializingFragment_to_createPostFragment)
     }
 
     override fun openVkSettings() {
