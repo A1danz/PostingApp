@@ -23,6 +23,7 @@ class SocialMediaTagView @JvmOverloads constructor(
         true
     )
 
+    // todo: remove from this
 
     fun setPostPlaceUiInfo(info: PostPlaceUiInfo) {
         tag = info.toPostPlaceType()

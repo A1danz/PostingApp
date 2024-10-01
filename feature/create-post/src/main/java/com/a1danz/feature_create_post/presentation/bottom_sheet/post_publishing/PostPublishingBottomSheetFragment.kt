@@ -34,7 +34,7 @@ class PostPublishingBottomSheetFragment : BaseBottomSheetDialogFragment(R.layout
     }
 
     override fun subscribe() {
-        viewModel.uiEvent.observe(viewLifecycleOwner) {
+        viewModel.uiEvent.observe {
             when (it) {
                 is UiEvent.TimeoutExpired -> {
                     showErrorTimeoutExpired()
@@ -138,7 +138,7 @@ class PostPublishingBottomSheetFragment : BaseBottomSheetDialogFragment(R.layout
                             addPostPublishingItemToLayout(postPublishingItemView)
 
                             // subscribe to post publishing status updates
-                            observe(postDestination.creatingStatusFlow) {
+                            postDestination.creatingStatusFlow.observe {
                                 it?.let { status ->
                                     postPublishingItemView.setPublishingStatus(status)
                                 }

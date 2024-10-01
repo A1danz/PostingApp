@@ -5,6 +5,7 @@ import androidx.activity.viewModels
 import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.a1danz.common.presentation.base.BaseActivity
 import com.a1danz.posting.App
 import com.a1danz.posting.R
@@ -17,8 +18,6 @@ class MainActivity : BaseActivity() {
 
     private var _viewBinding: ActivityMainBinding? = null
     private val viewBinding: ActivityMainBinding get() = _viewBinding!!
-
-    @Inject lateinit var vmFactory: ViewModelProvider.Factory
 
     @Inject lateinit var navigator : Navigator
 
@@ -37,13 +36,13 @@ class MainActivity : BaseActivity() {
 
     override fun activateBnv() {
         viewBinding.bnv.let { bnv ->
+            bnv.setupWithNavController(getNavController())
             bnv.isVisible = true
-            bnv.setOnItemSelectedListener { item ->
-                NavigationUI.onNavDestinationSelected(item, getNavController())
-
-                return@setOnItemSelectedListener true
-            }
-            navigator.navigateToMainScreen()
+//            bnv.setOnItemSelectedListener { item ->
+//                NavigationUI.onNavDestinationSelected(item, getNavController())
+//
+//                return@setOnItemSelectedListener true
+//            }
         }
     }
 
