@@ -9,18 +9,24 @@ import com.a1danz.feature_user_configurer.di.DaggerUserConfigurerComponent
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
-
 @ApplicationScope
 class UserConfigurerFeatureHolder @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val userModelDelegate: UserModelDelegate,
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
+//    private val coreDataComponent: CoreDataComponent,
 ) : FeatureApiHolder() {
-    override fun getComponent(): Any {
-        return DaggerUserConfigurerComponent.builder()
+
+    val userConfigurerComponent by lazy {
+        DaggerUserConfigurerComponent.builder()
+//            .coreDataComponent(coreDataComponent)
             .userModelDelegate(userModelDelegate)
             .dataStore(dataStore)
             .firestore(firestore)
             .build()
+    }
+
+    override fun getComponent(): Any {
+        return userConfigurerComponent
     }
 }

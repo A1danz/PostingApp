@@ -1,6 +1,7 @@
 package com.a1danz.feature_user_configurer.di
 
 import com.a1danz.feature_user_configurer.UserConfigurer
+import com.a1danz.feature_user_configurer.di.scope.UserConfigurerScope
 import com.a1danz.feature_user_configurer.impl.UserConfigurerImpl
 import com.a1danz.feature_user_configurer.repo.UserFirestoreRepository
 import com.a1danz.feature_user_configurer.repo.UserRepository
@@ -18,6 +19,8 @@ import dagger.Provides
     ]
 )
 class UserConfigurerModule {
+
+    @UserConfigurerScope
     @Provides
     fun provideGson() = Gson()
 }

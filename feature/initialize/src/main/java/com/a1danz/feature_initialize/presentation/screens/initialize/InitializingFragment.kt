@@ -2,7 +2,9 @@ package com.a1danz.feature_initialize.presentation.screens.initialize
 
 import android.util.Log
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.common.di.featureprovide.FeatureContainer
 import com.a1danz.common.presentation.base.BaseActivity
@@ -10,6 +12,7 @@ import com.a1danz.common.presentation.base.BaseFragment
 import com.a1danz.feature_initialize.R
 import com.a1danz.feature_initialize.databinding.FragmentInitializingBinding
 import com.a1danz.feature_initialize.di.InitializingComponent
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class InitializingFragment : BaseFragment(R.layout.fragment_initializing) {
@@ -33,6 +36,19 @@ class InitializingFragment : BaseFragment(R.layout.fragment_initializing) {
                 viewModel.goToAuthorizationScreen()
             }
         }
+
+//        lifecycleScope.launch {
+//            repeatOnLifecycle(Lifecycle.State.CREATED) { // если использовать CREATED - все ок
+//                viewModel.userAuthorizedState.collect { isAuthorized ->
+//                    if (isAuthorized) {
+//                        viewModel.goToMainScreen()
+//                        (requireActivity() as BaseActivity).activateBnv()
+//                    } else {
+//                        viewModel.goToAuthorizationScreen()
+//                    }
+//                }
+//            }
+//        }
     }
 
     override fun initViews() {

@@ -1,9 +1,11 @@
 package com.a1danz.feature_initialize.presentation.screens.initialize
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.a1danz.feature_initialize.domain.interactor.InitializerInteractor
 import com.a1danz.feature_initialize.presentation.navigation.InitializingRouter
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -21,12 +23,20 @@ class InitializingViewModel @Inject constructor(
 
     fun checkUserAuthorization() {
         viewModelScope.launch {
-            val user = interactor.getAuthorizedUser()
-            if (user != null) {
-                interactor.initializeUser(user)
-            }
+            // delay(100) - если добавить небольшую задержку, то все заработает
+            runCatching {
+                val user = interactor.getAuthorizedUser()
+                if (user != null) {
+                    interactor.initializeUser(user)
+                }
 
-            _userAuthorizedState.emit(user != null)
+                user != null
+            }.onSuccess {
+                _userAuthorizedState.emit(it)
+            }.onFailure {
+                Log.e("ERR", "ERROR", it)
+                _userAuthorizedState.emit(false)
+            }
         }
     }
 
