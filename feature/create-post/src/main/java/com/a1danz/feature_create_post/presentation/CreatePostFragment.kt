@@ -1,13 +1,12 @@
 package com.a1danz.feature_create_post.presentation
 
 import android.app.AlertDialog
-import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.di.featureprovide.FeatureContainer
@@ -140,11 +139,12 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
                 val fragment = SelectedSocialMediaBottomSheetFragment.getInstance(
                     viewModel.selectedPlaces
                 )
-                selectedPlacesViewModel.placesEditingState.observe(fragment) { edit ->
-                    processPlaceTypeEdit(edit.first, edit.second)
-                }
 
                 fragment.show(childFragmentManager, SelectedSocialMediaBottomSheetFragment.TAG)
+
+                selectedPlacesViewModel.placesEditingState.observe(fragment as LifecycleOwner) { edit ->
+                    processPlaceTypeEdit(edit.first, edit.second)
+                }
             }
         }
     }
