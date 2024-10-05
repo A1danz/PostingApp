@@ -29,8 +29,8 @@ class InitializingFragment : BaseFragment(R.layout.fragment_initializing) {
                     viewModel.navigateToAuthorizationScreen()
                 }
                 InitializingEvent.NavigateToMain -> {
-                    (requireActivity() as? BaseActivity)?.activateBnv()
                     viewModel.navigateToMainScreen()
+                    (requireActivity() as? BaseActivity)?.activateBnv()
                 }
             }
         }
