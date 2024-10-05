@@ -1,6 +1,7 @@
 package com.a1danz.posting.navigation
 
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.a1danz.common.presentation.nav.GoBackRouter
 import com.a1danz.feature_authorization.AuthorizationRouter
 import com.a1danz.feature_initialize.presentation.navigation.InitializingRouter
@@ -43,7 +44,15 @@ class Navigator: AuthorizationRouter, SettingsRouter, InitializingRouter, GoBack
     }
 
     override fun navigateFromInitializingToMain() {
-        navController?.navigate(R.id.action_initializingFragment_to_createPostFragment)
+        val primaryScreenId = R.id.createPostFragment
+        navController?.graph?.setStartDestination(primaryScreenId)
+        navController?.navigate(
+            resId = primaryScreenId,
+            args = null,
+            navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.initializingFragment, true)
+                .build()
+        )
     }
 
     override fun openVkSettings() {

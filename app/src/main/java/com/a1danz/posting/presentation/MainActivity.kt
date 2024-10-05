@@ -1,9 +1,7 @@
 package com.a1danz.posting.presentation
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.a1danz.common.presentation.base.BaseActivity
@@ -21,6 +19,8 @@ class MainActivity : BaseActivity() {
 
     @Inject lateinit var navigator : Navigator
 
+    private var bottomNavigationIsActive = false
+
     override fun inject() {
         (application as App).appComponent.inject(this)
     }
@@ -32,23 +32,42 @@ class MainActivity : BaseActivity() {
         setContentView(viewBinding.root)
 
         navigator.attachNavController(getNavController())
+
+        if (savedInstanceState != null) {
+            if (savedInstanceState.getBoolean(BNV_IS_ACTIVE_ARG)) {
+                activateBnv()
+            }
+        }
     }
 
     override fun activateBnv() {
         viewBinding.bnv.let { bnv ->
-            bnv.setupWithNavController(getNavController())
+            bottomNavigationIsActive = true
             bnv.isVisible = true
-//            bnv.setOnItemSelectedListener { item ->
-//                NavigationUI.onNavDestinationSelected(item, getNavController())
-//
-//                return@setOnItemSelectedListener true
-//            }
+
+            bnv.setupWithNavController(getNavController())
+
+            bnv.setOnItemSelectedListener { item ->
+                NavigationUI.onNavDestinationSelected(item, getNavController())
+
+                return@setOnItemSelectedListener true
+            }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+        outState.putBoolean(BNV_IS_ACTIVE_ARG, bottomNavigationIsActive)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         navigator.detachNavController()
         _viewBinding = null
+    }
+
+    companion object {
+        private const val BNV_IS_ACTIVE_ARG = "bnv_is_active"
     }
 }
