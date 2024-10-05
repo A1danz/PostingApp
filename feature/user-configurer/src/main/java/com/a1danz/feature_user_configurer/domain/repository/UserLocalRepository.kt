@@ -1,11 +1,11 @@
-package com.a1danz.feature_user_configurer.repo
+package com.a1danz.feature_user_configurer.domain.repository
 
 import com.a1danz.common.domain.model.Config
 import com.a1danz.common.domain.model.TgConfig
 import com.a1danz.common.domain.model.User
 import com.a1danz.common.domain.model.VkConfig
 
-interface UserRepository {
+interface UserLocalRepository {
     suspend fun getUser(): User?
     suspend fun saveUser(user: User)
     suspend fun updateConfig(update: (Config) -> Config)

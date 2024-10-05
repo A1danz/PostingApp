@@ -24,3 +24,16 @@ suspend fun <T, R> T.doOrThrow(
         throw exceptionHandlerDelegate.handleException(ex)
     }
 }
+
+suspend fun <T, R> T.doOrLog(
+    logMessage: String = "",
+    block: suspend T.() -> R,
+) : R? {
+    return try {
+        block()
+    } catch (ex: Throwable) {
+        Log.e("ERR", logMessage, ex).let {
+            null
+        }
+    }
+}

@@ -173,7 +173,7 @@ class UserInteractorImpl @Inject constructor(
 
     override suspend fun initTgToken() {
         withContext(dispatcher) {
-            userConfigurer.initTgToken()
+            userConfigurer.initTgConfig()
         }
     }
 

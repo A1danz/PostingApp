@@ -8,70 +8,62 @@ import com.a1danz.common.domain.model.TgConfig
 import com.a1danz.common.domain.model.User
 import com.a1danz.common.domain.model.VkConfig
 import com.a1danz.feature_user_configurer.UserConfigurer
-import com.a1danz.feature_user_configurer.repo.UserFirestoreRepository
-import com.a1danz.feature_user_configurer.repo.UserRepository
+import com.a1danz.feature_user_configurer.domain.repository.UserRemoteRepository
+import com.a1danz.feature_user_configurer.domain.repository.UserLocalRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import javax.inject.Inject
 
 class UserConfigurerImpl @Inject constructor(
     private val userModelDelegate: UserModelDelegate,
-    private val userRepository: UserRepository,
-    private val userFirestoreRepository: UserFirestoreRepository
+    private val userLocalRepository: UserLocalRepository,
+    private val userRemoteRepository: UserRemoteRepository
 ) : UserConfigurer {
+
     private val user: User
-        get() = userModelDelegate.user ?: throw IllegalStateException("User doesn't authorized")
-
-    override suspend fun saveUser(user: User) {
-        userRepository.saveUser(user)
-    }
-
-    override suspend fun initUser() {
-        userModelDelegate.user = userRepository.getUser()
-    }
+        get() = userModelDelegate.user ?: throw IllegalStateException("User doesn't initialized")
 
     override suspend fun updateUserDelegate(userId: String) {
-        var user: User? = userRepository.getUser()
+        var user: User? = userLocalRepository.getUser()
         if (user == null) {
-            user = userFirestoreRepository.getUser(userId)
-            saveUser(user)
+            user = userRemoteRepository.getUser(userId)
+            if (user != null) {
+                userLocalRepository.saveUser(user)
+            }
+
         }
         userModelDelegate.user = user
     }
 
     override suspend fun updateUserConfig(update: (Config) -> Config) {
-        userRepository.updateConfig(update)
+        userLocalRepository.updateConfig(update)
         user.config = update(user.config)
     }
 
     override suspend fun updateVkConfig(update: (VkConfig) -> VkConfig) {
-        userRepository.updateVkConfig(update)
-        user.config.vkConfig?.let(update)
+        userLocalRepository.updateVkConfig(update)
+        user.config.vkConfig = user.config.vkConfig?.let(update)
     }
 
     override suspend fun clearVkConfig() {
         user.config.vkConfig = null
-        userRepository.clearVkConfig()
+        userLocalRepository.clearVkConfig()
     }
 
     override suspend fun updateTgConfig(update: (TgConfig) -> TgConfig) {
-        Log.d("UC UPDATING", "BEFORE - ${user.config.tgConfig}")
-        userRepository.updateTgConfig(update)
-        if (user.config.tgConfig != null) {
-            user.config.tgConfig = update(user.config.tgConfig!!)
-        }
-//        user.config.tgConfig?.let(update) - why this not working?
-        Log.d("UPDATED CONFIG", "AFTER - ${user.config.tgConfig}")
+        userLocalRepository.updateTgConfig(update)
+        user.config.tgConfig = user.config.tgConfig?.let(update)
     }
 
     override suspend fun listenTgUpdate(listenFlow: MutableStateFlow<Boolean?>): Unsubscriber {
-        return userFirestoreRepository.listenTgUpdate(listenFlow, user.uId)
+        return userRemoteRepository.listenTgUpdate(listenFlow, user.uId)
     }
 
-    override suspend fun initTgToken() {
-        val tgUserInfo = userFirestoreRepository.getUserTgInfo(user.uId) ?: return
+    override suspend fun initTgConfig() {
+        val tgUserInfo = userRemoteRepository.getUserTgInfo(user.uId) ?: return
 
         val config = TgConfig(tgUserInfo = tgUserInfo)
-        userRepository.updateConfig {
+
+        userLocalRepository.updateConfig {
             it.copy(tgConfig = config)
         }
 
@@ -80,7 +72,7 @@ class UserConfigurerImpl @Inject constructor(
 
     override suspend fun clearTgConfig() {
         user.config.tgConfig = null
-        userRepository.clearTgConfig()
-        userFirestoreRepository.clearTgInformation(user.uId)
+        userLocalRepository.clearTgConfig()
+        userRemoteRepository.clearTgInformation(user.uId)
     }
 }
