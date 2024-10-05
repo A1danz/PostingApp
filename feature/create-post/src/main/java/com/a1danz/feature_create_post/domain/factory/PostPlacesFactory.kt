@@ -1,16 +1,17 @@
 package com.a1danz.feature_create_post.domain.factory
 
 import com.a1danz.common.domain.model.Config
+import com.a1danz.common.domain.model.User
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import javax.inject.Inject
 
 class PostPlacesFactory @Inject constructor(
-    val config: Config
+    val user: User
 ) {
 
     fun getPostPlaces(): HashSet<PostPlaceType> {
         return hashSetOf<PostPlaceType>().also { result ->
-            with(config) {
+            with(user.config) {
                 if (vkConfig != null) {
                     result.add(PostPlaceType.VK_PAGE)
                 }

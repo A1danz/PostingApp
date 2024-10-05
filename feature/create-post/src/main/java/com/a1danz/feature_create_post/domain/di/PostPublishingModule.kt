@@ -26,7 +26,7 @@ class PostPublishingModule {
 
     @Provides
     fun provideVkPublisherComponent(user: User): VkPublisherComponent = DaggerVkPublisherComponent.builder()
-        .vkAccessToken(user.config.vkConfig?.accessToken ?: "TOKEN doesn't initialized")
+        .vkAccessToken(user.config.vkConfig?.accessToken ?: throw IllegalStateException("VK-token doesn't initialized"))
         .build()
 
 }

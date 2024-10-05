@@ -1,26 +1,28 @@
 package com.a1danz.feature_create_post.domain.factory
 
 import android.util.Log
-import com.a1danz.common.domain.model.Config
+import com.a1danz.common.domain.model.User
+import com.a1danz.feature_create_post.domain.model.PostDestinationDomainModel
 import com.a1danz.feature_create_post.domain.model.PostPublishingDomainModel
 import com.a1danz.feature_create_post.domain.model.PostPublishingItemDomainModel
-import com.a1danz.feature_create_post.domain.model.PostDestinationDomainModel
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import com.a1danz.feature_telegram_publisher.di.TelegramPublisherComponent
 import com.a1danz.vk_publisher.di.VkPublisherComponent
 import javax.inject.Inject
+import dagger.Lazy
 
 class PostPublishingDomainModelsFactory @Inject constructor(
-    private val config: Config,
-    private val telegramPublisherComponent: TelegramPublisherComponent,
-    private val vkPublisherComponent: VkPublisherComponent
+    private val user: User,
+    private val telegramPublisherComponent: Lazy<TelegramPublisherComponent>,
+    private val vkPublisherComponent: Lazy<VkPublisherComponent>
 ) {
     fun createPostPublishingModel(postPlaceType: PostPlaceType): PostPublishingDomainModel? {
         val postPublishingItems: MutableList<PostPublishingItemDomainModel> = mutableListOf()
 
         when (postPlaceType) {
+
             PostPlaceType.TG -> {
-                val tgChats = config.tgConfig?.selectedChats
+                val tgChats = user.config.tgConfig?.selectedChats
                 if (tgChats == null) {
                     Log.e(
                         "ERROR",
@@ -32,7 +34,7 @@ class PostPublishingDomainModelsFactory @Inject constructor(
                 tgChats.forEach { chat ->
                     postPublishingItems.add(
                         PostPublishingItemDomainModel(
-                            telegramPublisherComponent.telegramPublisherFactory().create(chat.id),
+                            telegramPublisherComponent.get().telegramPublisherFactory().create(chat.id),
                             PostDestinationDomainModel(
                                 chat.name,
                                 chat.photo ?: "",
@@ -45,7 +47,7 @@ class PostPublishingDomainModelsFactory @Inject constructor(
             }
 
             PostPlaceType.VK_PAGE -> {
-                val vkConfig = config.vkConfig
+                val vkConfig = user.config.vkConfig
                 if (vkConfig == null) {
                     Log.e(
                         "ERROR",
@@ -56,7 +58,7 @@ class PostPublishingDomainModelsFactory @Inject constructor(
 
                 postPublishingItems.add(
                     PostPublishingItemDomainModel(
-                        vkPublisherComponent.vkPublisherFactory().create(vkConfig.userId, false),
+                        vkPublisherComponent.get().vkPublisherFactory().create(vkConfig.userId, false),
                         PostDestinationDomainModel(
                             vkConfig.userInfo.fullName,
                             vkConfig.userInfo.userImg ?: "",
@@ -68,7 +70,7 @@ class PostPublishingDomainModelsFactory @Inject constructor(
             }
 
             PostPlaceType.VK_GROUP -> {
-                val vkConfig = config.vkConfig
+                val vkConfig = user.config.vkConfig
                 if (vkConfig == null) {
                     Log.e(
                         "ERROR",
@@ -78,7 +80,7 @@ class PostPublishingDomainModelsFactory @Inject constructor(
                 }
 
 
-                val vkPublisherFactory = vkPublisherComponent.vkPublisherFactory()
+                val vkPublisherFactory = vkPublisherComponent.get().vkPublisherFactory()
                 vkConfig.userGroups.forEach { group ->
                     postPublishingItems.add(
                         PostPublishingItemDomainModel(
