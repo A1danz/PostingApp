@@ -5,12 +5,13 @@ import dagger.Provides
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 
-@Module(includes = [
-    SelectedMediaModule::class,
-    PostPublishingModule::class,
-    CreatePostModule::class,
-    UserConfigModule::class
-])
+@Module(
+    includes = [
+        SelectedMediaModule::class,
+        PostPublishingModule::class,
+        CreatePostModule::class,
+    ]
+)
 class DomainModule {
 
     @Provides
