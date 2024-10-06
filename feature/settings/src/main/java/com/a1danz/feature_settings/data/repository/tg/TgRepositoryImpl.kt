@@ -1,6 +1,5 @@
 package com.a1danz.feature_settings.data.repository.tg
 
-import android.util.Log
 import com.a1danz.feature_settings.domain.model.TgChatDomainModel
 import com.a1danz.feature_settings.domain.model.TgChatsDomainModel
 import com.a1danz.feature_settings.domain.repository.TgRepository
@@ -10,13 +9,11 @@ import javax.inject.Inject
 
 class TgRepositoryImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
-    private val userId: String
 ) : TgRepository {
-    override suspend fun getChats(): TgChatsDomainModel {
+    override suspend fun getChats(userId: String): TgChatsDomainModel {
         val doc = firestore.collection("users").document(userId).get().await()
         val tgData = doc.data?.get("telegram") as? Map<String, Any>
         val chats = tgData?.get("chats") as? Map<String, Any>
-        Log.d("CHATS IN REPO", chats.toString())
 
         val chatList = arrayListOf<TgChatDomainModel>()
         chats?.forEach { (key, value) ->

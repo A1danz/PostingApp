@@ -1,4 +1,4 @@
-package com.a1danz.feature_settings.presentation.model
+package com.a1danz.feature_settings.presentation.model.tg
 
 class TgChatsUiModel (
     val chats: List<TgChatUiModel>

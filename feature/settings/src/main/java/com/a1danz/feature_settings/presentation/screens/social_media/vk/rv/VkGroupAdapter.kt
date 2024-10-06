@@ -6,11 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.a1danz.feature_settings.databinding.ItemRvVkGroupBinding
 import com.a1danz.feature_settings.databinding.ItemRvVkGroupPreviewBinding
-import com.a1danz.feature_settings.presentation.model.VkUserGroupUiModel
+import com.a1danz.feature_settings.presentation.model.vk.VkUserGroupUiModel
 import com.bumptech.glide.Glide
 
 class VkGroupAdapter(
-    private val chosenCallback: (Boolean, VkUserGroupUiModel) -> Unit
+    private val chosenCallback: (VkUserGroupUiModel, Boolean) -> Unit
 ) : RecyclerView.Adapter<ViewHolder>() {
     private var items: List<VkUserGroupUiModel>? = null
 
@@ -71,7 +71,7 @@ class VkGroupAdapter(
 
                 switcher.isChecked = item.isChosen
                 switcher.setOnCheckedChangeListener { btnView, isChecked ->
-                    chosenCallback.invoke(isChecked, item)
+                    chosenCallback.invoke(item, isChecked)
                 }
             }
         }

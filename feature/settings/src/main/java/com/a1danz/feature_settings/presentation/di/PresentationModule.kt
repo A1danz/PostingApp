@@ -1,4 +1,4 @@
-package com.a1danz.feature_settings.di.presentation
+package com.a1danz.feature_settings.presentation.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

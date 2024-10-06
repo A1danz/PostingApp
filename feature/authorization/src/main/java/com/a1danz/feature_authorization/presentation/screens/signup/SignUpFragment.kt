@@ -3,7 +3,7 @@ package com.a1danz.feature_authorization.presentation.screens.signup
 import android.view.View
 import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.a1danz.common.core.config.RegexValues
+import com.a1danz.common.config.RegexValues
 import com.a1danz.common.di.featureprovide.FeatureContainer
 import com.a1danz.common.ext.getString
 import com.a1danz.common.presentation.base.BaseFragment

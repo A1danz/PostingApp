@@ -54,20 +54,18 @@ class UserConfigurerImpl @Inject constructor(
         user.config.tgConfig = user.config.tgConfig?.let(update)
     }
 
-    override suspend fun listenTgUpdate(listenFlow: MutableStateFlow<Boolean?>): Unsubscriber {
+    override fun listenTgUpdate(listenFlow: MutableStateFlow<Boolean?>): Unsubscriber {
         return userRemoteRepository.listenTgUpdate(listenFlow, user.uId)
     }
 
-    override suspend fun initTgConfig() {
-        val tgUserInfo = userRemoteRepository.getUserTgInfo(user.uId) ?: return
+    override suspend fun initTgConfig(): TgConfig {
+        return TgConfig(tgUserInfo = userRemoteRepository.getUserTgInfo(user.uId)).also { tgConfig ->
+            userLocalRepository.updateConfig {
+                it.copy(tgConfig = tgConfig)
+            }
 
-        val config = TgConfig(tgUserInfo = tgUserInfo)
-
-        userLocalRepository.updateConfig {
-            it.copy(tgConfig = config)
+            user.config.tgConfig = tgConfig
         }
-
-        user.config.tgConfig = config
     }
 
     override suspend fun clearTgConfig() {

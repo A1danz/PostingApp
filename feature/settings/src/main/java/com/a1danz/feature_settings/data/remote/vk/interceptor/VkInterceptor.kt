@@ -28,6 +28,5 @@ class VkInterceptor @Inject constructor(
         const val PARAM_USER_ID = "user_id"
         const val PARAM_VERSION = "v"
         const val PARAM_VERSION_VALUE = "5.131"
-
     }
 }
