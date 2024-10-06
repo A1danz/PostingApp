@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class VkConfig (
     @SerializedName("user_groups")
-    val userGroups: ArrayList<VkGroupInfo> = arrayListOf(),
+    val userGroups: List<VkGroupInfo> = listOf(),
     @SerializedName("user_id")
     val userId: Long,
     @SerializedName("access_token")

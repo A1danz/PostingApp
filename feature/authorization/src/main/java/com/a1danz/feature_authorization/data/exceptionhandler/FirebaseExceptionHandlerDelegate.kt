@@ -1,7 +1,7 @@
 package com.a1danz.feature_authorization.data.exceptionhandler
 
 import android.util.Log
-import com.a1danz.common.delegate.ExceptionHandlerDelegate
+import com.a1danz.common.exception.ExceptionHandlerDelegate
 import com.a1danz.feature_authorization.domain.exceptions.AuthException
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException

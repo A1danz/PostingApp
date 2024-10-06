@@ -1,45 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingVertical="10dp"
+    android:gravity="center_vertical"
     android:orientation="horizontal"
-    android:gravity="center_vertical">
+    android:paddingVertical="10dp">
+
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_group_img"
-
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/default_vk_img"
-        app:shapeAppearanceOverlay="@style/roundedImageView20"
+        app:shapeAppearanceOverlay="@style/roundedImageView20" />
 
-        />
     <TextView
         android:id="@+id/tv_chat_name"
-
         style="@style/TextView"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="wrap_content"
-        app:layout_constraintHorizontal_bias="0.0"
         android:layout_marginStart="5dp"
-        android:textColor="?attr/colorOnBackground"
+        android:layout_weight="1"
         android:text="@string/chat"
-        />
+        android:textColor="?attr/colorOnBackground"
+        app:layout_constraintHorizontal_bias="0.0" />
 
     <com.suke.widget.SwitchButton
         android:id="@+id/switcher"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:sb_show_indicator="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:sb_background="@color/gray_light"
         app:sb_checked="false"
         app:sb_checked_color="@color/primary"
-        app:sb_background="@color/gray_light"
-        />
-
+        app:sb_show_indicator="false" />
 </LinearLayout>

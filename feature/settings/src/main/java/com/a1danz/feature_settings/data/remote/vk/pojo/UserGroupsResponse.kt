@@ -4,21 +4,21 @@ import com.google.gson.annotations.SerializedName
 
 class UserGroupsResponse(
     @SerializedName("response")
-    var response: ResponseData? = null
+    var response: ResponseData
 )
 
 class ResponseData(
     @SerializedName("count")
-    var count: Int? = null,
+    var count: Int,
     @SerializedName("items")
-    var groups: List<GroupData>? = null
+    var groups: List<GroupData>,
 )
 
 class GroupData(
     @SerializedName("id")
-    var groupId: Long? = null,
+    var groupId: Long,
     @SerializedName("name")
-    var groupName: String? = null,
+    var groupName: String,
     @SerializedName("photo_100")
-    var groupImgUrl: String? = null
+    var groupImgUrl: String
 )

@@ -3,10 +3,11 @@ package com.a1danz.feature_settings.di
 import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.common.domain.model.User
-import com.a1danz.feature_settings.data.remote.vk.di.VkNetworkModule
+import com.a1danz.common.intent.IntentManager
+import com.a1danz.feature_settings.data.di.DataModule
+import com.a1danz.feature_settings.data.di.VkNetworkModule
 import com.a1danz.feature_settings.domain.di.DomainModule
-import com.a1danz.feature_settings.di.module.social_media.SocialMediaModule
-import com.a1danz.feature_settings.di.presentation.PresentationModule
+import com.a1danz.feature_settings.presentation.di.PresentationModule
 import com.a1danz.feature_settings.presentation.navigation.SettingsRouter
 import com.a1danz.feature_settings.presentation.screens.main.SettingsFragment
 import com.a1danz.feature_settings.presentation.screens.social_media.SocialMediaSettingsFragment
@@ -19,10 +20,9 @@ import dagger.Component
 
 @Component(
     modules = [
-        SocialMediaModule::class,
-        VkNetworkModule::class,
+        DataModule::class,
+        DomainModule::class,
         PresentationModule::class,
-        DomainModule::class
     ]
 )
 @FeatureScope
@@ -35,6 +35,9 @@ interface SettingsComponent {
 
         @BindsInstance
         fun resourceManager(resourceManager: ResourceManager): Builder
+
+        @BindsInstance
+        fun intentManager(intentManager: IntentManager): Builder
 
         @BindsInstance
         fun user(user: User): Builder

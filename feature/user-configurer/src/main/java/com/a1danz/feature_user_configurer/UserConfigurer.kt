@@ -14,7 +14,7 @@ interface UserConfigurer {
     suspend fun clearVkConfig()
 
     suspend fun updateTgConfig(update: (TgConfig) -> TgConfig)
-    suspend fun listenTgUpdate(listenFlow: MutableStateFlow<Boolean?>): Unsubscriber
-    suspend fun initTgConfig()
+    fun listenTgUpdate(listenFlow: MutableStateFlow<Boolean?>): Unsubscriber
+    suspend fun initTgConfig(): TgConfig
     suspend fun clearTgConfig()
 }
