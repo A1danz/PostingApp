@@ -1,40 +1,53 @@
 package com.a1danz.feature_settings.presentation.screens.social_media
 
-import com.a1danz.common.domain.model.TgConfig
-import com.a1danz.common.domain.model.VkConfig
+import androidx.lifecycle.viewModelScope
 import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.feature_settings.domain.interactor.UserInteractor
-import com.a1danz.feature_settings.presentation.model.TgUserInfoUiModel
-import com.a1danz.feature_settings.presentation.model.VkUserInfoUiModel
+import com.a1danz.feature_settings.presentation.mapper.TgUserInfoUiMapper
+import com.a1danz.feature_settings.presentation.mapper.VkUserInfoUiMapper
+import com.a1danz.feature_settings.presentation.model.tg.TgUserInfoUiModel
+import com.a1danz.feature_settings.presentation.model.vk.VkUserInfoUiModel
 import com.a1danz.feature_settings.presentation.navigation.SocialMediaRouter
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SocialMediaSettingsViewModel @Inject constructor(
     private val userInteractor: UserInteractor,
-    private val socialMediaRouter: SocialMediaRouter
+    private val socialMediaRouter: SocialMediaRouter,
+    private val tgUserInfoUiMapper: TgUserInfoUiMapper,
+    private val vkUserInfoUiMapper: VkUserInfoUiMapper,
 ) : BaseViewModel() {
-    fun openVkSettingsScreen() {
+
+    private val _vkUserInfoState: MutableSharedFlow<VkUserInfoUiModel?> = MutableSharedFlow(replay = 1)
+    val vkUserInfoState: SharedFlow<VkUserInfoUiModel?> = _vkUserInfoState
+
+    private val _tgUserInfoState: MutableSharedFlow<TgUserInfoUiModel?> = MutableSharedFlow(replay = 1)
+    val tgUserInfoState: SharedFlow<TgUserInfoUiModel?> = _tgUserInfoState
+
+
+    fun navigateToVkSettingsScreen() {
         socialMediaRouter.openVkSettings()
     }
 
-    fun openTgSettingsScreen() {
+    fun navigateToTgSettingsScreen() {
         socialMediaRouter.openTgSettings()
     }
 
-    fun getUserTgConfig(): TgConfig? {
-        return userInteractor.getTgUserConfig()
-    }
+    fun initUserInfoStates() {
+        viewModelScope.launch {
+            _vkUserInfoState.emit(
+                userInteractor.getUserVkConfig()?.let { vkConfig ->
+                    vkUserInfoUiMapper.mapToVkUserInfoUiModel(vkConfig)
+                }
+            )
 
-    fun getUserVkConfig(): VkConfig? {
-        return userInteractor.getUserVkConfig()
+            _tgUserInfoState.emit(
+                userInteractor.getTgUserConfig()?.let { tgConfig ->
+                    tgUserInfoUiMapper.mapToTgUserInfoUiModel(tgConfig)
+                }
+            )
+        }
     }
-
-    fun getTgUserInfoUiModel(tgConfig: TgConfig): TgUserInfoUiModel {
-        return userInteractor.getTgUserInfoUiModel(tgConfig)
-    }
-
-    fun getVkUserInfoUiModel(vkConfig: VkConfig): VkUserInfoUiModel {
-        return userInteractor.getUserVkInfoUiModel(vkConfig)
-    }
-
 }

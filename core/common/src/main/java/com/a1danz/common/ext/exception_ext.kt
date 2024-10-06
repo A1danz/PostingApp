@@ -1,7 +1,7 @@
 package com.a1danz.common.ext
 
 import android.util.Log
-import com.a1danz.common.delegate.ExceptionHandlerDelegate
+import com.a1danz.common.exception.ExceptionHandlerDelegate
 
 inline fun <T, R> T.runCatching(
     exceptionHandlerDelegate : ExceptionHandlerDelegate,

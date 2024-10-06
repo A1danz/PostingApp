@@ -9,12 +9,15 @@ import com.a1danz.common.presentation.base.BaseFragment
 import com.a1danz.feature_settings.R
 import com.a1danz.feature_settings.databinding.FragmentSocialMediaSettingsBinding
 import com.a1danz.feature_settings.di.SettingsComponent
-import com.a1danz.feature_settings.presentation.model.TgUserInfoUiModel
+import com.a1danz.feature_settings.presentation.model.tg.TgUserInfoUiModel
+import com.a1danz.feature_settings.presentation.model.vk.VkUserInfoUiModel
 import com.bumptech.glide.Glide
 
 
 class SocialMediaSettingsFragment : BaseFragment<SocialMediaSettingsViewModel>(R.layout.fragment_social_media_settings) {
+
     private val viewBinding: FragmentSocialMediaSettingsBinding by viewBinding(FragmentSocialMediaSettingsBinding::bind)
+
     override val viewModel: SocialMediaSettingsViewModel by viewModels { vmFactory }
 
     override fun inject() {
@@ -23,79 +26,69 @@ class SocialMediaSettingsFragment : BaseFragment<SocialMediaSettingsViewModel>(R
     }
 
     override fun subscribe() {
-        return
+        viewModel.vkUserInfoState.observe(::collectVkUserInfoState)
+        viewModel.tgUserInfoState.observe(::collectTgUserInfoState)
     }
 
     override fun initViews() {
-        initVkSection()
-        initTgSection()
-    }
+        viewModel.initUserInfoStates()
 
-    private fun initVkSection() {
         with(viewBinding) {
-            btnVkSettings.setOnClickListener {
-                viewModel.openVkSettingsScreen()
-            }
-
-            val vkConfig = viewModel.getUserVkConfig()
-            if (vkConfig == null) tvVkPleaseDoOuath.isVisible = true
-            else showVkInfo(vkConfig)
-        }
-    }
-
-    private fun showVkInfo(vkConfig: VkConfig) {
-        with(viewBinding) {
-            layoutVkData.isVisible = true
-            val vkInfoUiModel = viewModel.getVkUserInfoUiModel(vkConfig)
-
-            tvVkUserName.text = vkInfoUiModel.vkName
-            vkInfoUiModel.vkGroupNames.let {  groups ->
-                tvVkLinkGroups.text =
-                    if (groups.isEmpty()) getString(R.string.you_havent_select_any_group_yet)
-                    else groups.joinToString("\n")
-            }
-
-            if (vkInfoUiModel.photo != null) {
-                Glide.with(requireContext())
-                    .load(vkInfoUiModel.photo)
-                    .into(ivVkImage)
-            }
-        }
-
-
-    }
-
-    private fun initTgSection() {
-        with(viewBinding) {
-            val tgConfig = viewModel.getUserTgConfig()
-            if (tgConfig == null) {
-                tvTgPleaseDoOuath.isVisible = true
-            } else {
-                showTelegramInfo(viewModel.getTgUserInfoUiModel(tgConfig))
-            }
             btnTgSettings.setOnClickListener {
-                viewModel.openTgSettingsScreen()
+                viewModel.navigateToTgSettingsScreen()
+            }
+
+            btnVkSettings.setOnClickListener {
+                viewModel.navigateToVkSettingsScreen()
             }
         }
     }
 
-
-    private fun showTelegramInfo(tgUserInfo: TgUserInfoUiModel) {
+    private fun collectTgUserInfoState(tgUserInfo: TgUserInfoUiModel?) {
         with(viewBinding) {
+            layoutTgData.isVisible = tgUserInfo != null
+            tvTgPleaseDoOuath.isVisible = tgUserInfo == null
 
-            tvTgUserName.text = getString(R.string.tg_username, tgUserInfo.username)
-            tgUserInfo.chatNames.let { chats ->
-                tvTgLinkGroups.text =
-                    if (chats.isEmpty()) getString(R.string.you_havent_select_any_group_yet)
-                    else tgUserInfo.chatNames.joinToString("\n")
+            if (tgUserInfo != null) {
+                Glide.with(requireContext())
+                    .load(tgUserInfo.photo)
+                    .into(ivTgImage)
+
+                tvTgUserName.text = getString(R.string.tg_username, tgUserInfo.username)
+
+                tvTgLinkGroups.text = tgUserInfo.chatNames.let { chats ->
+                    if (chats.isEmpty()) {
+                        getString(R.string.you_havent_select_any_group_yet)
+                    } else {
+                        chats.joinToString("\n")
+                    }
+                }
             }
-
-            layoutTgData.isVisible = true
-
-            Glide.with(requireContext())
-                .load(tgUserInfo.photo)
-                .into(ivTgImage)
         }
     }
 
+    private fun collectVkUserInfoState(vkUserInfo: VkUserInfoUiModel?) {
+        with(viewBinding) {
+            layoutVkData.isVisible = vkUserInfo != null
+            tvVkPleaseDoOuath.isVisible = vkUserInfo == null
+
+            if (vkUserInfo != null) {
+                if (vkUserInfo.photo != null) {
+                    Glide.with(requireContext())
+                        .load(vkUserInfo.photo)
+                        .into(ivVkImage)
+                }
+
+                tvVkUserName.text = vkUserInfo.name
+
+                tvVkLinkGroups.text = vkUserInfo.groupNames.let { groups ->
+                    if (groups.isEmpty()) {
+                        getString(R.string.you_havent_select_any_group_yet)
+                    } else {
+                        groups.joinToString("\n")
+                    }
+                }
+            }
+        }
+    }
 }

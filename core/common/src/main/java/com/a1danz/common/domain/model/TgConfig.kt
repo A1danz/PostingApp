@@ -24,5 +24,16 @@ data class TgChatInfo(
     @SerializedName("id")
     val id: Long,
     @SerializedName("photo")
-    var photo: String?
-)
+    var photo: String
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is TgChatInfo) return false
+
+        return this.id == other.id
+    }
+
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
+}

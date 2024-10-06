@@ -6,6 +6,7 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
 import com.a1danz.common.ext.observe
+import com.a1danz.common.ext.observeBaseUiEvent
 import com.a1danz.common.ext.showAlertDialog
 import com.a1danz.common.ext.showError
 import com.a1danz.common.ext.showToast
@@ -33,19 +34,7 @@ abstract class BaseBottomSheetDialogFragment<T : BaseViewModel>(@LayoutRes layou
     }
 
     private fun baseSubscribe() {
-        viewModel.baseUiEvent.observe { uiEvent ->
-            when(uiEvent) {
-                is BaseUiEvent.ShowAlertDialog -> {
-                    showAlertDialog(uiEvent.dialogData)
-                }
-                is BaseUiEvent.ShowError -> {
-                    showError(uiEvent.readableError)
-                }
-                is BaseUiEvent.ShowToast -> {
-                    showToast(uiEvent.toastData)
-                }
-            }
-        }
+        observeBaseUiEvent(viewModel.baseUiEvent)
     }
 
     fun <T> Flow<T>.observe(block: (T) -> Unit) {
