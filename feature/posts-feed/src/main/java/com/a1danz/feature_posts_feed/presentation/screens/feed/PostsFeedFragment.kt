@@ -16,10 +16,10 @@ import com.a1danz.feature_posts_feed.presentation.model.PostUiModel
 import com.a1danz.feature_posts_feed.presentation.screens.feed.rv.PostsAdapter
 import kotlinx.coroutines.launch
 
-class PostsFeedFragment : BaseFragment(R.layout.fragment_posts_feed) {
+class PostsFeedFragment : BaseFragment<PostsFeedViewModel>(R.layout.fragment_posts_feed) {
 
     private val viewBinding: FragmentPostsFeedBinding by viewBinding(FragmentPostsFeedBinding::bind)
-    private val viewModel: PostsFeedViewModel by viewModels { vmFactory }
+    override val viewModel: PostsFeedViewModel by viewModels { vmFactory }
 
 
     override fun inject() {
@@ -67,7 +67,7 @@ class PostsFeedFragment : BaseFragment(R.layout.fragment_posts_feed) {
     }
 
     private fun onRemoveCallback(adapter: PostsAdapter, postUiModel: PostUiModel, itemPosition: Int,) {
-        AlertDialog.Builder(requireContext())
+        AlertDialog.Builder(requireContext()) // todo - replace with ui event
             .setTitle(getString(R.string.post_removing))
             .setMessage(getString(R.string.post_removing_description))
             .setPositiveButton(getString(R.string.remove_post)) { dialog, which ->

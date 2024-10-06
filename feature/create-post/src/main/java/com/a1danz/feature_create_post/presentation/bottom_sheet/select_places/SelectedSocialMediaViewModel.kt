@@ -1,24 +1,33 @@
 package com.a1danz.feature_create_post.presentation.bottom_sheet.select_places
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.presentation.base.BaseViewModel
+import com.a1danz.common.presentation.base.model.AlertDialogData
+import com.a1danz.common.presentation.base.model.ButtonData
+import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.domain.interactor.UserSelectedMediaInteractor
 import com.a1danz.feature_create_post.presentation.bottom_sheet.select_places.model.PostPlaceUiModel
+import com.a1danz.feature_create_post.presentation.model.event.BottomSheetUiEvent
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
 import com.a1danz.feature_places_info.presentation.model.PostPlaceUiInfo
 import com.a1danz.feature_places_info.presentation.model.getUiInfo
 import com.a1danz.feature_places_info.presentation.model.toPostPlaceType
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SelectedSocialMediaViewModel @Inject constructor(
-    private val userInteractor: UserSelectedMediaInteractor
-) : ViewModel() {
+    private val userInteractor: UserSelectedMediaInteractor,
+    private val resourceManager: ResourceManager,
+) : BaseViewModel() {
 
     private val _placesEditingState: MutableSharedFlow<Pair<Boolean, PostPlaceUiInfo>> = MutableSharedFlow()
     val placesEditingState = _placesEditingState
+
+    private val _uiEvent: MutableSharedFlow<BottomSheetUiEvent> = MutableSharedFlow()
+    val uiEvent: SharedFlow<BottomSheetUiEvent> = _uiEvent
 
     fun getPostPlaces(alreadySelected: List<PostPlaceUiInfo>): List<PostPlaceUiModel> {
         val places: ArrayList<PostPlaceUiModel> = arrayListOf()
@@ -64,5 +73,19 @@ class SelectedSocialMediaViewModel @Inject constructor(
         viewModelScope.launch {
             _placesEditingState.emit(placeEdit)
         }
+    }
+
+    fun onSelectedPlacesMissing() {
+        _baseUiEvent.emitAlertDialogEvent(
+            AlertDialogData(
+                resourceManager.getString(R.string.error_title),
+                resourceManager.getString(R.string.cant_get_data),
+                positiveButton = ButtonData(resourceManager.getString(R.string.ok)) {
+                    viewModelScope.launch {
+                        _uiEvent.emit(BottomSheetUiEvent.Dismiss)
+                    }
+                }
+            )
+        )
     }
 }

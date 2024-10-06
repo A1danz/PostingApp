@@ -12,11 +12,11 @@ import com.a1danz.feature_authorization.databinding.FragmentSigninBinding
 import com.a1danz.feature_authorization.di.AuthComponent
 import com.a1danz.feature_authorization.presentation.model.event.SignInEvent
 
-class SignInFragment : BaseFragment(R.layout.fragment_signin) {
+class SignInFragment : BaseFragment<SignInViewModel>(R.layout.fragment_signin) {
 
     private val viewBinding: FragmentSigninBinding by viewBinding(FragmentSigninBinding::bind)
 
-    private val viewModel : SignInViewModel by viewModels { vmFactory }
+    override val viewModel : SignInViewModel by viewModels { vmFactory }
 
     override fun inject() {
         (requireActivity().applicationContext as FeatureContainer).getFeature(
@@ -40,7 +40,6 @@ class SignInFragment : BaseFragment(R.layout.fragment_signin) {
                 }
             }
         }
-
     }
 
     override fun initViews() {

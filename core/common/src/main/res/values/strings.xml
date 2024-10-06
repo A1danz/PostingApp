@@ -8,4 +8,6 @@
     <string name="repeat_password">Повторите пароль</string>
     <string name="icon">icon\n</string>
     <string name="error_default_msg">Произошла ошибка. Попробуйте еще раз…</string>
+    <string name="error_default_title">Ошибка</string>
+    <string name="ok">Окей</string>
 </resources>

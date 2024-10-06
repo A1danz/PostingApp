@@ -2,6 +2,7 @@ package com.a1danz.feature_authorization.presentation.screens.signin
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.common.presentation.model.ReadableError
 import com.a1danz.common.presentation.model.Text
 import com.a1danz.feature_authorization.AuthorizationRouter
@@ -17,7 +18,7 @@ class SignInViewModel @Inject constructor(
     private val authService : AuthorizationService,
     private val authorizationRouter: AuthorizationRouter,
     private val authorizationExceptionsConverter: AuthorizationExceptionsConverter,
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _signInEvent: MutableSharedFlow<SignInEvent> = MutableSharedFlow()
     val signInEvent: SharedFlow<SignInEvent> = _signInEvent

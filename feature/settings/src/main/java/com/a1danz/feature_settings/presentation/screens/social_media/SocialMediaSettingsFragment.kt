@@ -13,9 +13,9 @@ import com.a1danz.feature_settings.presentation.model.TgUserInfoUiModel
 import com.bumptech.glide.Glide
 
 
-class SocialMediaSettingsFragment : BaseFragment(R.layout.fragment_social_media_settings) {
+class SocialMediaSettingsFragment : BaseFragment<SocialMediaSettingsViewModel>(R.layout.fragment_social_media_settings) {
     private val viewBinding: FragmentSocialMediaSettingsBinding by viewBinding(FragmentSocialMediaSettingsBinding::bind)
-    private val viewModel: SocialMediaSettingsViewModel by viewModels { vmFactory }
+    override val viewModel: SocialMediaSettingsViewModel by viewModels { vmFactory }
 
     override fun inject() {
         (requireActivity().application as FeatureContainer).getFeature(SettingsComponent::class.java)

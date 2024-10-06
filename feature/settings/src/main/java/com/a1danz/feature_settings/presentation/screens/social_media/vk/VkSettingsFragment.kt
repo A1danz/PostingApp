@@ -17,9 +17,9 @@ import com.a1danz.feature_settings.presentation.screens.social_media.vk.rv.VkGro
 import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 
-class VkSettingsFragment : BaseFragment(R.layout.fragment_vk_settings) {
+class VkSettingsFragment : BaseFragment<VkSettingsViewModel>(R.layout.fragment_vk_settings) {
     private val viewBinding: FragmentVkSettingsBinding by viewBinding(FragmentVkSettingsBinding::bind)
-    private val viewModel: VkSettingsViewModel by viewModels { vmFactory }
+    override val viewModel: VkSettingsViewModel by viewModels { vmFactory }
 
     override fun inject() {
         (requireActivity().application as FeatureContainer).getFeature(SettingsComponent::class.java)

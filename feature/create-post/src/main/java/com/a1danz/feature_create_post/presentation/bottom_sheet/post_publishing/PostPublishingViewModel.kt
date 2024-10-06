@@ -2,12 +2,16 @@ package com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.presentation.base.BaseViewModel
+import com.a1danz.common.presentation.base.model.AlertDialogData
+import com.a1danz.common.presentation.base.model.ButtonData
+import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.domain.interactor.PostPublishingInteractor
 import com.a1danz.feature_create_post.domain.model.PostPublishingDomainModel
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingUiModel
-import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.event.UiEvent
+import com.a1danz.feature_create_post.presentation.model.event.BottomSheetUiEvent
 import com.a1danz.feature_create_post.presentation.mapper.toPostPublishingDestinationUiModel
 import com.a1danz.feature_create_post.presentation.model.PostUiModel
 import com.a1danz.feature_places_info.domain.model.PostPlaceType
@@ -27,14 +31,15 @@ import java.util.concurrent.atomic.AtomicInteger
 import javax.inject.Inject
 
 class PostPublishingViewModel @Inject constructor(
-    private val postPublishingInteractor: PostPublishingInteractor
-) : ViewModel() {
+    private val postPublishingInteractor: PostPublishingInteractor,
+    private val resourceManager: ResourceManager,
+) : BaseViewModel() {
 
     private val _publishingInProcessFlow: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     val publishingInProcessFlow: StateFlow<Boolean?> = _publishingInProcessFlow
 
-    private val _uiEvent: MutableSharedFlow<UiEvent> = MutableSharedFlow()
-    val uiEvent: SharedFlow<UiEvent> = _uiEvent
+    private val _BottomSheet_uiEvent: MutableSharedFlow<BottomSheetUiEvent> = MutableSharedFlow()
+    val bottomSheetUiEvent: SharedFlow<BottomSheetUiEvent> = _BottomSheet_uiEvent
 
     private val postPublishingModels: MutableList<PostPublishingDomainModel> = mutableListOf()
 
@@ -47,6 +52,26 @@ class PostPublishingViewModel @Inject constructor(
         return postPublishingModels.map { it.toPostPublishingDestinationUiModel(
             viewModelScope
         ) }
+    }
+
+    fun onPostUiModelMissing() {
+        _baseUiEvent.emitAlertDialogEvent(
+            AlertDialogData(
+                title = resourceManager.getString(R.string.error_title),
+                message = resourceManager.getString(R.string.cant_get_publication_data),
+                positiveButton = ButtonData(resourceManager.getString(R.string.ok)) {
+                    _BottomSheet_uiEvent.emitDismissUiEvent()
+                }
+            )
+        )
+        dismissUiEventWithDelay()
+    }
+
+    private fun dismissUiEventWithDelay(delayTime: Long = 1500) {
+        viewModelScope.launch {
+            delay(delayTime)
+            _BottomSheet_uiEvent.emitDismissUiEvent()
+        }
     }
 
     private suspend fun getPostModelByUiModel(postUiModel: PostUiModel, context: Context): PostModel {
@@ -107,10 +132,38 @@ class PostPublishingViewModel @Inject constructor(
                     checkFinishingJob.cancel()
                     postPublishingModels.clear()
                     _publishingInProcessFlow.value = null
-                    _uiEvent.emit(UiEvent.TimeoutExpired)
+                    onTimeoutExpired()
                 }
             }
         }
+    }
+
+    private fun onTimeoutExpired() {
+        _baseUiEvent.emitAlertDialogEvent(
+            AlertDialogData(
+                title = resourceManager.getString(R.string.error_title),
+                message = resourceManager.getString(R.string.post_publishing_timeout_expired),
+                positiveButton = ButtonData(resourceManager.getString(R.string.ok)) {
+                    _BottomSheet_uiEvent.emitDismissUiEvent()
+                }
+            )
+        )
+
+        dismissUiEventWithDelay(3000)
+    }
+
+    fun onPostSuccessfullyPublished() {
+        _baseUiEvent.emitAlertDialogEvent(
+            AlertDialogData(
+                title = resourceManager.getString(R.string.post_successfully_published),
+                message = resourceManager.getString(R.string.you_can_view_results_in_feed),
+                positiveButton = ButtonData(resourceManager.getString(R.string.ok)) {
+                    _BottomSheet_uiEvent.emitDismissUiEvent()
+                }
+            )
+        )
+
+        dismissUiEventWithDelay()
     }
 
     private suspend fun savePostToFeed(
@@ -141,6 +194,12 @@ class PostPublishingViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    private fun MutableSharedFlow<BottomSheetUiEvent>.emitDismissUiEvent() {
+        viewModelScope.launch {
+            this@emitDismissUiEvent.emit(BottomSheetUiEvent.Dismiss)
         }
     }
 

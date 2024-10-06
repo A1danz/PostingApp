@@ -9,9 +9,9 @@ import com.a1danz.feature_settings.R
 import com.a1danz.feature_settings.databinding.FragmentSettingsBinding
 import com.a1danz.feature_settings.di.SettingsComponent
 
-class SettingsFragment : BaseFragment(R.layout.fragment_settings) {
+class SettingsFragment : BaseFragment<SettingsViewModel>(R.layout.fragment_settings) {
     private val viewBinding: FragmentSettingsBinding by viewBinding(FragmentSettingsBinding::bind)
-    private val viewModel: SettingsViewModel by viewModels { vmFactory }
+    override val viewModel: SettingsViewModel by viewModels { vmFactory }
     override fun inject() {
         (requireActivity().application as? FeatureContainer)?.getFeature(SettingsComponent::class.java)
             ?.inject(this)

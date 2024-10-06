@@ -1,8 +1,8 @@
 package com.a1danz.feature_settings.presentation.screens.social_media.vk
 
-import androidx.lifecycle.ViewModel
 import com.a1danz.common.domain.model.VkGroupInfo
 import com.a1danz.common.domain.model.VkUserInfo
+import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.common.presentation.nav.GoBackRouter
 import com.a1danz.feature_settings.domain.interactor.UserInteractor
 import com.a1danz.feature_settings.presentation.model.VkUserGroupUiModel
@@ -13,7 +13,7 @@ import javax.inject.Inject
 class VkSettingsViewModel @Inject constructor(
     private val userInteractor: UserInteractor,
     private val vkSettingsRouter: GoBackRouter
-) : ViewModel() {
+) : BaseViewModel() {
     fun userHasToken(): Boolean {
         return userInteractor.hasUserVkToken()
     }

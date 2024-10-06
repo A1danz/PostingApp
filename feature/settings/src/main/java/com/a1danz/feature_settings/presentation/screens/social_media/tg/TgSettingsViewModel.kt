@@ -1,8 +1,8 @@
 package com.a1danz.feature_settings.presentation.screens.social_media.tg
 
 import android.util.Log
-import androidx.lifecycle.ViewModel
 import com.a1danz.common.domain.model.TgUserInfo
+import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.common.presentation.nav.GoBackRouter
 import com.a1danz.feature_settings.domain.interactor.UserInteractor
 import com.a1danz.feature_settings.presentation.model.TgChatUiModel
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class TgSettingsViewModel @Inject constructor(
     private val userInteractor: UserInteractor,
     private val goBackRouter: GoBackRouter
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _tgUpdatesFlow: MutableStateFlow<Boolean?> = MutableStateFlow(null)
     private val _tgConfigInitializedFlow: MutableStateFlow<Boolean?> = MutableStateFlow(null)

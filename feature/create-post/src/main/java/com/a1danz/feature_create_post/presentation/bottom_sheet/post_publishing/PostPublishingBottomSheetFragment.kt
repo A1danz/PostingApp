@@ -2,29 +2,23 @@ package com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing
 
 import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.common.di.featureprovide.FeatureContainer
 import com.a1danz.common.ext.getSafeSerializable
-import com.a1danz.common.ext.observe
 import com.a1danz.common.presentation.base.BaseBottomSheetDialogFragment
-import com.a1danz.common.presentation.base.model.AlertDialogData
-import com.a1danz.common.presentation.base.model.ButtonData
 import com.a1danz.feature_create_post.R
 import com.a1danz.feature_create_post.databinding.FragmentPostPublishingBinding
 import com.a1danz.feature_create_post.di.CreatePostComponent
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.PostPublishingUiModel
-import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.model.event.UiEvent
+import com.a1danz.feature_create_post.presentation.model.event.BottomSheetUiEvent
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.ui.PostPublishingItemView
 import com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing.ui.PostPublishingView
 import com.a1danz.feature_create_post.presentation.model.PostUiModel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
-class PostPublishingBottomSheetFragment : BaseBottomSheetDialogFragment(R.layout.fragment_post_publishing) {
+class PostPublishingBottomSheetFragment : BaseBottomSheetDialogFragment<PostPublishingViewModel>(R.layout.fragment_post_publishing) {
 
     private val viewBinding: FragmentPostPublishingBinding by viewBinding(FragmentPostPublishingBinding::bind)
-    private val viewModel: PostPublishingViewModel by lazy {
+    override val viewModel: PostPublishingViewModel by lazy {
         ViewModelProvider(requireActivity(), vmFactory)[PostPublishingViewModel::class.java]
     }
 
@@ -34,13 +28,7 @@ class PostPublishingBottomSheetFragment : BaseBottomSheetDialogFragment(R.layout
     }
 
     override fun subscribe() {
-        viewModel.uiEvent.observe {
-            when (it) {
-                is UiEvent.TimeoutExpired -> {
-                    showErrorTimeoutExpired()
-                }
-            }
-        }
+        viewModel.bottomSheetUiEvent.observe(::collectUiEvent)
     }
 
     override fun initViews() {
@@ -51,39 +39,8 @@ class PostPublishingBottomSheetFragment : BaseBottomSheetDialogFragment(R.layout
             if (postUiModel != null) {
                 initCreatingState(postUiModel)
             } else {
-                showErrorPostUiModelNotFound()
+                viewModel.onPostUiModelMissing()
             }
-
-        }
-    }
-
-    private fun showErrorPostUiModelNotFound() {
-        showAlertDialog(
-            AlertDialogData(
-                title = getString(R.string.error_title),
-                message = getString(R.string.cant_get_publication_data),
-                positiveButton = ButtonData(getString(R.string.ok), ::dismiss)
-            )
-        )
-        closeBottomSheetWithDelay()
-    }
-
-    private fun showErrorTimeoutExpired() {
-        showAlertDialog(
-            AlertDialogData(
-                title = getString(R.string.error_title),
-                message = getString(R.string.post_publishing_timeout_expired),
-                positiveButton = ButtonData(getString(R.string.ok), ::dismiss)
-            )
-        )
-
-        closeBottomSheetWithDelay(3000)
-    }
-
-    private fun closeBottomSheetWithDelay(delayTime: Long = 1500) {
-        lifecycleScope.launch {
-            delay(delayTime)
-            dismiss()
         }
     }
 
@@ -96,29 +53,14 @@ class PostPublishingBottomSheetFragment : BaseBottomSheetDialogFragment(R.layout
     }
 
     private fun initAlreadyInProcessState() {
-        lifecycleScope.launch {
-            val publishingUiModels = viewModel.getAlreadyStartedPublishingUiModels()
-            if (publishingUiModels.isEmpty()) {
-                successfullyPostPublishingState()
-                return@launch
-            }
-
-            publishingUiModels.forEach {
-                addPostPublishingModelToLayout(it)
-            }
+        val publishingUiModels = viewModel.getAlreadyStartedPublishingUiModels()
+        if (publishingUiModels.isEmpty()) {
+            viewModel.onPostSuccessfullyPublished()
         }
-    }
 
-    private fun successfullyPostPublishingState() {
-        showAlertDialog(
-            AlertDialogData(
-                title = getString(R.string.post_successfully_published),
-                message = getString(R.string.you_can_view_results_in_feed),
-                positiveButton = ButtonData(getString(R.string.ok), ::dismiss)
-            )
-        )
-
-        closeBottomSheetWithDelay()
+        publishingUiModels.forEach {
+            addPostPublishingModelToLayout(it)
+        }
     }
 
     private fun addPostPublishingModelToLayout(publishingModel: PostPublishingUiModel) {
@@ -144,10 +86,17 @@ class PostPublishingBottomSheetFragment : BaseBottomSheetDialogFragment(R.layout
                                 }
                             }
                         }
-
                     }
                 }
             )
+        }
+    }
+
+    private fun collectUiEvent(uiEvent: BottomSheetUiEvent) {
+        when(uiEvent) {
+            BottomSheetUiEvent.Dismiss -> {
+                dismiss()
+            }
         }
     }
 
