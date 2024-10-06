@@ -9,12 +9,14 @@ import com.a1danz.common.presentation.base.BaseFragment
 import com.a1danz.feature_settings.R
 import com.a1danz.feature_settings.databinding.FragmentSocialMediaSettingsBinding
 import com.a1danz.feature_settings.di.SettingsComponent
-import com.a1danz.feature_settings.presentation.model.TgUserInfoUiModel
+import com.a1danz.feature_settings.presentation.model.tg.TgUserInfoUiModel
 import com.bumptech.glide.Glide
 
 
 class SocialMediaSettingsFragment : BaseFragment<SocialMediaSettingsViewModel>(R.layout.fragment_social_media_settings) {
+
     private val viewBinding: FragmentSocialMediaSettingsBinding by viewBinding(FragmentSocialMediaSettingsBinding::bind)
+
     override val viewModel: SocialMediaSettingsViewModel by viewModels { vmFactory }
 
     override fun inject() {
@@ -48,8 +50,8 @@ class SocialMediaSettingsFragment : BaseFragment<SocialMediaSettingsViewModel>(R
             layoutVkData.isVisible = true
             val vkInfoUiModel = viewModel.getVkUserInfoUiModel(vkConfig)
 
-            tvVkUserName.text = vkInfoUiModel.vkName
-            vkInfoUiModel.vkGroupNames.let {  groups ->
+            tvVkUserName.text = vkInfoUiModel.name
+            vkInfoUiModel.groupNames.let {  groups ->
                 tvVkLinkGroups.text =
                     if (groups.isEmpty()) getString(R.string.you_havent_select_any_group_yet)
                     else groups.joinToString("\n")

@@ -3,8 +3,8 @@ package com.a1danz.feature_settings.domain.mapper
 import android.util.Log
 import com.a1danz.common.domain.model.User
 import com.a1danz.feature_settings.domain.model.VkUserGroupsDomainModel
-import com.a1danz.feature_settings.presentation.model.VkUserGroupUiModel
-import com.a1danz.feature_settings.presentation.model.VkUserGroupsUiModel
+import com.a1danz.feature_settings.presentation.model.vk.VkUserGroupUiModel
+import com.a1danz.feature_settings.presentation.model.vk.VkUserGroupsUiModel
 import javax.inject.Inject
 
 class VkUserGroupsDomainMapper @Inject constructor(

@@ -1,25 +1,30 @@
 package com.a1danz.feature_settings.presentation.screens.social_media.vk
 
-import android.app.AlertDialog
-import android.util.Log
-import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.common.di.featureprovide.FeatureContainer
 import com.a1danz.common.presentation.base.BaseFragment
 import com.a1danz.feature_settings.R
 import com.a1danz.feature_settings.databinding.FragmentVkSettingsBinding
 import com.a1danz.feature_settings.di.SettingsComponent
-import com.a1danz.feature_settings.presentation.model.VkUserGroupUiModel
+import com.a1danz.feature_settings.presentation.model.state.PlatformScreenState
+import com.a1danz.feature_settings.presentation.model.state.VkPlatformScreenState
+import com.a1danz.feature_settings.presentation.model.vk.VkUserGroupUiModel
+import com.a1danz.feature_settings.presentation.model.vk.VkUserInfoUiModel
 import com.a1danz.feature_settings.presentation.screens.social_media.vk.rv.VkGroupAdapter
 import com.bumptech.glide.Glide
-import kotlinx.coroutines.launch
 
 class VkSettingsFragment : BaseFragment<VkSettingsViewModel>(R.layout.fragment_vk_settings) {
+
     private val viewBinding: FragmentVkSettingsBinding by viewBinding(FragmentVkSettingsBinding::bind)
+
     override val viewModel: VkSettingsViewModel by viewModels { vmFactory }
+
+    private val adapter: VkGroupAdapter by lazy {
+        VkGroupAdapter(::groupChosenCallback)
+    }
 
     override fun inject() {
         (requireActivity().application as FeatureContainer).getFeature(SettingsComponent::class.java)
@@ -27,85 +32,71 @@ class VkSettingsFragment : BaseFragment<VkSettingsViewModel>(R.layout.fragment_v
     }
 
     override fun subscribe() {
-        return
+        viewModel.screenState.observe(::collectScreenState)
+        viewModel.userGroupsState.observe(::collectUserGroupsState)
     }
 
     override fun initViews() {
         with(viewBinding) {
-            lifecycleScope.launch {
-                if (viewModel.userHasToken()) {
-                    try {
-                        updateUiByVkToken()
-                    } catch (ex: Exception) {
-                        Log.e("ERROR", ex.toString())
-                        ex.printStackTrace()
-                    }
-                } else {
-                    layoutNotLinked.isVisible = true
-                }
-            }
+            viewModel.initScreenState()
 
             btnVk.setCallbacks(
                 onAuth = { accessToken ->
-                    lifecycleScope.launch {
-                        val res = viewModel.saveVkToken(accessToken)
-                        Log.d("EXPIRED", "${accessToken.expireTime}")
-                        if (res) updateUiByVkToken()
-                        else Log.e("CANT SAVE", "CANT SAVE VK TOKEN")
-                    }
+                    viewModel.onAccessTokenReceived(accessToken)
                 },
-                onFail = { vkidAuthFail ->
-                    Log.e("FAILED AUTH", vkidAuthFail.description)
+                onFail = { vkIdAuthFail ->
+                    viewModel.onAccessTokenFailed(vkIdAuthFail.description)
                 }
             )
         }
     }
 
-    private suspend fun updateUiByVkToken() {
-        println("UPDATED UI")
+    private fun groupChosenCallback(groupUiModel: VkUserGroupUiModel, isChosen: Boolean) {
+        viewModel.handleVkGroupEdit(groupUiModel, isChosen)
+    }
+
+    private fun collectScreenState(state: PlatformScreenState<VkUserInfoUiModel>?) {
         with(viewBinding) {
-            layoutNotLinked.visibility = View.GONE
-            layoutAuthorized.visibility = View.VISIBLE
-            val userInfo = viewModel.getUserInfo()
-            tvUserName.text = userInfo.fullName
-            if (userInfo.userImg != null) {
-                Glide.with(requireContext())
-                    .load(userInfo.userImg)
-                    .into(ivUserImg)
-            }
-            val adapter = VkGroupAdapter(::groupChosenCallback)
-            rvGroups.adapter = adapter
-            lifecycleScope.launch {
-                val groupsUiModels = viewModel.getVkUserGroups()
-                adapter.setItems(groupsUiModels.groups)
-                if (groupsUiModels.groups.isEmpty()) {
-                    tvGroupsEmpty.isVisible = true
+            state?.let { screenState ->
+                layoutAuthorized.isGone = screenState !is PlatformScreenState.Linked
+                layoutNotLinked.isGone = screenState !is PlatformScreenState.Unlinked
+
+                when(screenState) {
+                    is PlatformScreenState.Linked -> {
+                        initLinkedScreen(screenState.platformUserUiInfo)
+
+                    }
+                    is PlatformScreenState.Unlinked -> {
+
+                    }
                 }
-            }
-
-
-            Log.d("ADAPTER ATTACHED", "ATTACHED - ${rvGroups.adapter}")
-
-            btnUnlink.setOnClickListener {
-                AlertDialog.Builder(requireContext())
-                    .setTitle(getString(R.string.are_you_sure_question))
-                    .setMessage(getString(R.string.are_you_sure_what_you_want_unlink_account))
-                    .setPositiveButton(
-                       getString(R.string.yes)
-                    ) { dialog, which ->
-                        lifecycleScope.launch {
-                            viewModel.unlinkVkUser()
-                        }
-                    }.setNegativeButton(getString(R.string.no)) { _, _ -> }
-                    .show()
             }
         }
     }
 
-    private fun groupChosenCallback(isChosen: Boolean, groupUiModel: VkUserGroupUiModel) {
-        lifecycleScope.launch {
-            if (isChosen) viewModel.addVkGroup(groupUiModel)
-            else viewModel.removeGroup(groupUiModel)
+    private fun initLinkedScreen(userInfo: VkUserInfoUiModel) {
+        with(viewBinding) {
+            viewModel.loadVkUserGroups()
+            rvGroups.adapter = adapter
+
+            tvUserName.text = userInfo.name
+
+            userInfo.photo?.let { img ->
+                Glide.with(requireContext())
+                    .load(img)
+                    .into(ivUserImg)
+            }
+
+            btnUnlink.setOnClickListener {
+                viewModel.onUnlinkBtnClicked()
+            }
+        }
+    }
+
+    private fun collectUserGroupsState(state: List<VkUserGroupUiModel>?) {
+        state?.let { userGroups ->
+            adapter.setItems(userGroups)
+            viewBinding.tvGroupsEmpty.isVisible = userGroups.isEmpty()
         }
     }
 }

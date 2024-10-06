@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.a1danz.feature_settings.databinding.ItemRvTgChatBinding
 import com.a1danz.feature_settings.databinding.ItemRvTgChatPreviewBinding
-import com.a1danz.feature_settings.presentation.model.TgChatUiModel
+import com.a1danz.feature_settings.presentation.model.tg.TgChatUiModel
 import com.bumptech.glide.Glide
 
 class TgChatsAdapter(

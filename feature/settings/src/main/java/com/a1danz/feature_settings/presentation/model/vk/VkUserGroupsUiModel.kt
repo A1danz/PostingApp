@@ -1,10 +1,10 @@
-package com.a1danz.feature_settings.presentation.model
+package com.a1danz.feature_settings.presentation.model.vk
 
 class VkUserGroupsUiModel (
     val groups: List<VkUserGroupUiModel>
 )
 
-class VkUserGroupUiModel(
+data class VkUserGroupUiModel(
     val name: String,
     val imageUrl: String,
     val groupId: Long,

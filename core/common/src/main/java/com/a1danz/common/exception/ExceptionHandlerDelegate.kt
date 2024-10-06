@@ -1,6 +1,4 @@
-package com.a1danz.common.delegate
-
-import com.google.firebase.FirebaseException
+package com.a1danz.common.exception
 
 interface ExceptionHandlerDelegate {
     fun handleException(ex : Throwable) : Throwable

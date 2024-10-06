@@ -8,6 +8,8 @@ import com.a1danz.common.core.resources.ResourceManager
 import com.a1danz.common.core.resources.ResourceManagerImpl
 import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.common.domain.UserModelDelegate
+import com.a1danz.common.intent.IntentManager
+import com.a1danz.common.intent.impl.IntentManagerImpl
 import com.a1danz.posting.App
 import dagger.Binds
 import dagger.Module
@@ -16,7 +18,7 @@ import dagger.Provides
 
 @Module(
     includes = [
-        ContextBinder::class,
+        DependenciesBinderModule::class,
         com.a1danz.core_data.di.DataModule::class,
     ]
 )
@@ -35,7 +37,11 @@ class AppModule {
 }
 
 @Module
-interface ContextBinder {
+interface DependenciesBinderModule {
     @Binds
     fun bindApplication_to_Context(application: App): Context
+
+    @Binds
+    fun bindsIntentManager_to_Impl(intentManagerImpl: IntentManagerImpl): IntentManager
+
 }

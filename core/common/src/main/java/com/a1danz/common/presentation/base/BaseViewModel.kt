@@ -1,5 +1,6 @@
 package com.a1danz.common.presentation.base
 
+import android.content.Intent
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.a1danz.common.presentation.base.model.AlertDialogData
@@ -25,6 +26,22 @@ open class BaseViewModel : ViewModel() {
 
     protected fun MutableSharedFlow<BaseUiEvent>.emitAlertDialogEvent(alertDialog: AlertDialogData) {
         this.emitEvent(BaseUiEvent.ShowAlertDialog(alertDialog))
+    }
+
+    protected fun MutableSharedFlow<BaseUiEvent>.emitShowIntentEvent(intent: Intent) {
+        this.emitEvent(BaseUiEvent.ShowIntent(intent))
+    }
+
+    fun needToShowError(readableError: ReadableError) {
+        _baseUiEvent.emitErrorEvent(readableError)
+    }
+
+    fun needToShowToast(toastData: ToastData) {
+        _baseUiEvent.emitToastEvent(toastData)
+    }
+
+    fun needToShowAlertDialog(alertDialog: AlertDialogData) {
+        _baseUiEvent.emitAlertDialogEvent(alertDialog)
     }
 
     protected fun MutableSharedFlow<BaseUiEvent>.emitEvent(event: BaseUiEvent) {

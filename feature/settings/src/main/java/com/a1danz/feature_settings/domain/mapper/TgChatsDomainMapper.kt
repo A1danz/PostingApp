@@ -1,8 +1,8 @@
 package com.a1danz.feature_settings.domain.mapper
 
 import com.a1danz.feature_settings.domain.model.TgChatsDomainModel
-import com.a1danz.feature_settings.presentation.model.TgChatUiModel
-import com.a1danz.feature_settings.presentation.model.TgChatsUiModel
+import com.a1danz.feature_settings.presentation.model.tg.TgChatUiModel
+import com.a1danz.feature_settings.presentation.model.tg.TgChatsUiModel
 import javax.inject.Inject
 
 class TgChatsDomainMapper @Inject constructor() {

@@ -5,6 +5,8 @@ import com.a1danz.common.core.utils.Unsubscriber
 import com.a1danz.common.domain.model.TgUserInfo
 import com.a1danz.common.domain.model.User
 import com.a1danz.common.ext.doOrLog
+import com.a1danz.common.ext.doOrThrow
+import com.a1danz.feature_user_configurer.data.exception.handler.RemoteExceptionHandlerDelegate
 import com.a1danz.feature_user_configurer.domain.repository.UserRemoteRepository
 import com.a1danz.feature_user_configurer.utils.UnsubscriberImpl
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,11 +19,12 @@ import javax.inject.Inject
 class UserFirestoreRepositoryImpl @Inject constructor(
     private val firestore: FirebaseFirestore,
     private val dispatcher: CoroutineDispatcher,
+    private val remoteExceptionHandlerDelegate: RemoteExceptionHandlerDelegate,
 ) : UserRemoteRepository {
 
-    override suspend fun getUser(userId: String): User? {
+    override suspend fun getUser(userId: String): User {
         return withContext(dispatcher) {
-            doOrLog {
+            doOrThrow(remoteExceptionHandlerDelegate) {
                 firestore.collection("users")
                     .document(userId)
                     .get()
@@ -30,7 +33,6 @@ class UserFirestoreRepositoryImpl @Inject constructor(
                         User(uId = userId, name = userDoc.getString("name") ?: "User")
                     }
             }
-
         }
     }
 
@@ -53,16 +55,16 @@ class UserFirestoreRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getUserTgInfo(userId: String): TgUserInfo? {
+    override suspend fun getUserTgInfo(userId: String): TgUserInfo {
         return withContext(dispatcher) {
-            doOrLog {
+            doOrThrow(remoteExceptionHandlerDelegate) {
                 val doc = firestore.collection("users").document(userId).get().await()
                 val tgUsername = doc.getString("telegram.username")
-                    ?: return@doOrLog null
+                    ?: throw IllegalStateException("Field {telegram.username} not found for $userId")
                 val tgUserId = doc.getLong("telegram.tg_user_id")
-                    ?: return@doOrLog null
+                    ?: throw IllegalStateException("Field {telegram.tg_user_id} not found for $userId")
                 val tgUserPhoto = doc.getString("telegram.photo")
-                    ?: return@doOrLog null
+                    ?: throw IllegalStateException("Field {telegram.photo} not found for $userId")
 
                 TgUserInfo(
                     tgUserId = tgUserId,
@@ -76,7 +78,7 @@ class UserFirestoreRepositoryImpl @Inject constructor(
 
     override suspend fun clearTgInformation(userId: String) {
         withContext(dispatcher) {
-            doOrLog {
+            doOrThrow(remoteExceptionHandlerDelegate) {
                 firestore.collection("users").document(userId).update(
                     hashMapOf<String, Any>(
                         "telegram" to hashMapOf(

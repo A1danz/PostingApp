@@ -6,8 +6,8 @@ import com.a1danz.common.domain.model.User
 import kotlinx.coroutines.flow.MutableStateFlow
 
 interface UserRemoteRepository {
-    suspend fun getUser(userId: String): User?
+    suspend fun getUser(userId: String): User
     fun listenTgUpdate(telegramInitializedState: MutableStateFlow<Boolean?>, userId: String): Unsubscriber
-    suspend fun getUserTgInfo(userId: String): TgUserInfo?
+    suspend fun getUserTgInfo(userId: String): TgUserInfo
     suspend fun clearTgInformation(userId: String)
 }

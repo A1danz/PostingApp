@@ -1,4 +1,4 @@
-package com.a1danz.feature_settings.data.remote.vk.di
+package com.a1danz.feature_settings.data.di
 
 import com.a1danz.feature_settings.data.remote.vk.VkApi
 import com.a1danz.feature_settings.data.remote.vk.interceptor.VkInterceptor
@@ -11,7 +11,7 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@Module(includes = [RepositoryBinder::class])
+@Module
 class VkNetworkModule {
     @Provides
     fun provideOkHttpClient(vkInterceptor: VkInterceptor) : OkHttpClient = OkHttpClient.Builder()
@@ -29,10 +29,4 @@ class VkNetworkModule {
 
     @Provides
     fun provideVkApi(retrofit: Retrofit) : VkApi = retrofit.create(VkApi::class.java)
-}
-
-@Module
-interface RepositoryBinder {
-    @Binds
-    fun bindRepository_to_Impl(repositoryImpl: VkRepositoryImpl): VkRepository
 }
