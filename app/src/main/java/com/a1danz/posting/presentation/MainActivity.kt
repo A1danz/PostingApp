@@ -35,6 +35,7 @@ class MainActivity : BaseActivity() {
 
         if (savedInstanceState != null) {
             if (savedInstanceState.getBoolean(BNV_IS_ACTIVE_ARG)) {
+                // todo: set right start destination after recreating activity
                 activateBnv()
             }
         }

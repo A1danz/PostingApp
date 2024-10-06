@@ -1,7 +1,7 @@
 package com.a1danz.feature_posts_feed.presentation.screens.feed
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.feature_posts_feed.domain.interactor.UserInteractor
 import com.a1danz.feature_posts_feed.presentation.model.PostUiModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class PostsFeedViewModel @Inject constructor(
     private val userInteractor: UserInteractor
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _postsStateFlow: MutableStateFlow<List<PostUiModel>?> = MutableStateFlow(null)
     val postsStateFlow: StateFlow<List<PostUiModel>?> get() = _postsStateFlow

@@ -33,11 +33,11 @@ import com.esafirm.imagepicker.model.Image
 import javax.inject.Inject
 
 
-class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
+class CreatePostFragment : BaseFragment<CreatePostViewModel>(R.layout.fragment_create_post) {
 
     private val viewBinding: FragmentCreatePostBinding by viewBinding(FragmentCreatePostBinding::bind)
 
-    private val viewModel: CreatePostViewModel by viewModels { vmFactory }
+    override val viewModel: CreatePostViewModel by viewModels { vmFactory }
 
     private val postPublishingViewModel by lazy {
         ViewModelProvider(requireActivity(), vmFactory)[PostPublishingViewModel::class.java]
@@ -246,7 +246,7 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
                 )
 
                 if (!viewModel.postIsValid(postUiModel)) {
-                    showInvalidDataDialog()
+                    viewModel.onPostIsInvalid()
                 } else {
                     showPostPreviewDialog(postUiModel)
                 }
@@ -284,15 +284,6 @@ class CreatePostFragment : BaseFragment(R.layout.fragment_create_post) {
             )
             alertDialog.dismiss()
         }
-    }
-
-    private fun showInvalidDataDialog() {
-        showAlertDialog(
-            AlertDialogData(
-                title = getString(R.string.invalid_data),
-                message = getString(R.string.invalid_data_description)
-            )
-        )
     }
 
     override fun onResume() {

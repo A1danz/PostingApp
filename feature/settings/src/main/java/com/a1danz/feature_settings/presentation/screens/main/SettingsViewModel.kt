@@ -6,12 +6,13 @@ import android.net.Uri
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.ViewModel
 import com.a1danz.common.core.config.InfoAboutOtherApps
+import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.feature_settings.presentation.navigation.SettingsRouter
 import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
     private val settingsRouter: SettingsRouter
-) : ViewModel() {
+) : BaseViewModel() {
     fun navigateToSocialMediaSettingsScreen() {
         settingsRouter.openSocialMediaSettings()
     }

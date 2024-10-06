@@ -10,11 +10,11 @@ import com.a1danz.feature_initialize.databinding.FragmentInitializingBinding
 import com.a1danz.feature_initialize.di.InitializingComponent
 import com.a1danz.feature_initialize.presentation.model.event.InitializingEvent
 
-class InitializingFragment : BaseFragment(R.layout.fragment_initializing) {
+class InitializingFragment : BaseFragment<InitializingViewModel>(R.layout.fragment_initializing) {
 
     private val viewBinding: FragmentInitializingBinding by viewBinding(FragmentInitializingBinding::bind)
 
-    private val viewModel: InitializingViewModel by viewModels { vmFactory }
+    override val viewModel: InitializingViewModel by viewModels { vmFactory }
 
     override fun inject() {
         (requireActivity().application as FeatureContainer)

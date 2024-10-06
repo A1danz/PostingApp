@@ -1,8 +1,8 @@
 package com.a1danz.feature_settings.presentation.screens.social_media
 
-import androidx.lifecycle.ViewModel
 import com.a1danz.common.domain.model.TgConfig
 import com.a1danz.common.domain.model.VkConfig
+import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.feature_settings.domain.interactor.UserInteractor
 import com.a1danz.feature_settings.presentation.model.TgUserInfoUiModel
 import com.a1danz.feature_settings.presentation.model.VkUserInfoUiModel
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class SocialMediaSettingsViewModel @Inject constructor(
     private val userInteractor: UserInteractor,
     private val socialMediaRouter: SocialMediaRouter
-) : ViewModel() {
+) : BaseViewModel() {
     fun openVkSettingsScreen() {
         socialMediaRouter.openVkSettings()
     }

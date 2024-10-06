@@ -1,22 +1,24 @@
 package com.a1danz.common.presentation.base
 
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.lifecycle.ViewModelProvider
 import com.a1danz.common.ext.observe
-import com.a1danz.common.presentation.base.model.AlertDialogData
+import com.a1danz.common.ext.showAlertDialog
+import com.a1danz.common.ext.showError
+import com.a1danz.common.ext.showToast
+import com.a1danz.common.presentation.base.model.event.BaseUiEvent
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-abstract class BaseBottomSheetDialogFragment(@LayoutRes layoutRes: Int) : BottomSheetDialogFragment(layoutRes) {
-    @Inject
-    open lateinit var vmFactory: ViewModelProvider.Factory
+abstract class BaseBottomSheetDialogFragment<T : BaseViewModel>(@LayoutRes layoutRes: Int) : BottomSheetDialogFragment(layoutRes) {
+
+    @Inject open lateinit var vmFactory: ViewModelProvider.Factory
+
+    protected abstract val viewModel: T
 
     override fun onAttach(context: Context) {
         inject()
@@ -25,24 +27,25 @@ abstract class BaseBottomSheetDialogFragment(@LayoutRes layoutRes: Int) : Bottom
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        baseSubscribe()
         subscribe()
         initViews()
     }
 
-    fun showAlertDialog(alertDialogData: AlertDialogData) {
-        val dialogBuilder = AlertDialog.Builder(requireContext())
-            .setTitle(alertDialogData.title)
-        alertDialogData.apply {
-            if (message != null) dialogBuilder.setMessage(message)
-            if (positiveButton != null) dialogBuilder.setPositiveButton(positiveButton.text) { _, _ ->
-                positiveButton.callback?.invoke()
-            }
-            if (negativeButton != null) dialogBuilder.setNegativeButton(negativeButton.text) { _, _ ->
-                negativeButton.callback?.invoke()
+    private fun baseSubscribe() {
+        viewModel.baseUiEvent.observe { uiEvent ->
+            when(uiEvent) {
+                is BaseUiEvent.ShowAlertDialog -> {
+                    showAlertDialog(uiEvent.dialogData)
+                }
+                is BaseUiEvent.ShowError -> {
+                    showError(uiEvent.readableError)
+                }
+                is BaseUiEvent.ShowToast -> {
+                    showToast(uiEvent.toastData)
+                }
             }
         }
-
-        dialogBuilder.show()
     }
 
     fun <T> Flow<T>.observe(block: (T) -> Unit) {

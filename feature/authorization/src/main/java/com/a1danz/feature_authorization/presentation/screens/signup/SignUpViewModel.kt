@@ -1,15 +1,11 @@
 package com.a1danz.feature_authorization.presentation.screens.signup
 
-import android.util.Log
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.a1danz.common.ext.runCatching
+import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.common.presentation.model.ReadableError
 import com.a1danz.common.presentation.model.Text
 import com.a1danz.feature_authorization.AuthorizationRouter
-import com.a1danz.feature_authorization.data.exceptionhandler.FirebaseExceptionHandlerDelegate
 import com.a1danz.feature_authorization.domain.service.AuthorizationService
-import com.a1danz.feature_authorization.presentation.model.event.SignInEvent
 import com.a1danz.feature_authorization.presentation.model.event.SignUpEvent
 import com.a1danz.feature_authorization.presentation.utils.AuthorizationExceptionsConverter
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,7 +17,7 @@ class SignUpViewModel @Inject constructor(
     private val authService : AuthorizationService,
     private val authorizationRouter: AuthorizationRouter,
     private val authorizationExceptionsConverter: AuthorizationExceptionsConverter,
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val _signUpEvent: MutableSharedFlow<SignUpEvent> = MutableSharedFlow()
     val signUpEvent: SharedFlow<SignUpEvent> = _signUpEvent

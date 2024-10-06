@@ -3,6 +3,7 @@ package com.a1danz.feature_initialize.presentation.screens.initialize
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.feature_authorization.domain.model.AuthorizedUser
 import com.a1danz.feature_initialize.domain.interactor.InitializerInteractor
 import com.a1danz.feature_initialize.presentation.model.event.InitializingEvent
@@ -17,7 +18,7 @@ import javax.inject.Inject
 class InitializingViewModel @Inject constructor(
     private val interactor: InitializerInteractor,
     private val router: InitializingRouter
-) : ViewModel() {
+) : BaseViewModel() {
 
     private var authorizedUser: AuthorizedUser? = null
 

@@ -12,11 +12,11 @@ import com.a1danz.feature_authorization.databinding.FragmentSignupBinding
 import com.a1danz.feature_authorization.di.AuthComponent
 import com.a1danz.feature_authorization.presentation.model.event.SignUpEvent
 
-class SignUpFragment : BaseFragment(R.layout.fragment_signup) {
+class SignUpFragment : BaseFragment<SignUpViewModel>(R.layout.fragment_signup) {
 
     private val viewBinding: FragmentSignupBinding by viewBinding(FragmentSignupBinding::bind)
 
-    private val viewModel : SignUpViewModel by viewModels { vmFactory }
+    override val viewModel : SignUpViewModel by viewModels { vmFactory }
 
     override fun inject() {
         (requireActivity().applicationContext as FeatureContainer).getFeature(

@@ -25,10 +25,10 @@ import com.bumptech.glide.Glide
 import kotlinx.coroutines.launch
 
 
-class TgSettingsFragment : BaseFragment(R.layout.fragment_tg_settings) {
+class TgSettingsFragment : BaseFragment<TgSettingsViewModel>(R.layout.fragment_tg_settings) {
 
     private val viewBinding: FragmentTgSettingsBinding by viewBinding(FragmentTgSettingsBinding::bind)
-    private val viewModel: TgSettingsViewModel by viewModels { vmFactory }
+    override val viewModel: TgSettingsViewModel by viewModels { vmFactory }
     private var clipboardManager: ClipboardManager? = null
     private var copyToClipboardToast: Toast? = null
 
