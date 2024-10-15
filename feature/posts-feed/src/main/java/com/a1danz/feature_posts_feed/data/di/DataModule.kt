@@ -4,13 +4,20 @@ import com.a1danz.feature_posts_feed.data.repository.PostsRepositoryImpl
 import com.a1danz.feature_posts_feed.domain.repository.PostsRepository
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 @Module(
     includes = [
         PostsRepositoryBinderModule::class
     ]
 )
-class DataModule
+class DataModule {
+
+    @Provides
+    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
+}
 
 
 @Module

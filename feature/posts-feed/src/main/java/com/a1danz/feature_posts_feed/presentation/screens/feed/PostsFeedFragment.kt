@@ -3,6 +3,7 @@ package com.a1danz.feature_posts_feed.presentation.screens.feed
 import android.app.AlertDialog
 import android.util.Log
 import android.view.View
+import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -13,14 +14,14 @@ import com.a1danz.feature_posts_feed.R
 import com.a1danz.feature_posts_feed.databinding.FragmentPostsFeedBinding
 import com.a1danz.feature_posts_feed.di.PostsFeedComponent
 import com.a1danz.feature_posts_feed.presentation.model.PostUiModel
-import com.a1danz.feature_posts_feed.presentation.screens.feed.rv.PostsAdapter
+import com.a1danz.feature_posts_feed.presentation.rv.adapter.PostsAdapter
 import kotlinx.coroutines.launch
 
 class PostsFeedFragment : BaseFragment<PostsFeedViewModel>(R.layout.fragment_posts_feed) {
 
     private val viewBinding: FragmentPostsFeedBinding by viewBinding(FragmentPostsFeedBinding::bind)
-    override val viewModel: PostsFeedViewModel by viewModels { vmFactory }
 
+    override val viewModel: PostsFeedViewModel by viewModels { vmFactory }
 
     override fun inject() {
         (requireActivity().application as? FeatureContainer)?.getFeature(
@@ -79,9 +80,6 @@ class PostsFeedFragment : BaseFragment<PostsFeedViewModel>(R.layout.fragment_pos
     }
 
     private fun showEmptyPostsText(state: Boolean) {
-        if (state) viewBinding.tvEmptyPosts.visibility = View.VISIBLE
-        else viewBinding.tvEmptyPosts.visibility = View.GONE
+        viewBinding.tvEmptyPosts.isGone = state
     }
-
-
 }

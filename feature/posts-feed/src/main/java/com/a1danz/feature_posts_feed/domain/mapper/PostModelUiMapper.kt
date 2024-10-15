@@ -1,7 +1,5 @@
 package com.a1danz.feature_posts_feed.domain.mapper
 
-import com.a1danz.feature_places_info.domain.model.PostPlaceType
-import com.a1danz.feature_places_info.presentation.model.PostPlaceUiInfo
 import com.a1danz.feature_places_info.presentation.model.getUiInfo
 import com.a1danz.feature_posts_feed.domain.model.PostDomainModel
 import com.a1danz.feature_posts_feed.presentation.model.PostUiModel

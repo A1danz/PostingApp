@@ -7,4 +7,5 @@
     <string name="history">История</string>
     <string name="Its_still_empty_here">Здесь пока пусто.</string>
     <string name="post_without_text">Пост без текста</string>
+    <string name="remove">Удалить</string>
 </resources>

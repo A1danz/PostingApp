@@ -13,11 +13,7 @@ import kotlinx.coroutines.Dispatchers
         UserInteractorBinderModule::class
     ]
 )
-class DomainModule {
-
-    @Provides
-    fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
-}
+class DomainModule
 
 @Module
 interface UserInteractorBinderModule {

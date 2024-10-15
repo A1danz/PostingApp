@@ -6,7 +6,7 @@ import com.a1danz.feature_places_info.data.mapper.PostPlaceTypeMapper
 import com.a1danz.feature_posts_feed.domain.model.PostDomainModel
 import javax.inject.Inject
 
-class PostModelDomainMapper @Inject constructor(
+class PostEntityMapper @Inject constructor(
     private val postPlaceTypeMapper: PostPlaceTypeMapper
 ) {
     fun postToDomainModel(postEntity: PostEntity): PostDomainModel {

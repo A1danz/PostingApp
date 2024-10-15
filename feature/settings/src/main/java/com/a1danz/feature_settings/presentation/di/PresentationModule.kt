@@ -1,9 +1,7 @@
 package com.a1danz.feature_settings.presentation.di
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.a1danz.common.di.presentation.DaggerViewModelFactory
-import com.a1danz.common.di.presentation.ViewModelBinder
+import com.a1danz.common.di.presentation.ViewModelFactoryBinder
 import com.a1danz.common.di.presentation.ViewModelKey
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.common.presentation.nav.GoBackRouter
@@ -20,7 +18,7 @@ import dagger.multibindings.IntoMap
 
 @Module(
     includes = [
-        ViewModelBinder::class,
+        ViewModelFactoryBinder::class,
         RouterBinder::class
     ]
 )
