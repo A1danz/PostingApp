@@ -1,7 +1,7 @@
 package com.a1danz.feature_settings.presentation.screens.main
 
 import com.a1danz.common.config.AppConfig
-import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManager
 import com.a1danz.common.intent.IntentManager
 import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.common.presentation.base.model.AlertDialogData

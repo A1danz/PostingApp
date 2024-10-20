@@ -3,9 +3,9 @@ package com.a1danz.posting.di
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.a1danz.common.core.datastore.impl.dataStore
-import com.a1danz.common.core.resources.ResourceManager
-import com.a1danz.common.core.resources.ResourceManagerImpl
+import com.a1danz.core_data.datastore.impl.dataStore
+import com.a1danz.common.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManagerImpl
 import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.common.domain.UserModelDelegate
 import com.a1danz.common.intent.IntentManager

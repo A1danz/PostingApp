@@ -1,4 +1,4 @@
-package com.a1danz.common.core.cryptography
+package com.a1danz.core_data.cryptography
 
 
 import android.util.Base64

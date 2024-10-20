@@ -1,4 +1,4 @@
-package com.a1danz.common.core.datastore.impl
+package com.a1danz.core_data.datastore.impl
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.a1danz.common.core.datastore.DataStoreManager
+import com.a1danz.core_data.datastore.DataStoreManager
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

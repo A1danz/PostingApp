@@ -2,8 +2,7 @@ package com.a1danz.feature_create_post.domain.interactor.impl
 
 import android.content.Context
 import android.net.Uri
-import com.a1danz.common.core.utils.toFile
-import com.a1danz.common.domain.model.Config
+import com.a1danz.common.utils.toFile
 import com.a1danz.common.domain.model.TgConfig
 import com.a1danz.common.domain.model.User
 import com.a1danz.common.domain.model.VkConfig

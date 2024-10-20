@@ -1,4 +1,4 @@
-package com.a1danz.common.core.datastore
+package com.a1danz.core_data.datastore
 
 import kotlinx.coroutines.flow.Flow
 

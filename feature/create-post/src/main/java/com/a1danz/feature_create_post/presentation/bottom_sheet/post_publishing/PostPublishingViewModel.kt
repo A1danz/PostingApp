@@ -3,7 +3,7 @@ package com.a1danz.feature_create_post.presentation.bottom_sheet.post_publishing
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.viewModelScope
-import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManager
 import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.common.presentation.base.model.AlertDialogData
 import com.a1danz.common.presentation.base.model.ButtonData

@@ -1,7 +1,7 @@
 package com.a1danz.feature_settings.domain.interactor.impl
 
-import com.a1danz.common.core.cryptography.Cryptographer
-import com.a1danz.common.core.utils.Unsubscriber
+import com.a1danz.core_data.cryptography.Cryptographer
+import com.a1danz.common.utils.Unsubscriber
 import com.a1danz.common.domain.model.TgChatInfo
 import com.a1danz.common.domain.model.TgConfig
 import com.a1danz.common.domain.model.User
@@ -25,7 +25,7 @@ class UserInteractorImpl @Inject constructor(
 
     private val vkRepository: VkRepository,
 
-    private val cryptographer: Cryptographer,
+    private val cryptographer: com.a1danz.core_data.cryptography.Cryptographer,
     private val tgRepository: TgRepository,
 ) : UserInteractor {
 

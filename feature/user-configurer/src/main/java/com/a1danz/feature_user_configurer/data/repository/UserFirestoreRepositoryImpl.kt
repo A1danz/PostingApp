@@ -1,10 +1,9 @@
 package com.a1danz.feature_user_configurer.data.repository
 
 import android.util.Log
-import com.a1danz.common.core.utils.Unsubscriber
+import com.a1danz.common.utils.Unsubscriber
 import com.a1danz.common.domain.model.TgUserInfo
 import com.a1danz.common.domain.model.User
-import com.a1danz.common.ext.doOrLog
 import com.a1danz.common.ext.doOrThrow
 import com.a1danz.feature_user_configurer.data.exception.handler.RemoteExceptionHandlerDelegate
 import com.a1danz.feature_user_configurer.domain.repository.UserRemoteRepository

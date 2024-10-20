@@ -3,7 +3,7 @@ package com.a1danz.feature_posts_feed.presentation.screens.feed
 import android.util.Log
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManager
 import com.a1danz.common.presentation.base.BaseViewModel
 import com.a1danz.common.presentation.base.model.AlertDialogData
 import com.a1danz.common.presentation.base.model.ButtonData

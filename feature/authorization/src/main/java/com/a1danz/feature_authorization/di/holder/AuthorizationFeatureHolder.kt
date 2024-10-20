@@ -1,6 +1,6 @@
 package com.a1danz.feature_authorization.di.holder
 
-import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManager
 import com.a1danz.common.di.featureprovide.FeatureApiHolder
 import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.feature_authorization.AuthorizationRouter

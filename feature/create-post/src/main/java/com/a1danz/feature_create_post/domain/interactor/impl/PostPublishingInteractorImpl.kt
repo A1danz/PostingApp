@@ -2,10 +2,7 @@ package com.a1danz.feature_create_post.domain.interactor.impl
 
 import android.content.Context
 import android.net.Uri
-import com.a1danz.common.core.utils.toFile
-import com.a1danz.common.domain.model.TgChatInfo
-import com.a1danz.common.domain.model.User
-import com.a1danz.common.domain.model.VkConfig
+import com.a1danz.common.utils.toFile
 import com.a1danz.feature_create_post.domain.factory.PostPublishingDomainModelsFactory
 import com.a1danz.feature_create_post.domain.interactor.PostPublishingInteractor
 import com.a1danz.feature_create_post.domain.mapper.PostMapper

@@ -1,7 +1,7 @@
 package com.a1danz.feature_settings.di.holder
 
 import android.util.Log
-import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManager
 import com.a1danz.common.di.featureprovide.FeatureApiHolder
 import com.a1danz.common.di.scope.ApplicationScope
 import com.a1danz.common.domain.UserModelDelegate

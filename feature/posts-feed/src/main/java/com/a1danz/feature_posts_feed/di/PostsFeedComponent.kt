@@ -1,6 +1,6 @@
 package com.a1danz.feature_posts_feed.di
 
-import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManager
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.core_data.database.dao.PostDao
 import com.a1danz.feature_posts_feed.data.di.DataModule

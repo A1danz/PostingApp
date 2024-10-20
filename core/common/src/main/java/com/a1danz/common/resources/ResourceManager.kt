@@ -1,4 +1,4 @@
-package com.a1danz.common.core.resources
+package com.a1danz.common.resources
 
 import android.content.Context
 import android.graphics.Bitmap

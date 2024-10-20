@@ -2,7 +2,7 @@ package com.a1danz.feature_create_post.di
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManager
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.common.domain.model.User
 import com.a1danz.core_data.database.dao.PostDao

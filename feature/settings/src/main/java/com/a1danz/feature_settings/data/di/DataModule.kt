@@ -1,6 +1,6 @@
 package com.a1danz.feature_settings.data.di
 
-import com.a1danz.common.core.cryptography.Cryptographer
+import com.a1danz.core_data.cryptography.Cryptographer
 import com.a1danz.feature_settings.data.repository.tg.TgRepositoryImpl
 import com.a1danz.feature_settings.data.repository.vk.VkRepositoryImpl
 import com.a1danz.feature_settings.domain.repository.TgRepository
@@ -23,7 +23,7 @@ class DataModule {
     fun provideIoDispatcher(): CoroutineDispatcher = Dispatchers.IO
 
     @Provides
-    fun provideCryptographer(): Cryptographer = Cryptographer()
+    fun provideCryptographer(): com.a1danz.core_data.cryptography.Cryptographer = com.a1danz.core_data.cryptography.Cryptographer()
 }
 
 @Module

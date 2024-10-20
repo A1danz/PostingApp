@@ -1,6 +1,6 @@
 package com.a1danz.feature_user_configurer
 
-import com.a1danz.common.core.utils.Unsubscriber
+import com.a1danz.common.utils.Unsubscriber
 import com.a1danz.common.domain.model.Config
 import com.a1danz.common.domain.model.TgConfig
 import com.a1danz.common.domain.model.VkConfig

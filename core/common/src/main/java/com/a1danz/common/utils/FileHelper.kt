@@ -1,4 +1,4 @@
-package com.a1danz.common.core.utils
+package com.a1danz.common.utils
 
 import android.content.Context
 import android.net.Uri

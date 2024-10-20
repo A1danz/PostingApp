@@ -1,6 +1,6 @@
 package com.a1danz.feature_initialize.di
 
-import com.a1danz.common.core.resources.ResourceManager
+import com.a1danz.common.resources.ResourceManager
 import com.a1danz.common.di.scope.FeatureScope
 import com.a1danz.feature_authorization.di.AuthComponent
 import com.a1danz.feature_initialize.presentation.navigation.InitializingRouter
