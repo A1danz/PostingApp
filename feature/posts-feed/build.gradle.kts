@@ -62,8 +62,10 @@ dependencies {
     implementation(libs.viewModelLifecycle)
 
     implementation(libs.workManager)
+    implementation(libs.paging)
 
     implementation(libs.glide)
+    implementation(libs.coil)
 
     implementation(libs.viewBindingDelegate)
 

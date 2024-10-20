@@ -29,7 +29,6 @@ android {
 }
 
 dependencies {
-
     implementation(project(":core:common"))
     implementation(project(":feature:places-info"))
 
@@ -59,6 +58,8 @@ dependencies {
     implementation(libs.viewModelLifecycle)
 
     implementation(libs.workManager)
+    implementation(libs.paging)
+    implementation(libs.roomPaging)
 
     implementation(libs.glide)
 

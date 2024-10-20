@@ -14,7 +14,7 @@ class ImagesItemDecoration(
         val position = parent.getChildAdapterPosition(view)
 
         if (position != 0) {
-            outRect.right = spaceBetweenHorizontal
+            outRect.left = spaceBetweenHorizontal
         }
     }
 }

@@ -1,12 +1,14 @@
 package com.a1danz.feature_posts_feed.presentation.screens.feed
 
-import android.app.AlertDialog
-import android.util.Log
-import android.view.View
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.paging.CombinedLoadStates
+import androidx.paging.LoadState
+import androidx.recyclerview.widget.ConcatAdapter
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.a1danz.common.di.featureprovide.FeatureContainer
 import com.a1danz.common.presentation.base.BaseFragment
@@ -15,6 +17,8 @@ import com.a1danz.feature_posts_feed.databinding.FragmentPostsFeedBinding
 import com.a1danz.feature_posts_feed.di.PostsFeedComponent
 import com.a1danz.feature_posts_feed.presentation.model.PostUiModel
 import com.a1danz.feature_posts_feed.presentation.rv.adapter.PostsAdapter
+import com.a1danz.feature_posts_feed.presentation.rv.adapter.PostsLoadStateAdapter
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class PostsFeedFragment : BaseFragment<PostsFeedViewModel>(R.layout.fragment_posts_feed) {
@@ -23,6 +27,16 @@ class PostsFeedFragment : BaseFragment<PostsFeedViewModel>(R.layout.fragment_pos
 
     override val viewModel: PostsFeedViewModel by viewModels { vmFactory }
 
+    private val pagingAdapter: PostsAdapter by lazy {
+        PostsAdapter(onRemoveCallback = ::onRemoveBtnClicked)
+    }
+
+    private val concatAdapter: ConcatAdapter by lazy {
+        pagingAdapter.withLoadStateFooter(
+            footer = PostsLoadStateAdapter(pagingAdapter::retry)
+        )
+    }
+
     override fun inject() {
         (requireActivity().application as? FeatureContainer)?.getFeature(
             PostsFeedComponent::class.java
@@ -30,56 +44,33 @@ class PostsFeedFragment : BaseFragment<PostsFeedViewModel>(R.layout.fragment_pos
     }
 
     override fun subscribe() {
-        with(viewBinding) {
-            lifecycleScope.launch {
-                viewModel.postsStateFlow.collect {
-                    it?.let { postsList ->
-                        setLoadingState(false)
-                        addPostsToRecyclerView(postsList)
-                    }
-                }
-            }
-
-            lifecycleScope.launch {
-                viewModel.errorFlow.collect {
-                    it?.let { error ->
-                        setLoadingState(false)
-                        Log.d("ERROR", error)
-                    }
-                }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.postsPagingFlow.collectLatest(pagingAdapter::submitData)
             }
         }
+
+        pagingAdapter.loadStateFlow.observe(::collectPagingLoadState)
     }
 
     override fun initViews() {
-        setLoadingState(true)
-        viewModel.getPosts()
+        with(viewBinding) {
+            rvPosts.adapter = concatAdapter
+        }
     }
 
-    private fun setLoadingState(isLoading: Boolean) {
-        viewBinding.layoutProgressBar.isVisible = isLoading
+    private fun onRemoveBtnClicked(postUiModel: PostUiModel) {
+        viewModel.onPostRemovedClicked(postUiModel)
     }
 
-    private fun addPostsToRecyclerView(posts: List<PostUiModel>) {
-        showEmptyPostsText(posts.isEmpty())
+    private fun collectPagingLoadState(loadStates: CombinedLoadStates) {
+        with(viewBinding) {
+            val refreshState = loadStates.refresh
+            layoutProgressBar.isGone = refreshState !is LoadState.Loading
 
-        val adapter = PostsAdapter(posts.toMutableList(), ::onRemoveCallback)
-        viewBinding.rvPosts.adapter = adapter
-    }
-
-    private fun onRemoveCallback(adapter: PostsAdapter, postUiModel: PostUiModel, itemPosition: Int,) {
-        AlertDialog.Builder(requireContext()) // todo - replace with ui event
-            .setTitle(getString(R.string.post_removing))
-            .setMessage(getString(R.string.post_removing_description))
-            .setPositiveButton(getString(R.string.remove_post)) { dialog, which ->
-                viewModel.removePost(postUiModel)
-                adapter.removeItem(itemPosition)
+            if (refreshState is LoadState.NotLoading) {
+                viewBinding.tvEmptyPosts.isGone = pagingAdapter.itemCount != 0
             }
-            .setNegativeButton(getString(R.string.cancel)) { dialog, which -> }
-            .show()
-    }
-
-    private fun showEmptyPostsText(state: Boolean) {
-        viewBinding.tvEmptyPosts.isGone = state
+        }
     }
 }

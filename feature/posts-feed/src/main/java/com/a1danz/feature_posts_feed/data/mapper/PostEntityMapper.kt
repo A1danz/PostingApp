@@ -7,18 +7,17 @@ import com.a1danz.feature_posts_feed.domain.model.PostDomainModel
 import javax.inject.Inject
 
 class PostEntityMapper @Inject constructor(
-    private val postPlaceTypeMapper: PostPlaceTypeMapper
+    private val postPlaceTypeMapper: PostPlaceTypeMapper,
 ) {
     fun postToDomainModel(postEntity: PostEntity): PostDomainModel {
-        val imgs = postEntity.imgs.map { Uri.parse(it) }
-        val postPlaces = postEntity.postPlaces.mapNotNull { postPlaceTypeMapper.mapDataToDomain(it.name) }
-
-        return PostDomainModel(
-            id = postEntity.id,
-            text = postEntity.text,
-            imgs = imgs,
-            date = postEntity.date,
-            postPlaces = postPlaces
-        )
+        return postEntity.run {
+            PostDomainModel(
+                id = id,
+                text = text,
+                imgs = imgs.map { Uri.parse(it) },
+                date = date,
+                postPlaces = postPlaces.mapNotNull { postPlaceTypeMapper.mapDataToDomain(it.name) }
+            )
+        }
     }
 }

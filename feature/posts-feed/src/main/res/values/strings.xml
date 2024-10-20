@@ -8,4 +8,8 @@
     <string name="Its_still_empty_here">Здесь пока пусто.</string>
     <string name="post_without_text">Пост без текста</string>
     <string name="remove">Удалить</string>
+    <string name="post_successfully_removed">Пост успешно удален из ленты!</string>
+    <string name="cant_remove_post">Не удалось удалить пост :(</string>
+    <string name="try_one_more">Попробовать еще раз</string>
+    <string name="error_occurred">Произошла ошибка</string>
 </resources>

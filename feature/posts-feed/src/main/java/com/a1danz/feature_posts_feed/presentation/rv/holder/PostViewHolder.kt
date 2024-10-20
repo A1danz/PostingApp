@@ -12,17 +12,21 @@ import com.a1danz.feature_posts_feed.presentation.rv.decoration.ImagesItemDecora
 
 class PostViewHolder(
     private val viewBinding: ItemRvPostInFeedBinding,
-    private val removeBtnClickedCallback: (Int) -> Unit,
+    private val removeBtnClickedCallback: (PostUiModel) -> Unit,
 ) : RecyclerView.ViewHolder(viewBinding.root) {
 
     private val imagesAdapter by lazy {
         ImagesAdapter()
     }
 
+    private var post: PostUiModel? = null
+
     init {
         with(viewBinding) {
             btnRemove.setOnClickListener {
-                removeBtnClickedCallback.invoke(adapterPosition)
+                post?.let { postModel ->
+                    removeBtnClickedCallback.invoke(postModel)
+                }
             }
 
             rvImages.adapter = imagesAdapter
@@ -31,6 +35,8 @@ class PostViewHolder(
     }
 
     fun bindItem(postUiModel: PostUiModel) {
+        post = postUiModel
+
         with(viewBinding) {
             tvDate.text = postUiModel.date
             editText.setText(postUiModel.text)

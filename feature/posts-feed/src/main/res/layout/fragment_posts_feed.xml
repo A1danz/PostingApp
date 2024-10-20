@@ -39,7 +39,7 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical"
         tools:listitem="@layout/item_rv_post_in_feed"
-        tools:itemCount="1"
+        tools:itemCount="4"
         android:paddingBottom="50dp"/>
     <LinearLayout
         android:id="@+id/layout_progress_bar"
